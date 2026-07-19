@@ -42,7 +42,11 @@ async function getCsrfToken() {
 const MUTATING = new Set(["POST", "PUT", "PATCH", "DELETE"]);
 
 export async function apiFetch(path, { method = "GET", body, headers = {} } = {}) {
-  const finalHeaders = { "Content-Type": "application/json", ...headers };
+  // FormData (file uploads) must NOT get a JSON Content-Type - the browser
+  // needs to set its own multipart boundary, so we skip our default header
+  // and let fetch build it from the FormData instance.
+  const isFormData = typeof FormData !== "undefined" && body instanceof FormData;
+  const finalHeaders = isFormData ? { ...headers } : { "Content-Type": "application/json", ...headers };
 
   if (MUTATING.has(method.toUpperCase())) {
     finalHeaders["X-CSRFToken"] = await getCsrfToken();
@@ -52,7 +56,7 @@ export async function apiFetch(path, { method = "GET", body, headers = {} } = {}
     method,
     headers: finalHeaders,
     credentials: "include", // send the Flask session cookie
-    body: body ? JSON.stringify(body) : undefined,
+    body: isFormData ? body : body ? JSON.stringify(body) : undefined,
   });
 
   let data = null;

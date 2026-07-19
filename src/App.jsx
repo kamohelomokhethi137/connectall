@@ -14,6 +14,16 @@ import AdminDashboard from "./pages/AdminDashboard";
 import Links from "./pages/Links";
 import Earnings from "./pages/Earnings";
 import Notifications from "./pages/Notifications";
+import Profile from "./pages/Profile";
+import Settings from "./pages/Settings";
+import ChangePassword from "./pages/ChangePassword";
+import Wallet from "./pages/Wallet";
+import Files from "./pages/Files";
+import Tasks from "./pages/Tasks";
+import Play from "./pages/Play";
+import Upgrade from "./pages/Upgrade";
+import Ads from "./pages/Ads";
+import AdEarnings from "./pages/AdEarnings";
 import ComingSoon from "./pages/ComingSoon";
 import useScrollToHash from "./hooks/useScrollToHash";
 
@@ -74,6 +84,87 @@ function App() {
             element={
               <RequireAuth>
                 <Notifications />
+              </RequireAuth>
+            }
+          />
+
+          <Route
+            path="/profile"
+            element={
+              <RequireAuth>
+                <Profile />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/settings"
+            element={
+              <RequireAuth>
+                <Settings />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/change-password"
+            element={
+              <RequireAuth>
+                <ChangePassword />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/wallet"
+            element={
+              <RequireAuth>
+                <Wallet />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/files"
+            element={
+              <RequireAuth>
+                <Files />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/tasks"
+            element={
+              <RequireAuth>
+                <Tasks />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/play"
+            element={
+              <RequireAuth>
+                <Play />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/upgrade"
+            element={
+              <RequireAuth>
+                <Upgrade />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/ads"
+            element={
+              <RequireAuth>
+                <Ads />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/ads/earnings"
+            element={
+              <RequireAuth>
+                <AdEarnings />
               </RequireAuth>
             }
           />
