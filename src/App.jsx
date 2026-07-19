@@ -11,10 +11,15 @@ import Live from "./pages/Live";
 import LiveWatch from "./pages/LiveWatch";
 import UserDashboard from "./pages/UserDashboard";
 import AdminDashboard from "./pages/AdminDashboard";
+import ManageUsers from "./pages/ManageUsers";
+import UserDetail from "./pages/UserDetail";
+import AdminPaymentMethods from "./pages/AdminPaymentMethods";
+import AdminTransactions from "./pages/AdminTransactions";
 import Links from "./pages/Links";
 import Earnings from "./pages/Earnings";
 import Notifications from "./pages/Notifications";
 import Profile from "./pages/Profile";
+import BioEditor from "./pages/BioEditor";
 import Settings from "./pages/Settings";
 import ChangePassword from "./pages/ChangePassword";
 import Wallet from "./pages/Wallet";
@@ -97,6 +102,14 @@ function App() {
             }
           />
           <Route
+            path="/bio-editor"
+            element={
+              <RequireAuth>
+                <BioEditor />
+              </RequireAuth>
+            }
+          />
+          <Route
             path="/settings"
             element={
               <RequireAuth>
@@ -174,6 +187,38 @@ function App() {
             element={
               <RequireAdmin>
                 <AdminDashboard />
+              </RequireAdmin>
+            }
+          />
+          <Route
+            path="/admin/users"
+            element={
+              <RequireAdmin>
+                <ManageUsers />
+              </RequireAdmin>
+            }
+          />
+          <Route
+            path="/admin/users/:id"
+            element={
+              <RequireAdmin>
+                <UserDetail />
+              </RequireAdmin>
+            }
+          />
+          <Route
+            path="/admin/payment-methods"
+            element={
+              <RequireAdmin>
+                <AdminPaymentMethods />
+              </RequireAdmin>
+            }
+          />
+          <Route
+            path="/admin/transactions"
+            element={
+              <RequireAdmin>
+                <AdminTransactions />
               </RequireAdmin>
             }
           />
