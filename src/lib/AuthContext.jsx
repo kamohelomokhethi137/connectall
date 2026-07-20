@@ -7,13 +7,15 @@ export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // On load, ask the backend who (if anyone) the current session belongs
-  // to. This is the only source of truth for auth state - we never infer
-  // "logged in" from anything stored client-side (localStorage, a JWT we
-  // decoded ourselves, etc.), since that's trivially spoofable. The
-  // session cookie is httpOnly and the server is the only one who can
-  // say who it actually belongs to.
+  // On load, ask the backend who (if anyone) the current token belongs
+  // to. This is the source of truth for auth state.
   const refresh = useCallback(async () => {
+    const token = localStorage.getItem("connectall_token");
+    if (!token) {
+      setUser(null);
+      setLoading(false);
+      return;
+    }
     try {
       const data = await apiFetch("/api/auth/me");
       setUser(data.user);
@@ -32,6 +34,7 @@ export function AuthProvider({ children }) {
     try {
       await apiFetch("/api/auth/logout", { method: "POST" });
     } finally {
+      localStorage.removeItem("connectall_token");
       setUser(null);
     }
   }, []);

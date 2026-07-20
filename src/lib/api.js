@@ -28,37 +28,6 @@ export function resolveMediaUrl(path) {
   return `${API_BASE_URL}${path}`;
 }
 
-let csrfTokenPromise = null;
-
-// Concurrent callers must all await the SAME fetch, not each race their own.
-// If two mutating requests fire before the first /api/csrf-token call
-// resolves, each would otherwise see no cached value yet and fire its own
-// GET - and since a fresh page load has no session cookie yet, Flask hands
-// each of those parallel requests a DIFFERENT new session. Whichever
-// Set-Cookie response the browser receives last is the one it actually
-// keeps, but whichever fetch happened to resolve first is what got cached
-// as "the" token - if those don't match, the token belongs to session A
-// while the browser is holding session B's cookie, and Flask correctly
-// rejects it ("the CSRF session token is missing"), because session B
-// never had a token generated against it at all.
-function getCsrfToken() {
-  if (!csrfTokenPromise) {
-    csrfTokenPromise = fetch(`${API_BASE_URL}/api/csrf-token`, { credentials: "include" })
-      .then((res) => {
-        if (!res.ok) throw new Error("Could not load security token");
-        return res.json();
-      })
-      .then((data) => data.csrf_token)
-      .catch((err) => {
-        csrfTokenPromise = null; // allow a retry on the next call instead of caching a permanent failure
-        throw err;
-      });
-  }
-  return csrfTokenPromise;
-}
-
-const MUTATING = new Set(["POST", "PUT", "PATCH", "DELETE"]);
-
 export async function apiFetch(path, { method = "GET", body, headers = {} } = {}) {
   // FormData (file uploads) must NOT get a JSON Content-Type - the browser
   // needs to set its own multipart boundary, so we skip our default header
@@ -66,14 +35,14 @@ export async function apiFetch(path, { method = "GET", body, headers = {} } = {}
   const isFormData = typeof FormData !== "undefined" && body instanceof FormData;
   const finalHeaders = isFormData ? { ...headers } : { "Content-Type": "application/json", ...headers };
 
-  if (MUTATING.has(method.toUpperCase())) {
-    finalHeaders["X-CSRFToken"] = await getCsrfToken();
+  const token = localStorage.getItem("connectall_token");
+  if (token) {
+    finalHeaders["Authorization"] = `Bearer ${token}`;
   }
 
   const res = await fetch(`${API_BASE_URL}${path}`, {
     method,
     headers: finalHeaders,
-    credentials: "include", // send the Flask session cookie
     body: isFormData ? body : body ? JSON.stringify(body) : undefined,
   });
 
@@ -85,8 +54,15 @@ export async function apiFetch(path, { method = "GET", body, headers = {} } = {}
   }
 
   if (!res.ok) {
+    if (res.status === 401) {
+      localStorage.removeItem("connectall_token");
+    }
     const message = data?.error || data?.message || "Something went wrong. Try again.";
     throw new Error(message);
+  }
+
+  if (data && data.token) {
+    localStorage.setItem("connectall_token", data.token);
   }
 
   return data;
