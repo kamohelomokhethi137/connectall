@@ -28,15 +28,33 @@ export function resolveMediaUrl(path) {
   return `${API_BASE_URL}${path}`;
 }
 
-let cachedCsrfToken = null;
+let csrfTokenPromise = null;
 
-async function getCsrfToken() {
-  if (cachedCsrfToken) return cachedCsrfToken;
-  const res = await fetch(`${API_BASE_URL}/api/csrf-token`, { credentials: "include" });
-  if (!res.ok) throw new Error("Could not load security token");
-  const data = await res.json();
-  cachedCsrfToken = data.csrf_token;
-  return cachedCsrfToken;
+// Concurrent callers must all await the SAME fetch, not each race their own.
+// If two mutating requests fire before the first /api/csrf-token call
+// resolves, each would otherwise see no cached value yet and fire its own
+// GET - and since a fresh page load has no session cookie yet, Flask hands
+// each of those parallel requests a DIFFERENT new session. Whichever
+// Set-Cookie response the browser receives last is the one it actually
+// keeps, but whichever fetch happened to resolve first is what got cached
+// as "the" token - if those don't match, the token belongs to session A
+// while the browser is holding session B's cookie, and Flask correctly
+// rejects it ("the CSRF session token is missing"), because session B
+// never had a token generated against it at all.
+function getCsrfToken() {
+  if (!csrfTokenPromise) {
+    csrfTokenPromise = fetch(`${API_BASE_URL}/api/csrf-token`, { credentials: "include" })
+      .then((res) => {
+        if (!res.ok) throw new Error("Could not load security token");
+        return res.json();
+      })
+      .then((data) => data.csrf_token)
+      .catch((err) => {
+        csrfTokenPromise = null; // allow a retry on the next call instead of caching a permanent failure
+        throw err;
+      });
+  }
+  return csrfTokenPromise;
 }
 
 const MUTATING = new Set(["POST", "PUT", "PATCH", "DELETE"]);

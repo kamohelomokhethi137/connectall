@@ -11,10 +11,6 @@ import Live from "./pages/Live";
 import LiveWatch from "./pages/LiveWatch";
 import UserDashboard from "./pages/UserDashboard";
 import AdminDashboard from "./pages/AdminDashboard";
-import ManageUsers from "./pages/ManageUsers";
-import UserDetail from "./pages/UserDetail";
-import AdminPaymentMethods from "./pages/AdminPaymentMethods";
-import AdminTransactions from "./pages/AdminTransactions";
 import Links from "./pages/Links";
 import Earnings from "./pages/Earnings";
 import Notifications from "./pages/Notifications";
@@ -29,6 +25,20 @@ import Play from "./pages/Play";
 import Upgrade from "./pages/Upgrade";
 import Ads from "./pages/Ads";
 import AdEarnings from "./pages/AdEarnings";
+import AdminUsers from "./pages/AdminUsers";
+import AdminUserDetail from "./pages/AdminUserDetail";
+import AdminPaymentMethods from "./pages/AdminPaymentMethods";
+import AdminTransactions from "./pages/AdminTransactions";
+import AdminMarketplace from "./pages/AdminMarketplace";
+import AdminLive from "./pages/AdminLive";
+import AdminTasks from "./pages/AdminTasks";
+import AdminTokens from "./pages/AdminTokens";
+import AdminAds from "./pages/AdminAds";
+import AdminAdvertisers from "./pages/AdminAdvertisers";
+import AdminAdBudgets from "./pages/AdminAdBudgets";
+import AdminCompanyWallet from "./pages/AdminCompanyWallet";
+import AdminMessages from "./pages/AdminMessages";
+import AdminAuditLog from "./pages/AdminAuditLog";
 import ComingSoon from "./pages/ComingSoon";
 import useScrollToHash from "./hooks/useScrollToHash";
 
@@ -190,38 +200,20 @@ function App() {
               </RequireAdmin>
             }
           />
-          <Route
-            path="/admin/users"
-            element={
-              <RequireAdmin>
-                <ManageUsers />
-              </RequireAdmin>
-            }
-          />
-          <Route
-            path="/admin/users/:id"
-            element={
-              <RequireAdmin>
-                <UserDetail />
-              </RequireAdmin>
-            }
-          />
-          <Route
-            path="/admin/payment-methods"
-            element={
-              <RequireAdmin>
-                <AdminPaymentMethods />
-              </RequireAdmin>
-            }
-          />
-          <Route
-            path="/admin/transactions"
-            element={
-              <RequireAdmin>
-                <AdminTransactions />
-              </RequireAdmin>
-            }
-          />
+          <Route path="/admin/users" element={<RequireAdmin><AdminUsers /></RequireAdmin>} />
+          <Route path="/admin/users/:id" element={<RequireAdmin><AdminUserDetail /></RequireAdmin>} />
+          <Route path="/admin/payment-methods" element={<RequireAdmin><AdminPaymentMethods /></RequireAdmin>} />
+          <Route path="/admin/transactions" element={<RequireAdmin><AdminTransactions /></RequireAdmin>} />
+          <Route path="/admin/marketplace" element={<RequireAdmin><AdminMarketplace /></RequireAdmin>} />
+          <Route path="/admin/live" element={<RequireAdmin><AdminLive /></RequireAdmin>} />
+          <Route path="/admin/tasks" element={<RequireAdmin><AdminTasks /></RequireAdmin>} />
+          <Route path="/admin/tokens" element={<RequireAdmin><AdminTokens /></RequireAdmin>} />
+          <Route path="/admin/ads" element={<RequireAdmin><AdminAds /></RequireAdmin>} />
+          <Route path="/admin/advertisers" element={<RequireAdmin><AdminAdvertisers /></RequireAdmin>} />
+          <Route path="/admin/ad-budgets" element={<RequireAdmin><AdminAdBudgets /></RequireAdmin>} />
+          <Route path="/admin/company-wallet" element={<RequireAdmin><AdminCompanyWallet /></RequireAdmin>} />
+          <Route path="/admin/messages" element={<RequireAdmin><AdminMessages /></RequireAdmin>} />
+          <Route path="/admin/audit-log" element={<RequireAdmin><AdminAuditLog /></RequireAdmin>} />
 
           <Route path="/how-it-works" element={<ComingSoon title="How it works" />} />
           <Route path="/about" element={<ComingSoon title="About" />} />

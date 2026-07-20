@@ -16,8 +16,8 @@ const features = [
     icon: "wallet",
   },
   {
-    title: "Chats",
-    desc: "videos, and voice notes to anyone instantly.",
+    title: "File sharing",
+    desc: "Send files, videos, and voice notes to anyone instantly.",
     icon: "file",
   },
   {
@@ -63,23 +63,22 @@ export default function Home() {
 
         <div className="relative max-w-6xl mx-auto px-6 pt-36 pb-24 grid lg:grid-cols-2 gap-16 items-center">
           <div>
-           
+            <span className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-teal-light bg-teal/10 border border-teal/20 px-3 py-1.5 rounded-full">
+              <Mark className="w-3.5 h-3.5" />
+              All-in-one ICT & fintech platform
+            </span>
 
             <h1 className="font-display font-semibold text-4xl sm:text-5xl text-white mt-6 leading-tight">
-              One Platform.
+              One platform.
               <br />
-              <span className="text-teal-light">Endless</span> Possibilities.
+              <span className="text-teal-light">Endless</span> possibilities.
             </h1>
 
-           <p className="text-white/60 text-lg mt-6 max-w-lg leading-relaxed">
-  ConnectAll Technologies brings{" "}
-  <span className="text-teal-light font-medium">Smart links</span>,{" "}
-  <span className="text-teal-light font-medium">Mobile payments</span>,{" "}
-  <span className="text-teal-light font-medium">Chatting</span> and{" "}
-  <span className="text-teal-light font-medium">Live streaming</span>{" "}
-  into one <span className="text-teal-light font-medium">Place</span>, and{" "}
-  <span className="text-teal-light font-medium">Start Earning</span>.
-</p>
+            <p className="text-white/60 text-lg mt-6 max-w-lg leading-relaxed">
+              ConnectAll Technologies brings smart links, mobile payments,
+              file sharing, a marketplace, and live streaming into one place.
+              Built for Lesotho, ready for anywhere.
+            </p>
 
             <div className="flex flex-wrap gap-4 mt-8">
               <Link
@@ -198,7 +197,7 @@ export default function Home() {
               <Mark className="w-6 h-6" />
             </span>
             <h2 className="font-display font-semibold text-3xl text-white">
-              Ready to get started and Earn?
+              Ready to get started?
             </h2>
             <p className="text-white/55 mt-3 max-w-md mx-auto">
               Join ConnectAll Technologies today and experience an
