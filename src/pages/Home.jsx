@@ -63,10 +63,6 @@ export default function Home() {
 
         <div className="relative max-w-6xl mx-auto px-6 pt-36 pb-24 grid lg:grid-cols-2 gap-16 items-center">
           <div>
-            <span className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-teal-light bg-teal/10 border border-teal/20 px-3 py-1.5 rounded-full">
-              <Mark className="w-3.5 h-3.5" />
-              All-in-one ICT & fintech platform
-            </span>
 
             <h1 className="font-display font-semibold text-4xl sm:text-5xl text-white mt-6 leading-tight">
               One platform.
@@ -77,7 +73,7 @@ export default function Home() {
             <p className="text-white/60 text-lg mt-6 max-w-lg leading-relaxed">
               ConnectAll Technologies brings smart links, mobile payments,
               file sharing, a marketplace, and live streaming into one place.
-              Built for Lesotho, ready for anywhere.
+           
             </p>
 
             <div className="flex flex-wrap gap-4 mt-8">
