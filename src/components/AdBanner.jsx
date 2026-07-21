@@ -58,6 +58,7 @@ export default function AdBanner() {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
+        touchAction: "pan-y",
       }}
       aria-label="Advertisement"
     />

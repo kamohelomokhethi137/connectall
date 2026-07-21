@@ -79,10 +79,12 @@ export default function UserDashboard() {
 
   return (
     <DashboardLayout title="Dashboard">
-      {/* Top Banner Ad */}
-      <div className="mb-4 bg-white rounded-2xl border border-ink/5 p-4">
-        <div className="flex justify-center">
-          <AdBanner />
+      {/* Top Banner Ad - with scroll fix */}
+      <div className="mb-4 bg-white rounded-2xl border border-ink/5 p-4 touch-pan-y">
+        <div className="flex justify-center" style={{ pointerEvents: "none" }}>
+          <div style={{ pointerEvents: "auto" }}>
+            <AdBanner />
+          </div>
         </div>
       </div>
 
@@ -163,9 +165,11 @@ export default function UserDashboard() {
         </div>
       </div>
 
-      {/* Native Ad between content sections */}
-      <div className="mt-4">
-        <NativeAd />
+      {/* Native Ad between content sections - with scroll fix */}
+      <div className="mt-4 touch-pan-y" style={{ pointerEvents: "none" }}>
+        <div style={{ pointerEvents: "auto" }}>
+          <NativeAd />
+        </div>
       </div>
 
       {/* Promo cards */}
