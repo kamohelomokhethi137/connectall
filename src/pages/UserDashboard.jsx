@@ -5,6 +5,8 @@ import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianG
 import DashboardLayout from "../components/DashboardLayout";
 import { useAuth } from "../lib/AuthContext";
 import { fetchUserDashboard } from "../lib/dashboard";
+import AdBanner from "../components/AdBanner";
+import NativeAd from "../components/NativeAd";
 
 const kpiStyles = [
   { bg: "bg-navy", icon: FiCreditCard },
@@ -77,6 +79,13 @@ export default function UserDashboard() {
 
   return (
     <DashboardLayout title="Dashboard">
+      {/* Top Banner Ad */}
+      <div className="mb-4 bg-white rounded-2xl border border-ink/5 p-4">
+        <div className="flex justify-center">
+          <AdBanner />
+        </div>
+      </div>
+
       {/* KPI cards */}
       <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {kpis.map((kpi, i) => {
@@ -152,6 +161,11 @@ export default function UserDashboard() {
             </ul>
           )}
         </div>
+      </div>
+
+      {/* Native Ad between content sections */}
+      <div className="mt-4">
+        <NativeAd />
       </div>
 
       {/* Promo cards */}

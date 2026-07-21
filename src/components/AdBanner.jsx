@@ -14,17 +14,16 @@ export default function AdBanner() {
     // Clear old instance
     container.innerHTML = "";
 
-    // Required by provider
+    // Required by provider - changed to horizontal banner
     window.atOptions = {
       key: "8b9a2ca14fc3695a1ce9aeaa33e222a7",
       format: "iframe",
-      height: 300,
-      width: 160,
+      height: 90,
+      width: 728,
       params: {},
     };
 
     const renderTimer = setTimeout(() => {
-      // Create ad script exactly as provided
       const script = document.createElement("script");
 
       script.type = "text/javascript";
@@ -35,9 +34,7 @@ export default function AdBanner() {
       script.setAttribute("data-cfasync", "false");
 
       container.appendChild(script);
-
     }, 100);
-
 
     return () => {
       clearTimeout(renderTimer);
@@ -48,16 +45,15 @@ export default function AdBanner() {
 
       loadedRef.current = false;
     };
-
   }, []);
-
 
   return (
     <div
       ref={containerRef}
       style={{
-        width: "160px",
-        height: "300px",
+        width: "728px",
+        height: "90px",
+        maxWidth: "100%",
         overflow: "hidden",
         display: "flex",
         justifyContent: "center",

@@ -5,6 +5,8 @@ import DashboardLayout from "../components/DashboardLayout";
 import SubmitButton from "../components/SubmitButton";
 import { fetchLinks, createLink, deleteLink, qrImageUrl } from "../lib/links";
 import { API_BASE_URL } from "../lib/api";
+import AdBanner from "../components/AdBanner";
+import NativeAd from "../components/NativeAd";
 
 export default function Links() {
   const [links, setLinks] = useState(null);
@@ -73,6 +75,13 @@ export default function Links() {
 
   return (
     <DashboardLayout title="Smart Links">
+      {/* Banner Ad */}
+      <div className="mb-4 bg-white rounded-2xl border border-ink/5 p-4">
+        <div className="flex justify-center">
+          <AdBanner />
+        </div>
+      </div>
+
       <div className="bg-white rounded-2xl border border-ink/5 p-5 mb-6">
         <h2 className="font-display font-semibold text-ink mb-4 flex items-center gap-2">
           <FiPlus className="text-teal-dark" aria-hidden="true" /> Create a new smart link
@@ -183,6 +192,11 @@ export default function Links() {
             </table>
           </div>
         )}
+      </div>
+
+      {/* Native Ad */}
+      <div className="mt-4">
+        <NativeAd />
       </div>
     </DashboardLayout>
   );
