@@ -2,31 +2,53 @@ import { useEffect, useRef } from "react";
 
 export default function NativeAd() {
   const containerRef = useRef(null);
+  const loadedRef = useRef(false);
 
   useEffect(() => {
     const container = containerRef.current;
-    if (!container) return;
 
-    // Prevent duplicate ads
+    if (!container || loadedRef.current) return;
+
+    loadedRef.current = true;
+
     container.innerHTML = "";
 
-    // Create the ad container
-    const adContainer = document.createElement("div");
-    adContainer.id = "container-78572b5f5e90e5842d0dc6cbd5291b0c";
+    const renderTimer = setTimeout(() => {
+      // Remove previous provider scripts if React remounted
+      const oldScript = document.querySelector(
+        'script[src="https://embargotechniquebattle.com/78572b5f5e90e5842d0dc6cbd5291b0c/invoke.js"]'
+      );
 
-    // Create the ad script
-    const script = document.createElement("script");
-    script.async = true;
-    script.setAttribute("data-cfasync", "false");
-    script.src =
-      "https://embargotechniquebattle.com/78572b5f5e90e5842d0dc6cbd5291b0c/invoke.js";
+      if (oldScript) {
+        oldScript.remove();
+      }
 
-    // Append in the same order as the provider's code
-    container.appendChild(script);
-    container.appendChild(adContainer);
+      // Create script exactly like provider code
+      const script = document.createElement("script");
+      script.async = true;
+      script.setAttribute("data-cfasync", "false");
+      script.src =
+        "https://embargotechniquebattle.com/78572b5f5e90e5842d0dc6cbd5291b0c/invoke.js";
+
+      // Create provider container
+      const adContainer = document.createElement("div");
+      adContainer.id =
+        "container-78572b5f5e90e5842d0dc6cbd5291b0c";
+
+      // Provider embed order
+      container.appendChild(script);
+      container.appendChild(adContainer);
+
+    }, 100);
 
     return () => {
-      container.innerHTML = "";
+      clearTimeout(renderTimer);
+
+      if (container) {
+        container.innerHTML = "";
+      }
+
+      loadedRef.current = false;
     };
   }, []);
 

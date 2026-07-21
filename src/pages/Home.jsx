@@ -3,8 +3,13 @@ import Navbar from "../components/Navbar";
 import LedgerCard from "../components/LedgerCard";
 import Mark from "../components/Mark";
 import Footer from "../components/Footer";
+
+
 import NativeAd from "../components/NativeAd";
 import AdBanner from "../components/AdBanner";
+import SocialBarAd from "../components/SocialBarAd";
+
+
 
 const features = [
   {

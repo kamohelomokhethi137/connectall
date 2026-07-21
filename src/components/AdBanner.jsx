@@ -2,15 +2,19 @@ import { useEffect, useRef } from "react";
 
 export default function AdBanner() {
   const containerRef = useRef(null);
+  const loadedRef = useRef(false);
 
   useEffect(() => {
     const container = containerRef.current;
-    if (!container) return;
 
-    // Remove previous contents
+    if (!container || loadedRef.current) return;
+
+    loadedRef.current = true;
+
+    // Clear old instance
     container.innerHTML = "";
 
-    // Set options immediately before loading script
+    // Required by provider
     window.atOptions = {
       key: "8b9a2ca14fc3695a1ce9aeaa33e222a7",
       format: "iframe",
@@ -19,24 +23,34 @@ export default function AdBanner() {
       params: {},
     };
 
-    // Create a fresh script every mount
-    const script = document.createElement("script");
-    script.src =
-      "https://embargotechniquebattle.com/8b9a2ca14fc3695a1ce9aeaa33e222a7/invoke.js";
+    const renderTimer = setTimeout(() => {
+      // Create ad script exactly as provided
+      const script = document.createElement("script");
 
-    script.async = true;
-    script.setAttribute("data-cfasync", "false");
+      script.type = "text/javascript";
+      script.src =
+        "https://embargotechniquebattle.com/8b9a2ca14fc3695a1ce9aeaa33e222a7/invoke.js";
 
-    container.appendChild(script);
+      script.async = true;
+      script.setAttribute("data-cfasync", "false");
+
+      container.appendChild(script);
+
+    }, 100);
+
 
     return () => {
-      // Remove injected iframe/script
-      container.innerHTML = "";
+      clearTimeout(renderTimer);
 
-      // Remove global config
-      delete window.atOptions;
+      if (container) {
+        container.innerHTML = "";
+      }
+
+      loadedRef.current = false;
     };
+
   }, []);
+
 
   return (
     <div
@@ -45,6 +59,9 @@ export default function AdBanner() {
         width: "160px",
         height: "300px",
         overflow: "hidden",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
       }}
       aria-label="Advertisement"
     />

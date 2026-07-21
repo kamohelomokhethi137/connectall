@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react"; 
+ 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./lib/AuthContext";
 import RequireAuth from "./components/RequireAuth";
@@ -41,7 +41,11 @@ import AdminCompanyWallet from "./pages/AdminCompanyWallet";
 import AdminMessages from "./pages/AdminMessages";
 import AdminAuditLog from "./pages/AdminAuditLog";
 import ComingSoon from "./pages/ComingSoon";
+
+
 import useScrollToHash from "./hooks/useScrollToHash";
+
+import SocialBarAd from "./components/SocialBarAd";
 
 function ScrollManager() {
   useScrollToHash();
@@ -49,46 +53,11 @@ function ScrollManager() {
 }
 
 function App() {
-  // Global ref tracking execution status for both root scripts
-  const adsLoaded = useRef(false);
-
-  useEffect(() => {
-    // Prevent script from duplicating during component updates or Strict Mode hot reloads
-    if (adsLoaded.current) return;
-    adsLoaded.current = true;
-
-    // 1. Create and configure the Popunder script node
-    const popunderScript = document.createElement("script");
-    popunderScript.type = "text/javascript";
-    popunderScript.src = "https://embargotechniquebattle.com";
-    popunderScript.async = true;
-
-    // 2. Create and configure the Social Bar script node
-    const socialBarScript = document.createElement("script");
-    socialBarScript.type = "text/javascript";
-    socialBarScript.src = "https://embargotechniquebattle.com";
-    socialBarScript.async = true;
-
-    // Append both functional scripts to the document head container
-    document.head.appendChild(popunderScript);
-    document.head.appendChild(socialBarScript);
-
-    // Cleanup script nodes if the app layout unmounts
-    return () => {
-      if (document.head.contains(popunderScript)) {
-        document.head.removeChild(popunderScript);
-      }
-      if (document.head.contains(socialBarScript)) {
-        document.head.removeChild(socialBarScript);
-      }
-      adsLoaded.current = false;
-    };
-  }, []);
-
   return (
     <BrowserRouter>
       <AuthProvider>
         <ScrollManager />
+        <SocialBarAd />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
