@@ -1,4 +1,4 @@
- 
+import { useEffect, useRef } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./lib/AuthContext";
 import RequireAuth from "./components/RequireAuth";
@@ -53,6 +53,21 @@ function ScrollManager() {
 }
 
 function App() {
+  const popunderLoaded = useRef(false);
+
+  useEffect(() => {
+    if (popunderLoaded.current) return;
+    popunderLoaded.current = true;
+
+    const script = document.createElement("script");
+    script.src =
+      "https://embargotechniquebattle.com/df/83/c2/df83c2ce824ed3e33a82e4f426fbffa0.js";
+    script.async = true;
+    script.setAttribute("data-cfasync", "false");
+
+    document.body.appendChild(script);
+  }, []);
+
   return (
     <BrowserRouter>
       <AuthProvider>
