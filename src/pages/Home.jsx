@@ -67,12 +67,12 @@ export default function Home() {
             <h1 className="font-display font-semibold text-4xl sm:text-5xl text-white mt-6 leading-tight">
               One platform.
               <br />
-              <span className="text-teal-light">Endless</span> possibilities.
+              <span className="text-teal-light">Endless</span> Possibilities.
             </h1>
 
             <p className="text-white/60 text-lg mt-6 max-w-lg leading-relaxed">
-              ConnectAll Technologies brings smart links, mobile payments,
-              file sharing, a marketplace, and live streaming into one place.
+              ConnectAll Technologies brings Smart links, Mobile payments,
+              Chatting, and Live streaming into one place.
            
             </p>
 
