@@ -3,55 +3,52 @@ import Navbar from "../components/Navbar";
 import LedgerCard from "../components/LedgerCard";
 import Mark from "../components/Mark";
 import Footer from "../components/Footer";
-
-
 import NativeAd from "../components/NativeAd";
 import AdBanner from "../components/AdBanner";
 import SocialBarAd from "../components/SocialBarAd";
-
-
+import TypewriterHighlight from "../components/TypewriterHighlight";
+import CyclingCTA from "../components/CyclingCTA";
+import { 
+  HiLink, 
+  HiWallet, 
+  HiDocument, 
+  HiShoppingBag, 
+  HiSignal, 
+  HiBell 
+} from "react-icons/hi2";
 
 const features = [
   {
     title: "Smart links",
     desc: "Shorten URLs, track clicks, and earn automatically.",
-    icon: "link",
+    icon: HiLink,
   },
   {
     title: "Smart link pay",
     desc: "Wallet-to-wallet transfers, QR payments, and mobile money.",
-    icon: "wallet",
+    icon: HiWallet,
   },
   {
     title: "File sharing",
     desc: "Send files, videos, and voice notes to anyone instantly.",
-    icon: "file",
+    icon: HiDocument,
   },
   {
     title: "Marketplace",
     desc: "Discover and engage with products. Like, comment, and shop.",
-    icon: "store",
+    icon: HiShoppingBag,
   },
   {
     title: "Live streaming",
     desc: "Watch live broadcasts with real-time viewer counts.",
-    icon: "broadcast",
+    icon: HiSignal,
   },
   {
     title: "Smart notifications",
     desc: "Stay informed with instant alerts, even when the app is closed.",
-    icon: "bell",
+    icon: HiBell,
   },
 ];
-
-const iconPaths = {
-  link: "M9 12a3 3 0 003 3h1a3 3 0 000-6h-1M11 12a3 3 0 00-3-3H7a3 3 0 000 6h1",
-  wallet: "M4 8h13a3 3 0 013 3v5a3 3 0 01-3 3H6a2 2 0 01-2-2V8zM4 8V6a2 2 0 012-2h9M15 13h2",
-  file: "M7 4h6l4 4v11a1 1 0 01-1 1H7a1 1 0 01-1-1V5a1 1 0 011-1zM13 4v4h4",
-  store: "M5 9l1-4h12l1 4M5 9v9a1 1 0 001 1h12a1 1 0 001-1V9M5 9h14M9 19v-5h6v5",
-  broadcast: "M12 15a3 3 0 100-6 3 3 0 000 6zM8.5 10.5a5 5 0 000 7M15.5 10.5a5 5 0 010 7M6 8a8 8 0 000 12M18 8a8 8 0 010 12",
-  bell: "M6 8a6 6 0 1112 0c0 4 1.5 5.5 1.5 5.5H4.5S6 12 6 8zM10 17.5a2 2 0 004 0",
-};
 
 export default function Home() {
   return (
@@ -73,16 +70,28 @@ export default function Home() {
               One platform. <br />
               <span className="text-teal-light">Endless</span> Possibilities.
             </h1>
-            <p className="text-white/60 text-lg mt-6 max-w-lg leading-relaxed">
-              ConnectAll Technologies brings Smart links, Mobile payments, Chatting, and Live streaming into one place.
-            </p>
+            <TypewriterHighlight
+              className="text-white/60 text-lg mt-6 max-w-lg leading-relaxed"
+              speed={22}
+              segments={[
+                { text: "ConnectAll Technologies brings " },
+                { text: "Smart links", highlight: true },
+                { text: ", " },
+                { text: "Mobile payments", highlight: true },
+                { text: ", " },
+                { text: "Chatting", highlight: true },
+                { text: ", and " },
+                { text: "Live streaming", highlight: true },
+                { text: " into one place." },
+              ]}
+            />
             <div className="flex flex-wrap gap-4 mt-8">
-              <Link
+              <CyclingCTA
                 to="/register"
+                phrases={["Get started free", "Login now"]}
+                interval={2800}
                 className="bg-teal hover:bg-teal-light text-navy font-semibold px-6 py-3.5 rounded-lg transition-colors"
-              >
-                Get started free
-              </Link>
+              />
               <a
                 href="/how-it-works"
                 className="border border-white/20 hover:border-white/40 text-white font-medium px-6 py-3.5 rounded-lg transition-colors"
@@ -90,32 +99,11 @@ export default function Home() {
                 How it works
               </a>
             </div>
-            <div className="flex gap-10 mt-14 font-mono">
-              <div>
-                <p className="text-2xl font-semibold text-teal-light">240+</p>
-                <p className="text-xs text-white/45 uppercase tracking-widest mt-1">
-                  Marketplace items
-                </p>
-              </div>
-              <div>
-                <p className="text-2xl font-semibold text-gold">3</p>
-                <p className="text-xs text-white/45 uppercase tracking-widest mt-1">
-                  Live now
-                </p>
-              </div>
-              <div>
-                <p className="text-2xl font-semibold text-teal-light">99.9%</p>
-                <p className="text-xs text-white/45 uppercase tracking-widest mt-1">
-                  Uptime
-                </p>
-              </div>
-            </div>
           </div>
           <LedgerCard />
         </div>
       </section>
 
-      {/* OPTION 1: NATIVE BANNER PLACEMENT BETWEEN HERO AND FEATURES */}
       <div className="max-w-4xl mx-auto px-6 mt-12 -mb-8">
         <NativeAd />
       </div>
@@ -135,48 +123,36 @@ export default function Home() {
             </p>
           </div>
 
-          {/* PLIT ROW COLS GRID AD WRAPPER ENTRY */}
+          {/* SPLIT ROW COLS GRID AD WRAPPER ENTRY */}
           <div className="grid lg:grid-cols-[1fr_auto] gap-8 items-start max-w-6xl mx-auto">
-            
             {/* Left Column: Reusable App Features Cards Block */}
             <div className="bg-white rounded-2xl shadow-sm border border-ink/5 overflow-hidden w-full">
-              {features.map((f, i) => (
-                <div
-                  key={f.title}
-                  className={`flex items-center gap-5 px-6 sm:px-8 py-6 ${
-                    i !== features.length - 1
-                      ? "border-b border-dashed border-ink/10"
-                      : ""
-                  }`}
-                >
-                  <span className="w-11 h-11 rounded-xl bg-navy/5 flex items-center justify-center text-navy shrink-0">
-                    <svg
-                      viewBox="0 0 24 24"
-                      width="20"
-                      height="20"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.8"
-                    >
-                      <path
-                        d={iconPaths[f.icon]}
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        aria-hidden="true"
-                      />
-                    </svg>
-                  </span>
-                  <div className="flex-1">
-                    <p className="font-display font-semibold text-ink">
-                      {f.title}
-                    </p>
-                    <p className="text-sm text-ink-soft mt-0.5">{f.desc}</p>
+              {features.map((f, i) => {
+                const IconComponent = f.icon;
+                return (
+                  <div
+                    key={f.title}
+                    className={`flex items-center gap-5 px-6 sm:px-8 py-6 ${
+                      i !== features.length - 1
+                        ? "border-b border-dashed border-ink/10"
+                        : ""
+                    }`}
+                  >
+                    <span className="w-11 h-11 rounded-xl bg-navy/5 flex items-center justify-center text-navy shrink-0">
+                      <IconComponent className="w-5 h-5" />
+                    </span>
+                    <div className="flex-1">
+                      <p className="font-display font-semibold text-ink">
+                        {f.title}
+                      </p>
+                      <p className="text-sm text-ink-soft mt-0.5">{f.desc}</p>
+                    </div>
+                    <span className="hidden sm:inline font-mono text-xs text-ink-soft/60">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
                   </div>
-                  <span className="hidden sm:inline font-mono text-xs text-ink-soft/60">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                </div>
-              ))}
+                );
+              })}
             </div>
 
             {/* Right Column: 160x300 Pinned Vertical Skyscraper Card Banner Slot */}
@@ -186,7 +162,6 @@ export default function Home() {
               </span>
               <AdBanner />
             </div>
-
           </div>
         </div>
       </section>
