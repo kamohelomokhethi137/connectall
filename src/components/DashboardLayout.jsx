@@ -169,7 +169,7 @@ export default function DashboardLayout({ title, children }) {
       )}
 
       <div className="flex-1 flex flex-col min-w-0">
-        <header className="h-16 bg-white border-b border-ink/5 flex items-center justify-between px-5 shrink-0">
+     <header className="h-16 bg-paper border-b border-ink/5 flex items-center justify-between px-5 shrink-0">
           <div className="flex items-center gap-3">
             <button
               className="lg:hidden text-ink-soft p-1"
