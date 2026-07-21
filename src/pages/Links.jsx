@@ -75,8 +75,7 @@ export default function Links() {
     <DashboardLayout title="Smart Links">
       <div className="bg-white rounded-2xl border border-ink/5 p-5 mb-6">
         <h2 className="font-display font-semibold text-ink mb-4 flex items-center gap-2">
-          <FiPlus className="text-teal-dark" aria-hidden="true" />
-          Create a new smart link
+          <FiPlus className="text-teal-dark" aria-hidden="true" /> Create a new smart link
         </h2>
         <form onSubmit={handleCreate} className="grid md:grid-cols-[1fr_1.5fr_auto] gap-3">
           <input
@@ -100,7 +99,6 @@ export default function Links() {
 
       <div className="bg-white rounded-2xl border border-ink/5 overflow-hidden">
         {error && <p className="p-5 text-ink-soft">{error}</p>}
-
         {!error && links === null && (
           <div className="p-5 space-y-3">
             {Array.from({ length: 3 }).map((_, i) => (
@@ -108,13 +106,11 @@ export default function Links() {
             ))}
           </div>
         )}
-
         {links && links.length === 0 && (
           <p className="text-center text-ink-soft py-10">
             No smart links yet. Create one above!
           </p>
         )}
-
         {links && links.length > 0 && (
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
@@ -166,7 +162,9 @@ export default function Links() {
                     </td>
                     <td className="p-4 text-ink-soft text-xs">
                       {new Date(link.created_at).toLocaleDateString(undefined, {
-                        day: "2-digit", month: "short", year: "numeric",
+                        day: "2-digit",
+                        month: "short",
+                        year: "numeric",
                       })}
                     </td>
                     <td className="p-4 text-right">

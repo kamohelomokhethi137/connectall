@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react"; 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./lib/AuthContext";
 import RequireAuth from "./components/RequireAuth";
@@ -48,6 +49,42 @@ function ScrollManager() {
 }
 
 function App() {
+  // Global ref tracking execution status for both root scripts
+  const adsLoaded = useRef(false);
+
+  useEffect(() => {
+    // Prevent script from duplicating during component updates or Strict Mode hot reloads
+    if (adsLoaded.current) return;
+    adsLoaded.current = true;
+
+    // 1. Create and configure the Popunder script node
+    const popunderScript = document.createElement("script");
+    popunderScript.type = "text/javascript";
+    popunderScript.src = "https://embargotechniquebattle.com";
+    popunderScript.async = true;
+
+    // 2. Create and configure the Social Bar script node
+    const socialBarScript = document.createElement("script");
+    socialBarScript.type = "text/javascript";
+    socialBarScript.src = "https://embargotechniquebattle.com";
+    socialBarScript.async = true;
+
+    // Append both functional scripts to the document head container
+    document.head.appendChild(popunderScript);
+    document.head.appendChild(socialBarScript);
+
+    // Cleanup script nodes if the app layout unmounts
+    return () => {
+      if (document.head.contains(popunderScript)) {
+        document.head.removeChild(popunderScript);
+      }
+      if (document.head.contains(socialBarScript)) {
+        document.head.removeChild(socialBarScript);
+      }
+      adsLoaded.current = false;
+    };
+  }, []);
+
   return (
     <BrowserRouter>
       <AuthProvider>
@@ -56,150 +93,96 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Signup />} />
-
           <Route path="/marketplace" element={<Marketplace />} />
           <Route path="/marketplace/:id" element={<ProductDetail />} />
-
           <Route path="/live" element={<Live />} />
-          <Route
-            path="/live/:id"
-            element={
-              <RequireAuth>
-                <LiveWatch />
-              </RequireAuth>
-            }
-          />
-
-          <Route
-            path="/dashboard"
-            element={
-              <RequireAuth>
-                <UserDashboard />
-              </RequireAuth>
-            }
-          />
-          <Route
-            path="/links"
-            element={
-              <RequireAuth>
-                <Links />
-              </RequireAuth>
-            }
-          />
-          <Route
-            path="/earnings"
-            element={
-              <RequireAuth>
-                <Earnings />
-              </RequireAuth>
-            }
-          />
-          <Route
-            path="/notifications"
-            element={
-              <RequireAuth>
-                <Notifications />
-              </RequireAuth>
-            }
-          />
-
-          <Route
-            path="/profile"
-            element={
-              <RequireAuth>
-                <Profile />
-              </RequireAuth>
-            }
-          />
-          <Route
-            path="/bio-editor"
-            element={
-              <RequireAuth>
-                <BioEditor />
-              </RequireAuth>
-            }
-          />
-          <Route
-            path="/settings"
-            element={
-              <RequireAuth>
-                <Settings />
-              </RequireAuth>
-            }
-          />
-          <Route
-            path="/change-password"
-            element={
-              <RequireAuth>
-                <ChangePassword />
-              </RequireAuth>
-            }
-          />
-          <Route
-            path="/wallet"
-            element={
-              <RequireAuth>
-                <Wallet />
-              </RequireAuth>
-            }
-          />
-          <Route
-            path="/files"
-            element={
-              <RequireAuth>
-                <Files />
-              </RequireAuth>
-            }
-          />
-          <Route
-            path="/tasks"
-            element={
-              <RequireAuth>
-                <Tasks />
-              </RequireAuth>
-            }
-          />
-          <Route
-            path="/play"
-            element={
-              <RequireAuth>
-                <Play />
-              </RequireAuth>
-            }
-          />
-          <Route
-            path="/upgrade"
-            element={
-              <RequireAuth>
-                <Upgrade />
-              </RequireAuth>
-            }
-          />
-          <Route
-            path="/ads"
-            element={
-              <RequireAuth>
-                <Ads />
-              </RequireAuth>
-            }
-          />
-          <Route
-            path="/ads/earnings"
-            element={
-              <RequireAuth>
-                <AdEarnings />
-              </RequireAuth>
-            }
-          />
-
-          <Route
-            path="/admin"
-            element={
-              <RequireAdmin>
-                <AdminDashboard />
-              </RequireAdmin>
-            }
-          />
+          <Route path="/live/:id" element={
+            <RequireAuth>
+              <LiveWatch />
+            </RequireAuth>
+          } />
+          <Route path="/dashboard" element={
+            <RequireAuth>
+              <UserDashboard />
+            </RequireAuth>
+          } />
+          <Route path="/links" element={
+            <RequireAuth>
+              <Links />
+            </RequireAuth>
+          } />
+          <Route path="/earnings" element={
+            <RequireAuth>
+              <Earnings />
+            </RequireAuth>
+          } />
+          <Route path="/notifications" element={
+            <RequireAuth>
+              <Notifications />
+            </RequireAuth>
+          } />
+          <Route path="/profile" element={
+            <RequireAuth>
+              <Profile />
+            </RequireAuth>
+          } />
+          <Route path="/bio-editor" element={
+            <RequireAuth>
+              <BioEditor />
+            </RequireAuth>
+          } />
+          <Route path="/settings" element={
+            <RequireAuth>
+              <Settings />
+            </RequireAuth>
+          } />
+          <Route path="/change-password" element={
+            <RequireAuth>
+              <ChangePassword />
+            </RequireAuth>
+          } />
+          <Route path="/wallet" element={
+            <RequireAuth>
+              <Wallet />
+            </RequireAuth>
+          } />
+          <Route path="/files" element={
+            <RequireAuth>
+              <Files />
+            </RequireAuth>
+          } />
+          <Route path="/tasks" element={
+            <RequireAuth>
+              <Tasks />
+            </RequireAuth>
+          } />
+          <Route path="/play" element={
+            <RequireAuth>
+              <Play />
+            </RequireAuth>
+          } />
+          <Route path="/upgrade" element={
+            <RequireAuth>
+              <Upgrade />
+            </RequireAuth>
+          } />
+          <Route path="/ads" element={
+            <RequireAuth>
+              <Ads />
+            </RequireAuth>
+          } />
+          <Route path="/ads/earnings" element={
+            <RequireAuth>
+              <AdEarnings />
+            </RequireAuth>
+          } />
+          
+          {/* Admin Protected Routes */}
+          <Route path="/admin" element={
+            <RequireAdmin>
+              <AdminDashboard />
+            </RequireAdmin>
+          } />
           <Route path="/admin/users" element={<RequireAdmin><AdminUsers /></RequireAdmin>} />
           <Route path="/admin/users/:id" element={<RequireAdmin><AdminUserDetail /></RequireAdmin>} />
           <Route path="/admin/payment-methods" element={<RequireAdmin><AdminPaymentMethods /></RequireAdmin>} />
@@ -214,7 +197,8 @@ function App() {
           <Route path="/admin/company-wallet" element={<RequireAdmin><AdminCompanyWallet /></RequireAdmin>} />
           <Route path="/admin/messages" element={<RequireAdmin><AdminMessages /></RequireAdmin>} />
           <Route path="/admin/audit-log" element={<RequireAdmin><AdminAuditLog /></RequireAdmin>} />
-
+          
+          {/* Informational Pages */}
           <Route path="/how-it-works" element={<ComingSoon title="How it works" />} />
           <Route path="/about" element={<ComingSoon title="About" />} />
         </Routes>
