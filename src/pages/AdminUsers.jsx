@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
-import { FiSearch, FiSlash, FiCheckCircle, FiVolumeX, FiVolume2, FiChevronRight } from "react-icons/fi";
+import { FiSearch, FiSlash, FiCheckCircle, FiVolumeX, FiVolume2, FiChevronRight, FiSmartphone, FiGlobe, FiClock } from "react-icons/fi";
 import DashboardLayout from "../components/DashboardLayout";
 import { fetchAdminUsers, blockUser, activateUser, unmuteUser } from "../lib/admin";
 
@@ -117,6 +117,7 @@ export default function AdminUsers() {
                 <tr className="text-left text-ink-soft border-b border-ink/5">
                   <th className="p-4 font-medium">User</th>
                   <th className="p-4 font-medium">Role</th>
+                  <th className="p-4 font-medium">Device & IP</th>
                   <th className="p-4 font-medium">Balance</th>
                   <th className="p-4 font-medium">Status</th>
                   <th className="p-4 font-medium">Actions</th>
@@ -134,6 +135,24 @@ export default function AdminUsers() {
                       <span className={`px-2 py-1 rounded text-xs capitalize ${roleBadge[u.role] || "bg-paper text-ink"}`}>
                         {u.role.replace("_", " ")}
                       </span>
+                    </td>
+                    <td className="p-4">
+                      <div className="flex flex-col gap-1 text-xs">
+                        <span className="font-medium text-ink flex items-center gap-1.5" title={u.last_user_agent || "No User-Agent string available"}>
+                          <FiSmartphone size={13} className="text-teal shrink-0" />
+                          {u.device_info || "Unknown Device"}
+                        </span>
+                        <span className="text-ink-soft font-mono text-[11px] flex items-center gap-1.5">
+                          <FiGlobe size={11} className="shrink-0 text-ink-soft/60" />
+                          {u.last_ip || "Unknown IP"}
+                        </span>
+                        {u.last_login_at && (
+                          <span className="text-[10px] text-ink-soft/60 flex items-center gap-1">
+                            <FiClock size={10} className="shrink-0" />
+                            {new Date(u.last_login_at).toLocaleString()}
+                          </span>
+                        )}
+                      </div>
                     </td>
                     <td className="p-4 font-mono text-ink">R{(Number(u.balance) || 0).toFixed(2)}</td>
                     <td className="p-4">

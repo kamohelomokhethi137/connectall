@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-import { FiArrowLeft } from "react-icons/fi";
+import { FiArrowLeft, FiSmartphone } from "react-icons/fi";
 import DashboardLayout from "../components/DashboardLayout";
 import FormField from "../components/FormField";
 import SubmitButton from "../components/SubmitButton";
@@ -190,6 +190,36 @@ export default function AdminUserDetail() {
             <div><p className="text-ink-soft text-xs">Points / Tokens</p><p className="font-semibold text-ink">{user.points} / {user.tokens}</p></div>
             <div><p className="text-ink-soft text-xs">Premium</p><p className="font-semibold text-ink">{user.is_premium_active ? "Active" : "None"}</p></div>
             <div><p className="text-ink-soft text-xs">Joined</p><p className="font-semibold text-ink">{new Date(user.created_at).toLocaleDateString()}</p></div>
+          </div>
+
+          <div className="mt-6 pt-6 border-t border-ink/5">
+            <h3 className="font-display font-semibold text-ink mb-3 text-sm flex items-center gap-1.5">
+              <FiSmartphone size={16} className="text-teal" /> Device & Tracking Info
+            </h3>
+            <div className="space-y-3 text-xs">
+              <div className="grid grid-cols-2 gap-2">
+                <div>
+                  <p className="text-ink-soft text-[11px]">Device Name</p>
+                  <p className="font-medium text-ink">{user.device_info || "Unknown"}</p>
+                </div>
+                <div>
+                  <p className="text-ink-soft text-[11px]">IP Address</p>
+                  <p className="font-mono text-ink">{user.last_ip || "Unknown"}</p>
+                </div>
+              </div>
+              <div>
+                <p className="text-ink-soft text-[11px]">Last Activity / Login</p>
+                <p className="font-medium text-ink">
+                  {user.last_login_at ? new Date(user.last_login_at).toLocaleString() : "Never"}
+                </p>
+              </div>
+              <div>
+                <p className="text-ink-soft text-[11px] mb-1">User-Agent String</p>
+                <p className="font-mono text-[11px] text-ink/80 bg-paper p-2 rounded break-all border border-ink/5 select-all">
+                  {user.last_user_agent || "No User-Agent recorded"}
+                </p>
+              </div>
+            </div>
           </div>
         </div>
 
