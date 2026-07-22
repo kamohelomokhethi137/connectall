@@ -20,7 +20,7 @@ import BioEditor from "./pages/BioEditor";
 import Settings from "./pages/Settings";
 import ChangePassword from "./pages/ChangePassword";
 import Wallet from "./pages/Wallet";
-import Files from "./pages/Files";
+import Chat from "./pages/Chat";
 import Tasks from "./pages/Tasks";
 import Play from "./pages/Play";
 import Upgrade from "./pages/Upgrade";
@@ -132,7 +132,7 @@ function App() {
           } />
           <Route path="/files" element={
             <RequireAuth>
-              <Files />
+              <Chat />
             </RequireAuth>
           } />
           <Route path="/tasks" element={

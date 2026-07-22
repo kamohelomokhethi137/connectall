@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { NavLink, Link, useNavigate } from "react-router-dom";
 import {
-  FiActivity, FiLink2, FiCreditCard, FiDollarSign, FiFolder, FiShoppingBag,
+  FiActivity, FiLink2, FiCreditCard, FiDollarSign, FiMessageCircle, FiShoppingBag,
   FiRadio, FiCheckSquare, FiAward, FiTag, FiTrendingUp, FiBell, FiUser,
   FiSettings, FiLock, FiExternalLink, FiShield, FiUsers, FiFileText,
   FiVideo, FiVolume2, FiBriefcase, FiMail, FiClipboard, FiLogOut, FiMenu, FiX,
@@ -15,7 +15,7 @@ const mainNav = [
   { label: "Bio Page", to: "/bio-editor", icon: FiUser },
   { label: "Earnings", to: "/earnings", icon: FiDollarSign },
   { label: "Wallet & Payments", to: "/wallet", icon: FiCreditCard },
-  { label: "File Sharing", to: "/files", icon: FiFolder },
+  { label: "Chatrooms", to: "/files", icon: FiMessageCircle },
   { label: "Marketplace", to: "/marketplace", icon: FiShoppingBag },
   { label: "Live", to: "/live", icon: FiRadio },
   { label: "Daily Tasks", to: "/tasks", icon: FiCheckSquare },
