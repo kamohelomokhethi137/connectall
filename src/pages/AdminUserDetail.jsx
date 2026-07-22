@@ -186,7 +186,7 @@ export default function AdminUserDetail() {
           </form>
 
           <div className="mt-6 pt-6 border-t border-ink/5 grid grid-cols-2 gap-4 text-sm">
-            <div><p className="text-ink-soft text-xs">Balance</p><p className="font-semibold text-ink">R{user.balance.toFixed(2)}</p></div>
+            <div><p className="text-ink-soft text-xs">Balance</p><p className="font-semibold text-ink">R{(Number(user.balance) || 0).toFixed(2)}</p></div>
             <div><p className="text-ink-soft text-xs">Points / Tokens</p><p className="font-semibold text-ink">{user.points} / {user.tokens}</p></div>
             <div><p className="text-ink-soft text-xs">Premium</p><p className="font-semibold text-ink">{user.is_premium_active ? "Active" : "None"}</p></div>
             <div><p className="text-ink-soft text-xs">Joined</p><p className="font-semibold text-ink">{new Date(user.created_at).toLocaleDateString()}</p></div>

@@ -135,7 +135,7 @@ export default function AdminUsers() {
                         {u.role.replace("_", " ")}
                       </span>
                     </td>
-                    <td className="p-4 font-mono text-ink">R{u.balance.toFixed(2)}</td>
+                    <td className="p-4 font-mono text-ink">R{(Number(u.balance) || 0).toFixed(2)}</td>
                     <td className="p-4">
                       <div className="flex gap-1.5 flex-wrap">
                         <span className={`px-2 py-0.5 rounded text-xs ${u.is_active_account ? "bg-teal/10 text-teal-dark" : "bg-red-50 text-red-500"}`}>
