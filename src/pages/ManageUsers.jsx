@@ -115,7 +115,7 @@ export default function ManageUsers() {
                     </td>
                     <td className="p-4 text-right">
                       <Link
-                        to={`/admin/users/${u.id}`}
+                        to={`/admin/users/${u.uuid || u.id}`}
                         className="text-xs font-semibold text-teal-dark border border-teal-dark/30 rounded px-2.5 py-1 hover:bg-teal/5"
                       >
                         Manage

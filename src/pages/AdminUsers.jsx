@@ -199,7 +199,7 @@ export default function AdminUsers() {
                       </div>
                     </td>
                     <td className="p-4">
-                      <Link to={`/admin/users/${u.id}`} className="text-teal-dark hover:text-teal-light">
+                      <Link to={`/admin/users/${u.uuid || u.id}`} className="text-teal-dark hover:text-teal-light">
                         <FiChevronRight size={16} />
                       </Link>
                     </td>

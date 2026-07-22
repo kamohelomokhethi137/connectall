@@ -108,7 +108,7 @@ export default function AdminDashboard() {
                   <span className="text-ink-soft/70 text-xs">({u.role})</span>
                 </span>
                 <Link
-                  to={`/admin/users/${u.id}`}
+                  to={`/admin/users/${u.uuid || u.id}`}
                   className="text-xs font-semibold text-teal-dark border border-teal-dark/30 rounded px-2.5 py-1 hover:bg-teal/5"
                 >
                   View
