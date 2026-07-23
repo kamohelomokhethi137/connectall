@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import toast from "react-hot-toast";
 import {
   FiSearch, FiUserPlus, FiUsers, FiSend, FiPaperclip, FiCheck, FiX,
-  FiMessageCircle, FiPlus, FiChevronLeft, FiClock, FiLink,
+  FiMessageCircle, FiPlus, FiChevronLeft, FiClock, FiLink, FiSlash,
 } from "react-icons/fi";
 import DashboardLayout from "../components/DashboardLayout";
 import { useAuth } from "../lib/AuthContext";
@@ -306,9 +306,17 @@ function FindFriendsPanel({ onSent, onViewProfile, onMessage }) {
   );
 }
 
+const CHAT_TABS = [
+  { id: "messages", label: "Messages", icon: FiMessageCircle },
+  { id: "groups", label: "Groups", icon: FiUsers },
+  { id: "friends", label: "New Friends", icon: FiUserPlus },
+  { id: "blocked", label: "Blocked Users", icon: FiSlash },
+];
+
 export default function Chat() {
   const { user } = useAuth();
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [activeTab, setActiveTab] = useState(() => searchParams.get("tab") || "messages");
   const [friends, setFriends] = useState([]);
   const [incoming, setIncoming] = useState([]);
   const [rooms, setRooms] = useState(null);
@@ -451,21 +459,49 @@ export default function Chat() {
 
   return (
     <DashboardLayout title="Chatrooms">
-      <div className="flex flex-col md:flex-row gap-4 md:h-[calc(100vh-8rem)]">
-        {/* Sidebar: find friends, requests, rooms */}
-        <div className={`w-full md:w-80 md:shrink-0 flex-col gap-4 md:h-full md:overflow-y-auto md:pr-1 ${mobileShowRoom ? "hidden md:flex" : "flex"}`}>
-          <div className="bg-white rounded-2xl border border-ink/5 p-4">
-            <h2 className="text-sm font-display font-semibold text-ink mb-3 flex items-center gap-2">
-              <FiUserPlus className="text-teal-dark" /> Find friends
-            </h2>
-            <FindFriendsPanel
-              onSent={loadSidebar}
-              onViewProfile={setProfileUuid}
-              onMessage={handleOpenDm}
-            />
-          </div>
+      {/* Chatrooms Dedicated Second Navigation Bar */}
+      <div className="bg-white rounded-2xl border border-ink/5 p-2 mb-4 flex items-center justify-around sm:justify-start gap-1.5 sm:gap-3 overflow-x-auto shadow-sm">
+        {CHAT_TABS.map((tab) => {
+          const Icon = tab.icon;
+          const isActive = activeTab === tab.id;
+          return (
+            <button
+              key={tab.id}
+              onClick={() => {
+                setActiveTab(tab.id);
+                setSearchParams({ tab: tab.id });
+                setMobileShowRoom(false);
+              }}
+              className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all shrink-0 ${
+                isActive
+                  ? "bg-teal text-navy shadow-sm"
+                  : "text-ink-soft hover:bg-paper hover:text-ink"
+              }`}
+            >
+              <Icon size={16} />
+              <span>{tab.label}</span>
+            </button>
+          );
+        })}
+      </div>
 
-          {incoming.length > 0 && (
+      <div className="flex flex-col md:flex-row gap-4 md:h-[calc(100vh-12rem)]">
+        {/* Sidebar: filtered by activeTab */}
+        <div className={`w-full md:w-80 md:shrink-0 flex-col gap-4 md:h-full md:overflow-y-auto md:pr-1 ${mobileShowRoom ? "hidden md:flex" : "flex"}`}>
+          {activeTab === "friends" && (
+            <div className="bg-white rounded-2xl border border-ink/5 p-4">
+              <h2 className="text-sm font-display font-semibold text-ink mb-3 flex items-center gap-2">
+                <FiUserPlus className="text-teal-dark" /> Find friends
+              </h2>
+              <FindFriendsPanel
+                onSent={loadSidebar}
+                onViewProfile={setProfileUuid}
+                onMessage={handleOpenDm}
+              />
+            </div>
+          )}
+
+          {(activeTab === "friends" || incoming.length > 0) && incoming.length > 0 && (
             <div className="bg-white rounded-2xl border border-ink/5 p-4">
               <h2 className="text-sm font-display font-semibold text-ink mb-2">Friend requests</h2>
               <ul className="space-y-2">
@@ -497,83 +533,97 @@ export default function Chat() {
             </div>
           )}
 
-          <div className="bg-white rounded-2xl border border-ink/5 p-4 md:flex-1 md:min-h-0 flex flex-col">
-            <div className="flex items-center justify-between mb-3">
-              <h2 className="text-sm font-display font-semibold text-ink">Your chats</h2>
-              <button
-                onClick={() => setShowNewGroup((v) => !v)}
-                className="text-xs font-semibold text-teal-dark hover:underline flex items-center gap-1"
-              >
-                <FiPlus size={13} /> Group
-              </button>
+          {activeTab === "blocked" ? (
+            <div className="bg-white rounded-2xl border border-ink/5 p-5 text-center">
+              <FiSlash size={32} className="mx-auto text-ink-soft/40 mb-2" />
+              <h3 className="text-sm font-display font-semibold text-ink">Blocked Users</h3>
+              <p className="text-xs text-ink-soft mt-1">No blocked contacts right now. Your connection list is clean.</p>
             </div>
-
-            <AnimatePresence>
-              {showNewGroup && (
-                <motion.form
-                  variants={fadeIn}
-                  initial="hidden"
-                  animate="show"
-                  exit={{ opacity: 0 }}
-                  onSubmit={handleCreateGroup}
-                  className="mb-3 p-3 bg-paper rounded-xl space-y-2"
-                >
-                  <input
-                    value={groupName}
-                    onChange={(e) => setGroupName(e.target.value)}
-                    placeholder="Group name"
-                    className="w-full h-9 rounded-lg border border-ink/10 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-teal/30"
-                  />
-                  {friends.length === 0 ? (
-                    <p className="text-xs text-ink-soft">Add some friends first to start a group.</p>
-                  ) : (
-                    <div className="max-h-28 overflow-y-auto space-y-1">
-                      {friends.map((f) => (
-                        <label key={f.uuid} className="flex items-center gap-2 text-sm text-ink">
-                          <input
-                            type="checkbox"
-                            checked={groupMembers.includes(f.uuid)}
-                            onChange={(e) =>
-                              setGroupMembers((prev) =>
-                                e.target.checked ? [...prev, f.uuid] : prev.filter((u) => u !== f.uuid)
-                              )
-                            }
-                          />
-                          @{f.username}
-                        </label>
-                      ))}
-                    </div>
-                  )}
+          ) : (
+            <div className="bg-white rounded-2xl border border-ink/5 p-4 md:flex-1 md:min-h-0 flex flex-col">
+              <div className="flex items-center justify-between mb-3">
+                <h2 className="text-sm font-display font-semibold text-ink">
+                  {activeTab === "groups" ? "Group Chatrooms" : "Direct Messages"}
+                </h2>
+                {activeTab === "groups" && (
                   <button
-                    type="submit"
-                    className="w-full h-9 rounded-lg bg-teal hover:bg-teal-light text-navy text-xs font-semibold"
+                    onClick={() => setShowNewGroup((v) => !v)}
+                    className="text-xs font-semibold text-teal-dark hover:underline flex items-center gap-1"
                   >
-                    Create group
+                    <FiPlus size={13} /> New Group
                   </button>
-                </motion.form>
-              )}
-            </AnimatePresence>
+                )}
+              </div>
 
-            <div className="max-h-72 md:max-h-none md:flex-1 overflow-y-auto space-y-1">
-              {rooms === null ? (
-                <div className="h-32 rounded-xl bg-paper animate-pulse" />
-              ) : rooms.length === 0 ? (
-                <p className="text-sm text-ink-soft text-center py-8">
-                  Find a friend above to start chatting.
-                </p>
-              ) : (
-                rooms.map((room) => (
-                  <RoomListItem
-                    key={room.uuid}
-                    room={room}
-                    active={activeRoom?.uuid === room.uuid}
-                    onClick={() => openRoom(room)}
-                    onAvatarClick={setProfileUuid}
-                  />
-                ))
-              )}
+              <AnimatePresence>
+                {showNewGroup && (
+                  <motion.form
+                    variants={fadeIn}
+                    initial="hidden"
+                    animate="show"
+                    exit={{ opacity: 0 }}
+                    onSubmit={handleCreateGroup}
+                    className="mb-3 p-3 bg-paper rounded-xl space-y-2"
+                  >
+                    <input
+                      value={groupName}
+                      onChange={(e) => setGroupName(e.target.value)}
+                      placeholder="Group name"
+                      className="w-full h-9 rounded-lg border border-ink/10 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-teal/30"
+                    />
+                    {friends.length === 0 ? (
+                      <p className="text-xs text-ink-soft">Add some friends first to start a group.</p>
+                    ) : (
+                      <div className="max-h-28 overflow-y-auto space-y-1">
+                        {friends.map((f) => (
+                          <label key={f.uuid} className="flex items-center gap-2 text-sm text-ink">
+                            <input
+                              type="checkbox"
+                              checked={groupMembers.includes(f.uuid)}
+                              onChange={(e) =>
+                                setGroupMembers((prev) =>
+                                  e.target.checked ? [...prev, f.uuid] : prev.filter((u) => u !== f.uuid)
+                                )
+                              }
+                            />
+                            @{f.username}
+                          </label>
+                        ))}
+                      </div>
+                    )}
+                    <button
+                      type="submit"
+                      className="w-full h-9 rounded-lg bg-teal hover:bg-teal-light text-navy text-xs font-semibold"
+                    >
+                      Create group
+                    </button>
+                  </motion.form>
+                )}
+              </AnimatePresence>
+
+              <div className="max-h-72 md:max-h-none md:flex-1 overflow-y-auto space-y-1">
+                {rooms === null ? (
+                  <div className="h-32 rounded-xl bg-paper animate-pulse" />
+                ) : rooms.length === 0 ? (
+                  <p className="text-sm text-ink-soft text-center py-8">
+                    No conversations yet. Switch to <button onClick={() => setActiveTab("friends")} className="text-teal-dark font-semibold hover:underline">New Friends</button> to connect!
+                  </p>
+                ) : (
+                  rooms
+                    .filter((r) => (activeTab === "groups" ? r.type === "GROUP" : r.type === "DM" || activeTab === "messages"))
+                    .map((room) => (
+                      <RoomListItem
+                        key={room.uuid}
+                        room={room}
+                        active={activeRoom?.uuid === room.uuid}
+                        onClick={() => openRoom(room)}
+                        onAvatarClick={setProfileUuid}
+                      />
+                    ))
+                )}
+              </div>
             </div>
-          </div>
+          )}
         </div>
 
         {/* Active conversation */}

@@ -373,6 +373,36 @@ function ProfileMenu({ user, onLogout }) {
   );
 }
 
+function BottomNav({ pathname }) {
+  const items = navGroups.flatMap((g) =>
+    g.items.filter((i) => quickNavKeys.includes(i.to)).map((i) => ({ ...i, color: g.color }))
+  );
+  items.sort((a, b) => quickNavKeys.indexOf(a.to) - quickNavKeys.indexOf(b.to));
+
+  return (
+    <nav className="h-16 bg-white border-t border-ink/5 flex items-center justify-around px-2 shrink-0 z-30 shadow-lg">
+      {items.map((item) => {
+        const Icon = item.icon;
+        const isActive = pathname === item.to;
+        return (
+          <Link
+            key={item.to}
+            to={item.to}
+            className={`flex flex-col items-center justify-center w-16 h-12 rounded-xl transition-all ${
+              isActive
+                ? "text-teal-dark bg-teal/10 font-semibold"
+                : "text-ink-soft hover:text-ink hover:bg-paper"
+            }`}
+          >
+            <Icon size={20} />
+            <span className="text-[10px] mt-0.5 font-medium truncate">{item.label}</span>
+          </Link>
+        );
+      })}
+    </nav>
+  );
+}
+
 export default function DashboardLayout({ title, children }) {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
@@ -427,35 +457,34 @@ export default function DashboardLayout({ title, children }) {
       </AnimatePresence>
 
       <div className="flex-1 flex flex-col min-w-0">
-        <header className="h-16 bg-white border-b border-ink/5 flex items-center justify-between px-3 sm:px-5 shrink-0 gap-2">
-          <div className="flex items-center gap-3 min-w-0">
+        <header className="relative h-16 bg-white border-b border-ink/5 flex items-center justify-between px-3 sm:px-5 shrink-0 z-20">
+          {/* Left: Menu button */}
+          <div className="flex items-center gap-3">
             <button
-              className="lg:hidden text-ink-soft p-1 shrink-0"
+              className="lg:hidden text-ink-soft p-1.5 rounded-lg hover:bg-paper shrink-0 transition-colors"
               onClick={() => setMobileOpen(true)}
               aria-label="Open menu"
             >
-              <FiMenu size={20} />
+              <FiMenu size={22} />
             </button>
-            <Link to="/dashboard" className="flex items-center gap-2 shrink-0">
-              <Mark className="w-6 h-6 text-teal-dark" />
-              <span className="font-display font-semibold text-ink hidden sm:block">ConnectAll</span>
-            </Link>
-            {title && (
-              <span className="hidden sm:block text-ink-soft/40 mx-1">/</span>
-            )}
-            <h1 className="font-display font-semibold text-ink hidden sm:block truncate">
-              {title}
-            </h1>
           </div>
 
-          {/* Facebook-style quick nav: the few things people jump to constantly */}
-          <QuickNav pathname={location.pathname} />
+          {/* Center: ConnectAll logo */}
+          <div className="absolute left-1/2 -translate-x-1/2 flex items-center">
+            <Link to="/dashboard" className="flex items-center gap-2">
+              <Mark className="w-7 h-7 text-teal-dark" />
+              <span className="font-display font-semibold text-lg text-ink tracking-tight">
+                ConnectAll
+              </span>
+            </Link>
+          </div>
 
+          {/* Right: Notifications & Profile */}
           <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
             {user && !user.is_verified && (
               <Link
                 to="/verify-email"
-                className="hidden sm:inline-flex items-center gap-1.5 text-xs font-medium bg-gold/15 text-gold-dark px-2.5 py-1 rounded-full"
+                className="hidden md:inline-flex items-center gap-1.5 text-xs font-medium bg-gold/15 text-gold-dark px-2.5 py-1 rounded-full"
               >
                 Verify email
               </Link>
@@ -466,6 +495,9 @@ export default function DashboardLayout({ title, children }) {
         </header>
 
         <main className="flex-1 overflow-y-auto p-4 sm:p-6">{children}</main>
+
+        {/* Bottom Navigation */}
+        <BottomNav pathname={location.pathname} />
       </div>
     </div>
   );
