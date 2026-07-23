@@ -91,7 +91,7 @@ export default function Home() {
             animate="show"
             variants={nm(staggerContainer(0.15))}
           >
-          
+            {/* Left column: one orchestrated entrance, heading -> copy -> CTAs */}
             <m.div variants={nm(staggerContainer(0.12))}>
               <m.h1
                 className="font-display font-semibold text-4xl sm:text-5xl text-white mt-6 leading-tight"
@@ -109,7 +109,7 @@ export default function Home() {
                     { text: "ConnectAll Technologies brings " },
                     { text: "Smart links", highlight: true },
                     { text: ", " },
-                    { text: "Mobile Payment", highlight: true },
+                    { text: "Mobile Payments", highlight: true },
                     { text: ", " },
                     { text: "Chatting", highlight: true },
                     { text: ", and " },
