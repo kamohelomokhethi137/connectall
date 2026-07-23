@@ -58,7 +58,7 @@ export const navGroups = [
 // The handful of destinations that get a persistent icon button in the
 // top bar (Facebook-style quick nav) - deliberately short, everything
 // else lives one tap away in the "more" grid menu.
-export const quickNavKeys = ["/dashboard", "/files", "/marketplace", "/live", "/wallet"];
+export const quickNavKeys = ["/dashboard", "/files", "/wallet", "/live"];
 
 export const accountNav = [
   { label: "Profile", to: "/profile", icon: FiUser },

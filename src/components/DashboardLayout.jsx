@@ -167,14 +167,14 @@ function Sidebar({ isAdmin, isSuperAdmin, onNavigate }) {
 }
 
 // The handful of quick-access icons in the top bar, Facebook-style -
-// everything else lives in the "more" grid menu next to it.
+// Top bar persistent icon navigation for Dashboard, Chatroom, Wallet, and Live stream.
 function QuickNav({ pathname }) {
   const items = navGroups.flatMap((g) => g.items.filter((i) => quickNavKeys.includes(i.to)).map((i) => ({ ...i, color: g.color })));
-  // Preserve the deliberate order set in quickNavKeys, not group order.
+  // Preserve the deliberate order set in quickNavKeys.
   items.sort((a, b) => quickNavKeys.indexOf(a.to) - quickNavKeys.indexOf(b.to));
 
   return (
-    <div className="hidden md:flex items-center gap-1">
+    <div className="flex items-center gap-1 sm:gap-2">
       {items.map((item) => {
         const Icon = item.icon;
         const isActive = pathname === item.to;
@@ -184,11 +184,11 @@ function QuickNav({ pathname }) {
             key={item.to}
             to={item.to}
             title={item.label}
-            className={`relative w-14 h-12 rounded-lg flex items-center justify-center transition-colors border-b-2 ${
+            className={`relative w-10 sm:w-14 h-10 sm:h-12 rounded-lg flex items-center justify-center transition-colors border-b-2 ${
               isActive ? styles.quickActive : "text-ink-soft/70 border-transparent hover:bg-paper hover:text-ink"
             }`}
           >
-            <Icon size={20} aria-hidden="true" />
+            <Icon size={19} aria-hidden="true" />
           </Link>
         );
       })}
@@ -197,67 +197,6 @@ function QuickNav({ pathname }) {
 }
 
 import { fetchNotifications, fetchUnreadCount } from "../lib/activity";
-
-function MoreMenu() {
-  const [open, setOpen] = useState(false);
-  const ref = useDismiss(() => setOpen(false));
-
-  return (
-    <div className="relative" ref={ref}>
-      <button
-        onClick={() => setOpen((v) => !v)}
-        aria-label="Show more"
-        className={`w-10 h-10 rounded-full flex items-center justify-center transition-colors ${
-          open ? "bg-ink/10 text-ink" : "text-ink-soft hover:bg-paper hover:text-ink"
-        }`}
-      >
-        <FiGrid size={18} />
-      </button>
-      <AnimatePresence>
-        {open && (
-          <>
-            <div className="fixed inset-0 bg-black/20 z-40 sm:hidden" onClick={() => setOpen(false)} />
-            <motion.div
-              initial={{ opacity: 0, y: -6, scale: 0.98 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -6, scale: 0.98 }}
-              transition={{ duration: 0.15, ease: EASE_PREMIUM }}
-              className="fixed top-16 left-1/2 -translate-x-1/2 w-[calc(100vw-2rem)] max-w-sm sm:absolute sm:top-auto sm:left-auto sm:right-0 sm:translate-x-0 sm:w-80 max-h-[75vh] overflow-y-auto bg-white rounded-2xl border border-ink/5 shadow-2xl p-3.5 z-50"
-            >
-              {navGroups.map((group) => (
-                <div key={group.key} className="mb-3 last:mb-0">
-                  <p className="px-2 pb-1 text-[10px] font-mono uppercase tracking-widest text-ink-soft/60">
-                    {group.label}
-                  </p>
-                  <div className="grid grid-cols-2 gap-1">
-                    {group.items.map((item) => {
-                      const Icon = item.icon;
-                      return (
-                        <NavLink
-                          key={item.label}
-                          to={item.to}
-                          onClick={() => setOpen(false)}
-                          className={({ isActive }) =>
-                            `flex items-center gap-2 px-2 py-2 rounded-lg text-xs font-medium transition-colors ${
-                              isActive ? GROUP_STYLES[group.color].lightChip : "text-ink hover:bg-paper"
-                            }`
-                          }
-                        >
-                          <Icon size={13} className="shrink-0" aria-hidden="true" />
-                          <span className="truncate">{item.label}</span>
-                        </NavLink>
-                      );
-                    })}
-                  </div>
-                </div>
-              ))}
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
-    </div>
-  );
-}
 
 function NotificationMenu() {
   const [open, setOpen] = useState(false);
@@ -521,7 +460,6 @@ export default function DashboardLayout({ title, children }) {
                 Verify email
               </Link>
             )}
-            <MoreMenu />
             <NotificationMenu />
             {user && <ProfileMenu user={user} onLogout={handleLogout} />}
           </div>
