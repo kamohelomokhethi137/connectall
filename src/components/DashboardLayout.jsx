@@ -1,72 +1,88 @@
-import { useState } from "react";
-import { NavLink, Link, useNavigate } from "react-router-dom";
+import { useState, useRef, useEffect } from "react";
+import { NavLink, Link, useNavigate, useLocation } from "react-router-dom";
+import { AnimatePresence, motion } from "framer-motion";
 import {
-  FiActivity, FiLink2, FiCreditCard, FiDollarSign, FiMessageCircle, FiShoppingBag,
-  FiRadio, FiCheckSquare, FiAward, FiTag, FiTrendingUp, FiBell, FiUser,
-  FiSettings, FiLock, FiExternalLink, FiShield, FiUsers, FiFileText,
-  FiVideo, FiVolume2, FiBriefcase, FiMail, FiClipboard, FiLogOut, FiMenu, FiX,
+  FiBell, FiLogOut, FiMenu, FiGrid, FiChevronDown, FiExternalLink, FiShield,
 } from "react-icons/fi";
 import Mark from "./Mark";
 import { useAuth } from "../lib/AuthContext";
+import {
+  navGroups, quickNavKeys, accountNav, adminNav, auditNavItem, bioPageExternalLink,
+} from "../lib/navConfig";
+import { EASE_PREMIUM } from "../lib/motionVariants";
 
-const mainNav = [
-  { label: "Dashboard", to: "/dashboard", icon: FiActivity },
-  { label: "Smart Links", to: "/links", icon: FiLink2 },
-  { label: "Bio Page", to: "/bio-editor", icon: FiUser },
-  { label: "Earnings", to: "/earnings", icon: FiDollarSign },
-  { label: "Wallet & Payments", to: "/wallet", icon: FiCreditCard },
-  { label: "Chatrooms", to: "/files", icon: FiMessageCircle },
-  { label: "Marketplace", to: "/marketplace", icon: FiShoppingBag },
-  { label: "Live", to: "/live", icon: FiRadio },
-  { label: "Daily Tasks", to: "/tasks", icon: FiCheckSquare },
-  { label: "Play & Earn", to: "/play", icon: FiTarget },
-  { label: "Upgrade", to: "/upgrade", icon: FiAward },
-  { label: "Ads Earn Cash", to: "/ads", icon: FiTag },
-  { label: "My Ad Earnings", to: "/ads/earnings", icon: FiTrendingUp },
-  { label: "Notifications", to: "/notifications", icon: FiBell },
-];
+// Sidebar renders on a dark navy panel, so each group gets a bright
+// "light" tint that reads well there; the top-bar "more" menu sits on a
+// white panel and uses the darker/"dark" tint instead. One semantic hue
+// per group (not per item) keeps this disciplined rather than a rainbow.
+const GROUP_STYLES = {
+  neutral: {
+    sidebarChip: "bg-white/10 text-white/80",
+    sidebarActive: "bg-white/10 text-white",
+    eyebrow: "text-white/35",
+    lightChip: "bg-ink/5 text-ink-soft",
+    quickActive: "text-ink border-ink",
+  },
+  teal: {
+    sidebarChip: "bg-teal/15 text-teal-light",
+    sidebarActive: "bg-teal/15 text-teal-light",
+    eyebrow: "text-teal-light/70",
+    lightChip: "bg-teal/10 text-teal-dark",
+    quickActive: "text-teal-dark border-teal-dark",
+  },
+  gold: {
+    sidebarChip: "bg-gold/15 text-gold-light",
+    sidebarActive: "bg-gold/15 text-gold-light",
+    eyebrow: "text-gold-light/70",
+    lightChip: "bg-gold/15 text-gold-dark",
+    quickActive: "text-gold-dark border-gold-dark",
+  },
+  coral: {
+    sidebarChip: "bg-coral/15 text-coral-light",
+    sidebarActive: "bg-coral/15 text-coral-light",
+    eyebrow: "text-coral-light/70",
+    lightChip: "bg-coral/15 text-coral-dark",
+    quickActive: "text-coral-dark border-coral-dark",
+  },
+};
 
-const accountNav = [
-  { label: "Profile", to: "/profile", icon: FiUser },
-  { label: "Settings", to: "/settings", icon: FiSettings },
-  { label: "Change Password", to: "/change-password", icon: FiLock },
-];
-
-const adminNav = [
-  { label: "Admin Panel", to: "/admin", icon: FiShield },
-  { label: "Manage Users", to: "/admin/users", icon: FiUsers },
-  { label: "Payment Methods", to: "/admin/payment-methods", icon: FiCreditCard },
-  { label: "Transactions", to: "/admin/transactions", icon: FiFileText },
-  { label: "Manage Marketplace", to: "/admin/marketplace", icon: FiShoppingBag },
-  { label: "Manage Live", to: "/admin/live", icon: FiVideo },
-  { label: "Manage Tasks", to: "/admin/tasks", icon: FiCheckSquare },
-  { label: "Tokens & Plans", to: "/admin/tokens", icon: FiDollarSign },
-  { label: "Manage Ads", to: "/admin/ads", icon: FiVolume2 },
-  { label: "Advertisers", to: "/admin/advertisers", icon: FiBriefcase },
-  { label: "Ad Budgets", to: "/admin/ad-budgets", icon: FiFileText },
-  { label: "Company Wallet", to: "/admin/company-wallet", icon: FiBriefcase },
-  { label: "Contact Messages", to: "/admin/messages", icon: FiMail },
-];
-
-function FiTarget(props) {
-  // Feather doesn't ship a dice icon; a target reads well for "play & earn"
-  return <FiCheckSquare {...props} />;
+// Closes a floating panel (dropdown/menu) on an outside click or Escape -
+// shared by the profile menu and the "more" grid menu below.
+function useDismiss(onDismiss) {
+  const ref = useRef(null);
+  useEffect(() => {
+    function handlePointer(e) {
+      if (ref.current && !ref.current.contains(e.target)) onDismiss();
+    }
+    function handleKey(e) {
+      if (e.key === "Escape") onDismiss();
+    }
+    document.addEventListener("mousedown", handlePointer);
+    document.addEventListener("keydown", handleKey);
+    return () => {
+      document.removeEventListener("mousedown", handlePointer);
+      document.removeEventListener("keydown", handleKey);
+    };
+  }, [onDismiss]);
+  return ref;
 }
 
-function NavItem({ item }) {
+function SidebarNavItem({ item, colorKey, onNavigate }) {
   const Icon = item.icon;
+  const styles = GROUP_STYLES[colorKey];
   return (
     <NavLink
       to={item.to}
+      onClick={onNavigate}
       className={({ isActive }) =>
-        `flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-colors ${
-          isActive
-            ? "bg-teal/10 text-teal-dark font-semibold"
-            : "text-white/65 hover:bg-white/5 hover:text-white"
+        `flex items-center gap-3 px-2.5 py-2 rounded-lg text-sm transition-colors ${
+          isActive ? `${styles.sidebarActive} font-semibold` : "text-white/60 hover:bg-white/5 hover:text-white"
         }`
       }
     >
-      <Icon size={16} aria-hidden="true" />
+      <span className={`w-7 h-7 rounded-md flex items-center justify-center shrink-0 ${styles.sidebarChip}`}>
+        <Icon size={14} aria-hidden="true" />
+      </span>
       {item.label}
     </NavLink>
   );
@@ -88,49 +104,61 @@ function Sidebar({ isAdmin, isSuperAdmin, onNavigate }) {
         <span className="font-display font-semibold text-white">ConnectAll</span>
       </div>
 
-      <nav className="flex-1 px-3 space-y-1 pb-6" onClick={onNavigate}>
-        {mainNav.map((item) => (
-          <NavItem key={item.label} item={item} />
+      <nav className="flex-1 px-3 pb-6" onClick={onNavigate}>
+        {navGroups.map((group) => (
+          <div key={group.key} className="mb-4">
+            <p className={`px-2.5 pb-1.5 text-[10px] font-mono uppercase tracking-widest ${GROUP_STYLES[group.color].eyebrow}`}>
+              {group.label}
+            </p>
+            <div className="space-y-0.5">
+              {group.items.map((item) => (
+                <SidebarNavItem key={item.label} item={item} colorKey={group.color} />
+              ))}
+            </div>
+          </div>
         ))}
 
         <hr className="border-white/10 my-3" />
-        {accountNav.map((item) => (
-          <NavItem key={item.label} item={item} />
-        ))}
-        <a
-          href="/bio-preview"
-          target="_blank"
-          rel="noreferrer"
-          className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-white/65 hover:bg-white/5 hover:text-white transition-colors"
-        >
-          <FiExternalLink size={16} aria-hidden="true" />
-          View Bio Page
-        </a>
+        <div className="space-y-0.5">
+          {accountNav.map((item) => (
+            <SidebarNavItem key={item.label} item={item} colorKey="neutral" />
+          ))}
+          <a
+            href={bioPageExternalLink.href}
+            target="_blank"
+            rel="noreferrer"
+            className="flex items-center gap-3 px-2.5 py-2 rounded-lg text-sm text-white/60 hover:bg-white/5 hover:text-white transition-colors"
+          >
+            <span className="w-7 h-7 rounded-md flex items-center justify-center shrink-0 bg-white/10 text-white/80">
+              <FiExternalLink size={14} aria-hidden="true" />
+            </span>
+            {bioPageExternalLink.label}
+          </a>
+        </div>
 
         {isAdmin && (
           <>
             <hr className="border-white/10 my-3" />
-            <p className="px-3 pb-1 text-[11px] font-mono uppercase tracking-widest text-teal-light">
-              Admin
+            <p className="px-2.5 pb-1.5 text-[10px] font-mono uppercase tracking-widest text-teal-light/70 flex items-center gap-1">
+              <FiShield size={11} /> Admin
             </p>
-            {adminNav.map((item) => (
-              <NavItem key={item.label} item={item} />
-            ))}
+            <div className="space-y-0.5">
+              {adminNav.map((item) => (
+                <SidebarNavItem key={item.label} item={item} colorKey="neutral" />
+              ))}
+              {isSuperAdmin && <SidebarNavItem item={auditNavItem} colorKey="neutral" />}
+            </div>
           </>
-        )}
-
-        {isSuperAdmin && (
-          <NavItem
-            item={{ label: "Audit Log", to: "/admin/audit-log", icon: FiClipboard }}
-          />
         )}
 
         <hr className="border-white/10 my-3" />
         <button
           onClick={handleLogout}
-          className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-white/65 hover:bg-white/5 hover:text-white transition-colors"
+          className="w-full flex items-center gap-3 px-2.5 py-2 rounded-lg text-sm text-white/60 hover:bg-white/5 hover:text-white transition-colors"
         >
-          <FiLogOut size={16} aria-hidden="true" />
+          <span className="w-7 h-7 rounded-md flex items-center justify-center shrink-0 bg-white/10 text-white/80">
+            <FiLogOut size={14} aria-hidden="true" />
+          </span>
           Logout
         </button>
       </nav>
@@ -138,11 +166,164 @@ function Sidebar({ isAdmin, isSuperAdmin, onNavigate }) {
   );
 }
 
+// The handful of quick-access icons in the top bar, Facebook-style -
+// everything else lives in the "more" grid menu next to it.
+function QuickNav({ pathname }) {
+  const items = navGroups.flatMap((g) => g.items.filter((i) => quickNavKeys.includes(i.to)).map((i) => ({ ...i, color: g.color })));
+  // Preserve the deliberate order set in quickNavKeys, not group order.
+  items.sort((a, b) => quickNavKeys.indexOf(a.to) - quickNavKeys.indexOf(b.to));
+
+  return (
+    <div className="hidden md:flex items-center gap-1">
+      {items.map((item) => {
+        const Icon = item.icon;
+        const isActive = pathname === item.to;
+        const styles = GROUP_STYLES[item.color];
+        return (
+          <Link
+            key={item.to}
+            to={item.to}
+            title={item.label}
+            className={`relative w-14 h-12 rounded-lg flex items-center justify-center transition-colors border-b-2 ${
+              isActive ? styles.quickActive : "text-ink-soft/70 border-transparent hover:bg-paper hover:text-ink"
+            }`}
+          >
+            <Icon size={20} aria-hidden="true" />
+          </Link>
+        );
+      })}
+    </div>
+  );
+}
+
+function MoreMenu() {
+  const [open, setOpen] = useState(false);
+  const ref = useDismiss(() => setOpen(false));
+
+  return (
+    <div className="relative" ref={ref}>
+      <button
+        onClick={() => setOpen((v) => !v)}
+        aria-label="Show more"
+        className={`w-10 h-10 rounded-full flex items-center justify-center transition-colors ${
+          open ? "bg-ink/10 text-ink" : "text-ink-soft hover:bg-paper hover:text-ink"
+        }`}
+      >
+        <FiGrid size={18} />
+      </button>
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0, y: -6, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -6, scale: 0.98 }}
+            transition={{ duration: 0.15, ease: EASE_PREMIUM }}
+            className="absolute right-0 mt-2 w-[min(90vw,20rem)] max-h-[75vh] overflow-y-auto bg-white rounded-2xl border border-ink/5 shadow-xl p-3 z-50"
+          >
+            {navGroups.map((group) => (
+              <div key={group.key} className="mb-3 last:mb-0">
+                <p className="px-2 pb-1 text-[10px] font-mono uppercase tracking-widest text-ink-soft/60">
+                  {group.label}
+                </p>
+                <div className="grid grid-cols-2 gap-1">
+                  {group.items.map((item) => {
+                    const Icon = item.icon;
+                    return (
+                      <NavLink
+                        key={item.label}
+                        to={item.to}
+                        onClick={() => setOpen(false)}
+                        className={({ isActive }) =>
+                          `flex items-center gap-2 px-2 py-2 rounded-lg text-xs font-medium transition-colors ${
+                            isActive ? GROUP_STYLES[group.color].lightChip : "text-ink hover:bg-paper"
+                          }`
+                        }
+                      >
+                        <Icon size={13} className="shrink-0" aria-hidden="true" />
+                        <span className="truncate">{item.label}</span>
+                      </NavLink>
+                    );
+                  })}
+                </div>
+              </div>
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
+
+function ProfileMenu({ user, onLogout }) {
+  const [open, setOpen] = useState(false);
+  const ref = useDismiss(() => setOpen(false));
+
+  return (
+    <div className="relative" ref={ref}>
+      <button
+        onClick={() => setOpen((v) => !v)}
+        className="flex items-center gap-1.5 pl-1 pr-2 h-10 rounded-full hover:bg-paper transition-colors"
+      >
+        <span className="w-8 h-8 rounded-full bg-navy text-white text-sm font-semibold flex items-center justify-center">
+          {user?.username?.[0]?.toUpperCase()}
+        </span>
+        <FiChevronDown size={14} className="text-ink-soft hidden sm:block" />
+      </button>
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0, y: -6, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -6, scale: 0.98 }}
+            transition={{ duration: 0.15, ease: EASE_PREMIUM }}
+            className="absolute right-0 mt-2 w-56 bg-white rounded-2xl border border-ink/5 shadow-xl p-1.5 z-50"
+          >
+            <div className="px-3 py-2.5 mb-1 border-b border-ink/5">
+              <p className="text-sm font-semibold text-ink truncate">@{user?.username}</p>
+              <p className="font-mono text-xs text-teal-dark mt-0.5">
+                R{Number(user?.balance || 0).toFixed(2)}
+              </p>
+            </div>
+            {accountNav.map((item) => {
+              const Icon = item.icon;
+              return (
+                <NavLink
+                  key={item.label}
+                  to={item.to}
+                  onClick={() => setOpen(false)}
+                  className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm text-ink hover:bg-paper transition-colors"
+                >
+                  <Icon size={15} className="text-ink-soft" aria-hidden="true" />
+                  {item.label}
+                </NavLink>
+              );
+            })}
+            <button
+              onClick={onLogout}
+              className="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm text-coral-dark hover:bg-coral/10 transition-colors"
+            >
+              <FiLogOut size={15} aria-hidden="true" />
+              Logout
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
+
 export default function DashboardLayout({ title, children }) {
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
   const [mobileOpen, setMobileOpen] = useState(false);
   const isAdmin = user?.role === "admin" || user?.role === "super_admin";
   const isSuperAdmin = user?.role === "super_admin";
+
+  const handleLogout = async () => {
+    await logout();
+    navigate("/login");
+  };
 
   return (
     <div className="h-screen flex bg-paper overflow-hidden">
@@ -152,38 +333,64 @@ export default function DashboardLayout({ title, children }) {
       </div>
 
       {/* Mobile sidebar drawer */}
-      {mobileOpen && (
-        <div className="fixed inset-0 z-50 lg:hidden">
-          <div
-            className="absolute inset-0 bg-black/40"
-            onClick={() => setMobileOpen(false)}
-          />
-          <div className="absolute inset-y-0 left-0">
-            <Sidebar
-              isAdmin={isAdmin}
-              isSuperAdmin={isSuperAdmin}
-              onNavigate={() => setMobileOpen(false)}
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 lg:hidden"
+          >
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="absolute inset-0 bg-black/40"
+              onClick={() => setMobileOpen(false)}
             />
-          </div>
-        </div>
-      )}
+            <motion.div
+              initial={{ x: -280 }}
+              animate={{ x: 0 }}
+              exit={{ x: -280 }}
+              transition={{ duration: 0.2, ease: EASE_PREMIUM }}
+              className="absolute inset-y-0 left-0"
+            >
+              <Sidebar
+                isAdmin={isAdmin}
+                isSuperAdmin={isSuperAdmin}
+                onNavigate={() => setMobileOpen(false)}
+              />
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <div className="flex-1 flex flex-col min-w-0">
-     <header className="h-16 bg-paper border-b border-ink/5 flex items-center justify-between px-5 shrink-0">
-          <div className="flex items-center gap-3">
+        <header className="h-16 bg-white border-b border-ink/5 flex items-center justify-between px-3 sm:px-5 shrink-0 gap-2">
+          <div className="flex items-center gap-3 min-w-0">
             <button
-              className="lg:hidden text-ink-soft p-1"
+              className="lg:hidden text-ink-soft p-1 shrink-0"
               onClick={() => setMobileOpen(true)}
               aria-label="Open menu"
             >
               <FiMenu size={20} />
             </button>
-            <h1 className="font-display font-semibold text-ink hidden sm:block">
+            <Link to="/dashboard" className="flex items-center gap-2 shrink-0">
+              <Mark className="w-6 h-6 text-teal-dark" />
+              <span className="font-display font-semibold text-ink hidden sm:block">ConnectAll</span>
+            </Link>
+            {title && (
+              <span className="hidden sm:block text-ink-soft/40 mx-1">/</span>
+            )}
+            <h1 className="font-display font-semibold text-ink hidden sm:block truncate">
               {title}
             </h1>
           </div>
 
-          <div className="flex items-center gap-4">
+          {/* Facebook-style quick nav: the few things people jump to constantly */}
+          <QuickNav pathname={location.pathname} />
+
+          <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
             {user && !user.is_verified && (
               <Link
                 to="/verify-email"
@@ -192,26 +399,19 @@ export default function DashboardLayout({ title, children }) {
                 Verify email
               </Link>
             )}
-            <Link to="/notifications" className="relative text-ink-soft hover:text-ink">
-              <FiBell size={19} />
+            <MoreMenu />
+            <Link
+              to="/notifications"
+              className="w-10 h-10 rounded-full flex items-center justify-center text-ink-soft hover:bg-paper hover:text-ink transition-colors"
+              aria-label="Notifications"
+            >
+              <FiBell size={18} />
             </Link>
-            {user && (
-              <>
-                <span className="hidden md:inline font-mono text-sm font-semibold text-ink">
-                  R{Number(user.balance || 0).toFixed(2)}
-                </span>
-                <Link
-                  to="/profile"
-                  className="w-8 h-8 rounded-full bg-navy text-white text-sm font-semibold flex items-center justify-center"
-                >
-                  {user.username?.[0]?.toUpperCase()}
-                </Link>
-              </>
-            )}
+            {user && <ProfileMenu user={user} onLogout={handleLogout} />}
           </div>
         </header>
 
-        <main className="flex-1 overflow-y-auto p-6">{children}</main>
+        <main className="flex-1 overflow-y-auto p-4 sm:p-6">{children}</main>
       </div>
     </div>
   );

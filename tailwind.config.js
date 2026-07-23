@@ -19,6 +19,11 @@ export default {
           light: "#F2B85E",
           dark: "#C4841F",
         },
+        coral: {
+          DEFAULT: "#EF6558",
+          light: "#F4897E",
+          dark: "#D14C40",
+        },
         paper: "#F1F4F8",
         ink: "#10192B",
         "ink-soft": "#4A5568",
