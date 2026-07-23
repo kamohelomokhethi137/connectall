@@ -46,9 +46,10 @@ export const navGroups = [
     label: "Connect",
     color: "coral",
     items: [
-      { label: "Chatrooms", to: "/files", icon: FiMessageCircle },
+      { label: "Chatrooms & Messages", to: "/files", icon: FiMessageCircle },
+      { label: "Friends & Requests", to: "/files?tab=friends", icon: FiUsers },
       { label: "Marketplace", to: "/marketplace", icon: FiShoppingBag },
-      { label: "Live", to: "/live", icon: FiRadio },
+      { label: "Live Streams", to: "/live", icon: FiRadio },
       { label: "Bio Page", to: "/bio-editor", icon: FiUser },
     ],
   },

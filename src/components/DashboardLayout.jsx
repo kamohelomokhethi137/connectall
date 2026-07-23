@@ -196,6 +196,8 @@ function QuickNav({ pathname }) {
   );
 }
 
+import { fetchNotifications, fetchUnreadCount } from "../lib/activity";
+
 function MoreMenu() {
   const [open, setOpen] = useState(false);
   const ref = useDismiss(() => setOpen(false));
@@ -213,41 +215,161 @@ function MoreMenu() {
       </button>
       <AnimatePresence>
         {open && (
-          <motion.div
-            initial={{ opacity: 0, y: -6, scale: 0.98 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -6, scale: 0.98 }}
-            transition={{ duration: 0.15, ease: EASE_PREMIUM }}
-            className="absolute right-0 mt-2 w-[min(90vw,20rem)] max-h-[75vh] overflow-y-auto bg-white rounded-2xl border border-ink/5 shadow-xl p-3 z-50"
-          >
-            {navGroups.map((group) => (
-              <div key={group.key} className="mb-3 last:mb-0">
-                <p className="px-2 pb-1 text-[10px] font-mono uppercase tracking-widest text-ink-soft/60">
-                  {group.label}
-                </p>
-                <div className="grid grid-cols-2 gap-1">
-                  {group.items.map((item) => {
-                    const Icon = item.icon;
-                    return (
-                      <NavLink
-                        key={item.label}
-                        to={item.to}
-                        onClick={() => setOpen(false)}
-                        className={({ isActive }) =>
-                          `flex items-center gap-2 px-2 py-2 rounded-lg text-xs font-medium transition-colors ${
-                            isActive ? GROUP_STYLES[group.color].lightChip : "text-ink hover:bg-paper"
-                          }`
-                        }
-                      >
-                        <Icon size={13} className="shrink-0" aria-hidden="true" />
-                        <span className="truncate">{item.label}</span>
-                      </NavLink>
-                    );
-                  })}
+          <>
+            <div className="fixed inset-0 bg-black/20 z-40 sm:hidden" onClick={() => setOpen(false)} />
+            <motion.div
+              initial={{ opacity: 0, y: -6, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -6, scale: 0.98 }}
+              transition={{ duration: 0.15, ease: EASE_PREMIUM }}
+              className="fixed top-16 left-1/2 -translate-x-1/2 w-[calc(100vw-2rem)] max-w-sm sm:absolute sm:top-auto sm:left-auto sm:right-0 sm:translate-x-0 sm:w-80 max-h-[75vh] overflow-y-auto bg-white rounded-2xl border border-ink/5 shadow-2xl p-3.5 z-50"
+            >
+              {navGroups.map((group) => (
+                <div key={group.key} className="mb-3 last:mb-0">
+                  <p className="px-2 pb-1 text-[10px] font-mono uppercase tracking-widest text-ink-soft/60">
+                    {group.label}
+                  </p>
+                  <div className="grid grid-cols-2 gap-1">
+                    {group.items.map((item) => {
+                      const Icon = item.icon;
+                      return (
+                        <NavLink
+                          key={item.label}
+                          to={item.to}
+                          onClick={() => setOpen(false)}
+                          className={({ isActive }) =>
+                            `flex items-center gap-2 px-2 py-2 rounded-lg text-xs font-medium transition-colors ${
+                              isActive ? GROUP_STYLES[group.color].lightChip : "text-ink hover:bg-paper"
+                            }`
+                          }
+                        >
+                          <Icon size={13} className="shrink-0" aria-hidden="true" />
+                          <span className="truncate">{item.label}</span>
+                        </NavLink>
+                      );
+                    })}
+                  </div>
                 </div>
+              ))}
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
+
+function NotificationMenu() {
+  const [open, setOpen] = useState(false);
+  const [unreadCount, setUnreadCount] = useState(0);
+  const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const ref = useDismiss(() => setOpen(false));
+
+  const pollUnread = useCallback(async () => {
+    try {
+      const res = await fetchUnreadCount();
+      setUnreadCount(res.unread_count || 0);
+    } catch (e) {
+      // silent background fail
+    }
+  }, []);
+
+  useEffect(() => {
+    pollUnread();
+    const interval = setInterval(pollUnread, 15000);
+    return () => clearInterval(interval);
+  }, [pollUnread]);
+
+  const toggleMenu = async () => {
+    if (!open) {
+      setLoading(true);
+      setOpen(true);
+      try {
+        const res = await fetchNotifications();
+        setItems(res.notifications || []);
+        setUnreadCount(0);
+      } catch (e) {
+        // silent
+      } finally {
+        setLoading(false);
+      }
+    } else {
+      setOpen(false);
+    }
+  };
+
+  return (
+    <div className="relative" ref={ref}>
+      <button
+        onClick={toggleMenu}
+        aria-label="Notifications"
+        className={`relative w-10 h-10 rounded-full flex items-center justify-center transition-colors ${
+          open ? "bg-ink/10 text-ink" : "text-ink-soft hover:bg-paper hover:text-ink"
+        }`}
+      >
+        <FiBell size={18} />
+        {unreadCount > 0 && (
+          <span className="absolute -top-0.5 -right-0.5 bg-coral text-white text-[10px] font-bold px-1.5 min-w-[18px] h-[18px] rounded-full flex items-center justify-center border-2 border-white shadow-sm animate-pulse">
+            {unreadCount > 99 ? "99+" : unreadCount}
+          </span>
+        )}
+      </button>
+
+      <AnimatePresence>
+        {open && (
+          <>
+            <div className="fixed inset-0 bg-black/20 z-40 sm:hidden" onClick={() => setOpen(false)} />
+            <motion.div
+              initial={{ opacity: 0, y: -6, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -6, scale: 0.98 }}
+              transition={{ duration: 0.15, ease: EASE_PREMIUM }}
+              className="fixed top-16 left-1/2 -translate-x-1/2 w-[calc(100vw-2rem)] max-w-sm sm:absolute sm:top-auto sm:left-auto sm:right-0 sm:translate-x-0 sm:w-80 max-h-[75vh] overflow-y-auto bg-white rounded-2xl border border-ink/5 shadow-2xl z-50 flex flex-col"
+            >
+              <div className="p-3.5 border-b border-ink/5 flex items-center justify-between">
+                <h3 className="font-display font-semibold text-sm text-ink flex items-center gap-2">
+                  <FiBell className="text-teal-dark" size={15} /> Notifications
+                </h3>
+                <Link
+                  to="/notifications"
+                  onClick={() => setOpen(false)}
+                  className="text-xs text-teal-dark font-semibold hover:underline"
+                >
+                  View all
+                </Link>
               </div>
-            ))}
-          </motion.div>
+
+              <div className="divide-y divide-ink/5 max-h-80 overflow-y-auto">
+                {loading ? (
+                  <div className="p-4 space-y-2">
+                    <div className="h-10 bg-paper animate-pulse rounded-lg" />
+                    <div className="h-10 bg-paper animate-pulse rounded-lg" />
+                  </div>
+                ) : items.length === 0 ? (
+                  <div className="p-6 text-center text-xs text-ink-soft">
+                    No new notifications right now.
+                  </div>
+                ) : (
+                  items.slice(0, 5).map((n) => (
+                    <div key={n.id} className="p-3 hover:bg-paper/50 transition-colors">
+                      <p className="text-xs font-semibold text-ink">{n.title}</p>
+                      <p className="text-xs text-ink-soft mt-0.5 line-clamp-2">{n.message}</p>
+                      {n.link && (
+                        <Link
+                          to={n.link}
+                          onClick={() => setOpen(false)}
+                          className="inline-block text-[11px] font-semibold text-teal-dark hover:underline mt-1"
+                        >
+                          Check it out →
+                        </Link>
+                      )}
+                    </div>
+                  ))
+                )}
+              </div>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
     </div>
@@ -400,13 +522,7 @@ export default function DashboardLayout({ title, children }) {
               </Link>
             )}
             <MoreMenu />
-            <Link
-              to="/notifications"
-              className="w-10 h-10 rounded-full flex items-center justify-center text-ink-soft hover:bg-paper hover:text-ink transition-colors"
-              aria-label="Notifications"
-            >
-              <FiBell size={18} />
-            </Link>
+            <NotificationMenu />
             {user && <ProfileMenu user={user} onLogout={handleLogout} />}
           </div>
         </header>

@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback, useRef, useMemo } from "react";
+import { useSearchParams } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import toast from "react-hot-toast";
 import {
@@ -307,6 +308,7 @@ function FindFriendsPanel({ onSent, onViewProfile, onMessage }) {
 
 export default function Chat() {
   const { user } = useAuth();
+  const [searchParams] = useSearchParams();
   const [friends, setFriends] = useState([]);
   const [incoming, setIncoming] = useState([]);
   const [rooms, setRooms] = useState(null);
@@ -367,6 +369,14 @@ export default function Chat() {
       },
     });
   }, [user]);
+
+  useEffect(() => {
+    const roomUuid = searchParams.get("room");
+    if (rooms && roomUuid && (!activeRoom || activeRoom.uuid !== roomUuid)) {
+      const found = rooms.find((r) => r.uuid === roomUuid);
+      if (found) openRoom(found);
+    }
+  }, [rooms, searchParams, activeRoom, openRoom]);
 
   useEffect(() => () => socketRef.current?.close(), []);
 

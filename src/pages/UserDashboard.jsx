@@ -1,11 +1,13 @@
 import { useState, useEffect, useCallback, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { LazyMotion, domAnimation, m, useReducedMotion } from "framer-motion";
-import { FiCreditCard, FiLink2, FiMousePointer, FiBell, FiCheckSquare, FiAward, FiArrowRight } from "react-icons/fi";
+import { FiCreditCard, FiLink2, FiMousePointer, FiBell, FiCheckSquare, FiAward, FiArrowRight, FiMessageCircle, FiUsers, FiPlus } from "react-icons/fi";
+import toast from "react-hot-toast";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from "recharts";
 import DashboardLayout from "../components/DashboardLayout";
 import { useAuth } from "../lib/AuthContext";
 import { fetchUserDashboard } from "../lib/dashboard";
+import { listRooms, listFriends, respondFriendRequest } from "../lib/chat";
 import AdBanner from "../components/AdBanner";
 import NativeAd from "../components/NativeAd";
 import { fadeUp, staggerContainer, noMotion, tapScale } from "../lib/motionVariants";
@@ -25,6 +27,144 @@ function greeting() {
   if (hour < 12) return "Good morning";
   if (hour < 18) return "Good afternoon";
   return "Good evening";
+}
+
+function DashboardChatWidget({ nm, shouldReduceMotion }) {
+  const [rooms, setRooms] = useState(null);
+  const [incoming, setIncoming] = useState([]);
+
+  useEffect(() => {
+    let active = true;
+    Promise.all([listRooms(), listFriends()])
+      .then(([roomsRes, friendsRes]) => {
+        if (active) {
+          setRooms(roomsRes.rooms || []);
+          setIncoming(friendsRes.incoming_requests || []);
+        }
+      })
+      .catch(() => {});
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  const handleRespond = async (id, action) => {
+    try {
+      await respondFriendRequest(id, action);
+      setIncoming((prev) => prev.filter((r) => r.id !== id));
+      toast.success(action === "accept" ? "Friend request accepted!" : "Request declined.");
+    } catch (e) {
+      toast.error(e.message || "Failed to respond");
+    }
+  };
+
+  return (
+    <m.div variants={nm(fadeUp)} className="bg-white rounded-2xl border border-ink/5 p-5 mt-4">
+      <div className="flex items-center justify-between mb-4">
+        <div className="flex items-center gap-2">
+          <span className="relative flex h-3 w-3">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-3 w-3 bg-teal"></span>
+          </span>
+          <h2 className="font-display font-semibold text-ink flex items-center gap-2 text-base">
+            <FiMessageCircle className="text-teal-dark" size={18} /> Chatrooms & Community Hub
+          </h2>
+        </div>
+        <Link
+          to="/files"
+          className="text-xs font-semibold text-teal-dark hover:underline flex items-center gap-1 bg-teal/10 px-3 py-1.5 rounded-lg transition-colors"
+        >
+          Open Chatrooms <FiArrowRight size={13} />
+        </Link>
+      </div>
+
+      {incoming.length > 0 && (
+        <div className="mb-4 bg-paper rounded-xl p-3 border border-ink/5">
+          <p className="text-xs font-semibold text-ink mb-2 flex items-center gap-1.5">
+            <FiUsers className="text-teal-dark" size={14} /> Friend Requests ({incoming.length})
+          </p>
+          <div className="space-y-2">
+            {incoming.map((r) => (
+              <div key={r.id} className="flex items-center justify-between bg-white rounded-lg p-2 text-xs">
+                <span className="font-medium text-ink truncate">@{r.from.username}</span>
+                <div className="flex items-center gap-1.5">
+                  <button
+                    onClick={() => handleRespond(r.id, "accept")}
+                    className="px-2.5 py-1 rounded bg-teal text-navy font-semibold hover:bg-teal-light transition-colors"
+                  >
+                    Accept
+                  </button>
+                  <button
+                    onClick={() => handleRespond(r.id, "decline")}
+                    className="px-2 py-1 rounded bg-paper text-ink-soft hover:bg-ink/10 transition-colors"
+                  >
+                    Decline
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {rooms === null ? (
+        <div className="grid sm:grid-cols-2 gap-3">
+          <div className="h-16 bg-paper animate-pulse rounded-xl" />
+          <div className="h-16 bg-paper animate-pulse rounded-xl" />
+        </div>
+      ) : rooms.length === 0 ? (
+        <div className="p-6 text-center bg-paper/50 rounded-xl border border-dashed border-ink/10">
+          <FiMessageCircle size={24} className="mx-auto text-ink-soft/40 mb-2" />
+          <p className="text-sm font-medium text-ink">No active conversations yet</p>
+          <p className="text-xs text-ink-soft mt-0.5">Start chatting or create a group room with your friends!</p>
+          <Link
+            to="/files"
+            className="inline-flex items-center gap-1.5 mt-3 text-xs font-semibold bg-teal text-navy px-3.5 py-2 rounded-lg hover:bg-teal-light transition-colors"
+          >
+            Start a Conversation <FiPlus size={13} />
+          </Link>
+        </div>
+      ) : (
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+          {rooms.slice(0, 6).map((room) => {
+            const title = room.type === "GROUP" ? room.name : room.other_member?.username || "Direct Chat";
+            return (
+              <m.div
+                key={room.uuid}
+                whileHover={shouldReduceMotion ? undefined : { y: -2 }}
+                className="group relative bg-paper hover:bg-teal/5 border border-ink/5 hover:border-teal/30 rounded-xl p-3.5 transition-all flex flex-col justify-between"
+              >
+                <div className="flex items-start gap-3">
+                  <div className="w-9 h-9 rounded-full bg-navy text-white text-xs font-semibold flex items-center justify-center shrink-0">
+                    {title[0]?.toUpperCase()}
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <p className="text-xs font-semibold text-ink truncate group-hover:text-teal-dark transition-colors">
+                      {title}
+                    </p>
+                    <p className="text-[11px] text-ink-soft truncate mt-0.5">
+                      {room.last_message ? room.last_message.body : "No messages yet"}
+                    </p>
+                  </div>
+                </div>
+                <div className="mt-3 pt-2 border-t border-ink/5 flex items-center justify-between">
+                  <span className="text-[10px] font-mono text-ink-soft uppercase tracking-wider">
+                    {room.type === "GROUP" ? "Group Room" : "Direct Chat"}
+                  </span>
+                  <Link
+                    to={`/files?room=${room.uuid}`}
+                    className="text-xs font-semibold text-teal-dark group-hover:underline flex items-center gap-1"
+                  >
+                    Chat <FiArrowRight size={11} />
+                  </Link>
+                </div>
+              </m.div>
+            );
+          })}
+        </div>
+      )}
+    </m.div>
+  );
 }
 
 export default function UserDashboard() {
@@ -139,6 +279,9 @@ export default function UserDashboard() {
               );
             })}
           </m.div>
+
+          {/* Chatrooms & Community Hub Widget */}
+          <DashboardChatWidget nm={nm} shouldReduceMotion={shouldReduceMotion} />
 
           <div className="grid lg:grid-cols-3 gap-4 mt-4">
             {/* Earnings chart */}
