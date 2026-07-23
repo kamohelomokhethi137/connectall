@@ -2,7 +2,8 @@ import { apiFetch, API_BASE_URL } from "./api";
 
 // --- Friends -----------------------------------------------------------
 
-export const searchUser = (q) => apiFetch(`/api/chat/search?q=${encodeURIComponent(q)}`);
+export const discoverUsers = (q) => apiFetch(`/api/chat/discover${q ? `?q=${encodeURIComponent(q)}` : ""}`);
+export const getUserProfile = (targetUuid) => apiFetch(`/api/chat/users/${targetUuid}/profile`);
 export const listFriends = () => apiFetch("/api/chat/friends");
 export const sendFriendRequest = (targetUuid) =>
   apiFetch("/api/chat/friends/request", { method: "POST", body: { target_uuid: targetUuid } });
