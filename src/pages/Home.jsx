@@ -109,7 +109,7 @@ export default function Home() {
                     { text: "ConnectAll Technologies brings " },
                     { text: "Smart links", highlight: true },
                     { text: ", " },
-                    { text: "Mobile payments", highlight: true },
+                    { text: "Mobile Payments", highlight: true },
                     { text: ", " },
                     { text: "Chatting", highlight: true },
                     { text: ", and " },
