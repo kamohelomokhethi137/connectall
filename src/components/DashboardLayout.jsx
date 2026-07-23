@@ -380,7 +380,7 @@ function BottomNav({ pathname }) {
   items.sort((a, b) => quickNavKeys.indexOf(a.to) - quickNavKeys.indexOf(b.to));
 
   return (
-    <nav className="h-16 bg-white border-t border-ink/5 flex items-center justify-around px-2 shrink-0 z-30 shadow-lg">
+    <nav className="h-16 bg-white border-t border-ink/5 flex items-center justify-around px-2 shrink-0 z-30 shadow-lg sm:hidden">
       {items.map((item) => {
         const Icon = item.icon;
         const isActive = pathname === item.to;
@@ -458,7 +458,7 @@ export default function DashboardLayout({ title, children }) {
 
       <div className="flex-1 flex flex-col min-w-0">
         <header className="relative h-16 bg-white border-b border-ink/5 flex items-center justify-between px-3 sm:px-5 shrink-0 z-20">
-          {/* Left: Menu button */}
+          {/* Left: Menu button & Desktop QuickNav */}
           <div className="flex items-center gap-3">
             <button
               className="lg:hidden text-ink-soft p-1.5 rounded-lg hover:bg-paper shrink-0 transition-colors"
@@ -467,6 +467,9 @@ export default function DashboardLayout({ title, children }) {
             >
               <FiMenu size={22} />
             </button>
+            <div className="hidden sm:flex">
+              <QuickNav pathname={location.pathname} />
+            </div>
           </div>
 
           {/* Center: ConnectAll logo */}
