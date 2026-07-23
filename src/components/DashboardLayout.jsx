@@ -380,7 +380,7 @@ function BottomNav({ pathname }) {
   items.sort((a, b) => quickNavKeys.indexOf(a.to) - quickNavKeys.indexOf(b.to));
 
   return (
-    <nav className="h-16 bg-white border-t border-ink/5 flex items-center justify-around px-2 shrink-0 z-30 shadow-lg sm:hidden">
+    <nav className="h-14 bg-white border-t border-ink/5 flex items-center justify-around px-4 shrink-0 z-30 shadow-lg sm:hidden">
       {items.map((item) => {
         const Icon = item.icon;
         const isActive = pathname === item.to;
@@ -388,14 +388,14 @@ function BottomNav({ pathname }) {
           <Link
             key={item.to}
             to={item.to}
-            className={`flex flex-col items-center justify-center w-16 h-12 rounded-xl transition-all ${
+            title={item.label}
+            className={`flex items-center justify-center w-12 h-10 rounded-xl transition-all ${
               isActive
-                ? "text-teal-dark bg-teal/10 font-semibold"
+                ? "text-teal-dark bg-teal/15 font-semibold shadow-sm"
                 : "text-ink-soft hover:text-ink hover:bg-paper"
             }`}
           >
-            <Icon size={20} />
-            <span className="text-[10px] mt-0.5 font-medium truncate">{item.label}</span>
+            <Icon size={21} />
           </Link>
         );
       })}
