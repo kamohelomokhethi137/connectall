@@ -6,19 +6,19 @@ export default {
     extend: {
       colors: {
         navy: {
-          DEFAULT: "#0B1D3A",
-          light: "#122A52",
-          dark: "#071429",
+          DEFAULT: "#121212",
+          light: "#1A1A1A",
+          dark: "#09090B",
         },
         teal: {
-          DEFAULT: "#17A398",
-          light: "#1FBFB1",
-          dark: "#0E7E75",
+          DEFAULT: "#10B981",
+          light: "#34D399",
+          dark: "#059669",
         },
         gold: {
-          DEFAULT: "#E8A33D",
-          light: "#F2B85E",
-          dark: "#C4841F",
+          DEFAULT: "#F59E0B",
+          light: "#FBBF24",
+          dark: "#D97706",
         },
         coral: {
           DEFAULT: "#EF6558",

@@ -27,7 +27,7 @@ export default function Navbar() {
         scrolled ? "shadow-lg shadow-navy-dark/20" : ""
       }`}
       style={{
-        background: "rgba(11, 29, 58, 0.72)",
+        background: "rgba(18, 18, 18, 0.85)",
         backdropFilter: "blur(14px)",
         WebkitBackdropFilter: "blur(14px)",
         borderBottom: "1px solid rgba(255,255,255,0.08)",

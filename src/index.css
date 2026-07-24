@@ -5,17 +5,17 @@
 @tailwind utilities;
 
 :root {
-  --paper: 241 244 248;
-  --ink: 16 25 43;
-  --ink-soft: 74 85 104;
+  --paper: 250 250 250;
+  --ink: 9 9 11;
+  --ink-soft: 113 113 122;
   --surface: 255 255 255;
 }
 
 .dark {
-  --paper: 15 23 42;
-  --ink: 241 245 249;
-  --ink-soft: 148 163 184;
-  --surface: 30 41 59;
+  --paper: 9 9 11;
+  --ink: 250 250 250;
+  --ink-soft: 161 161 170;
+  --surface: 24 24 27;
 }
 
 html {

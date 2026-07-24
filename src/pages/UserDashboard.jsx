@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { LazyMotion, domAnimation, m, useReducedMotion } from "framer-motion";
 import {
   FiDollarSign, FiLink2, FiMousePointer, FiMessageCircle, FiUsers, FiPlus,
-  FiArrowRight, FiCheckSquare, FiAward, FiTrendingUp, FiRadio, FiCreditCard,
+  FiArrowRight, FiCheckSquare, FiAward, FiTrendingUp, FiRadio, FiStar,
 } from "react-icons/fi";
 import toast from "react-hot-toast";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from "recharts";
@@ -25,37 +25,36 @@ function greeting() {
 
 function StatCard({ icon: Icon, label, value, to, color }) {
   return (
-    <Link
-      to={to}
-      className="group flex items-center gap-3.5 bg-surface rounded-xl border border-ink/5 p-4 hover:border-teal/30 hover:shadow-sm transition-all"
+    <m.div
+      whileHover={tapScale.whileHover}
+      whileTap={tapScale.whileTap}
+      transition={tapScale.transition}
     >
-      <span className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${color}`}>
-        <Icon size={18} className="text-white" />
-      </span>
-      <div className="min-w-0 flex-1">
-        <p className="font-display font-semibold text-lg text-ink group-hover:text-teal-dark transition-colors">
-          {value}
-        </p>
-        <p className="text-xs text-ink-soft">{label}</p>
-      </div>
-      <FiArrowRight size={15} className="text-ink-soft/40 group-hover:text-teal-dark transition-colors shrink-0" />
-    </Link>
+      <Link
+        to={to}
+        className="group flex items-center gap-3.5 bg-surface rounded-xl border border-[#27272A] p-4 hover:border-teal/50 transition-all"
+      >
+        <span className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${color}`}>
+          <Icon size={18} className="text-white" />
+        </span>
+        <div className="min-w-0 flex-1">
+          <p className="font-display font-semibold text-lg text-ink group-hover:text-teal-dark transition-colors">
+            {value}
+          </p>
+          <p className="text-xs text-ink-soft">{label}</p>
+        </div>
+        <FiArrowRight size={15} className="text-ink-soft/40 group-hover:text-teal-dark transition-colors shrink-0" />
+      </Link>
+    </m.div>
   );
 }
 
 function EarningHero({ balance, linksCount, totalClicks }) {
   return (
-    <div className="relative overflow-hidden bg-gradient-to-br from-teal via-teal-dark to-navy rounded-2xl p-6 sm:p-8 text-white">
-      <div
-        className="absolute inset-0 opacity-[0.06]"
-        style={{
-          backgroundImage: "radial-gradient(circle at 1px 1px, white 1px, transparent 0)",
-          backgroundSize: "28px 28px",
-        }}
-      />
+    <div className="relative overflow-hidden bg-teal-dark rounded-2xl p-6 sm:p-8 text-white">
       <div className="relative">
         <div className="flex items-center gap-2 mb-1">
-          <span className="w-2 h-2 rounded-full bg-gold animate-pulse" />
+          <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
           <span className="text-[11px] font-mono uppercase tracking-widest text-white/60">Earning dashboard</span>
         </div>
         <h2 className="font-display font-semibold text-2xl sm:text-3xl mt-2 leading-tight">
@@ -89,7 +88,7 @@ function EarningHero({ balance, linksCount, totalClicks }) {
           </Link>
           <Link
             to="/wallet"
-            className="inline-flex items-center gap-1.5 bg-white/15 text-white font-medium text-sm px-5 py-2.5 rounded-lg hover:bg-white/20 transition-colors backdrop-blur-sm"
+            className="inline-flex items-center gap-1.5 bg-white/15 text-white font-medium text-sm px-5 py-2.5 rounded-lg hover:bg-white/25 transition-colors"
           >
             Withdraw <FiArrowRight size={14} />
           </Link>
@@ -140,9 +139,9 @@ function DashboardChatWidget({ nm, shouldReduceMotion }) {
         </Link>
       </div>
 
-      <div className="bg-surface rounded-2xl border border-ink/5 overflow-hidden">
+      <div className="bg-surface rounded-2xl border border-[#27272A] overflow-hidden">
         {incoming.length > 0 && (
-          <div className="bg-paper border-b border-ink/5 px-5 py-3">
+          <div className="bg-paper border-b border-[#27272A] px-5 py-3">
             <p className="text-xs font-semibold text-ink flex items-center gap-1.5">
               <FiUsers className="text-teal-dark" size={14} /> Friend Requests ({incoming.length})
             </p>
@@ -151,7 +150,7 @@ function DashboardChatWidget({ nm, shouldReduceMotion }) {
                 <div key={r.id} className="flex items-center justify-between bg-surface rounded-lg p-2.5 text-xs">
                   <span className="font-medium text-ink truncate">@{r.from.username}</span>
                   <div className="flex items-center gap-1.5 shrink-0">
-                    <button onClick={() => handleRespond(r.id, "accept")} className="px-2.5 py-1 rounded bg-teal text-navy font-semibold hover:bg-teal-light transition-colors">Accept</button>
+                    <button onClick={() => handleRespond(r.id, "accept")} className="px-2.5 py-1 rounded bg-teal text-white font-semibold hover:bg-teal-light transition-colors">Accept</button>
                     <button onClick={() => handleRespond(r.id, "decline")} className="px-2 py-1 rounded bg-paper text-ink-soft hover:bg-ink/10 transition-colors">Decline</button>
                   </div>
                 </div>
@@ -170,12 +169,12 @@ function DashboardChatWidget({ nm, shouldReduceMotion }) {
             <FiMessageCircle size={32} className="mx-auto text-ink-soft/30 mb-2" />
             <p className="text-sm font-medium text-ink">No active conversations yet</p>
             <p className="text-xs text-ink-soft mt-0.5">Start chatting or create a group room with your friends!</p>
-            <Link to="/files" className="inline-flex items-center gap-1.5 mt-3 text-xs font-semibold bg-teal text-navy px-3.5 py-2 rounded-lg hover:bg-teal-light transition-colors">
+            <Link to="/files" className="inline-flex items-center gap-1.5 mt-3 text-xs font-semibold bg-teal text-white px-3.5 py-2 rounded-lg hover:bg-teal-light transition-colors">
               Start a Conversation <FiPlus size={13} />
             </Link>
           </div>
         ) : (
-          <div className="divide-y divide-ink/5">
+          <div className="divide-y divide-[#27272A]">
             {rooms.slice(0, 4).map((room) => {
               const title = room.type === "GROUP" ? room.name : room.other_member?.username || "Direct Chat";
               return (
@@ -184,7 +183,7 @@ function DashboardChatWidget({ nm, shouldReduceMotion }) {
                   to={`/files?room=${room.uuid}`}
                   className="flex items-center gap-3.5 px-5 py-3.5 hover:bg-paper/60 transition-colors group"
                 >
-                  <div className="w-10 h-10 rounded-full bg-navy text-white text-sm font-semibold flex items-center justify-center shrink-0">
+                  <div className="w-10 h-10 rounded-full bg-navy-dark text-white text-sm font-semibold flex items-center justify-center shrink-0">
                     {title[0]?.toUpperCase()}
                   </div>
                   <div className="min-w-0 flex-1">
@@ -256,10 +255,10 @@ export default function UserDashboard() {
     return (
       <DashboardLayout title="Dashboard">
         <div className="h-8 w-56 rounded-lg bg-white/60 animate-pulse mb-6" />
-        <div className="h-40 rounded-2xl bg-surface border border-ink/5 animate-pulse mb-4" />
+        <div className="h-40 rounded-2xl bg-surface border border-[#27272A] animate-pulse mb-4" />
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {Array.from({ length: 4 }).map((_, i) => (
-            <div key={i} className="h-20 rounded-xl bg-surface border border-ink/5 animate-pulse" />
+            <div key={i} className="h-20 rounded-xl bg-surface border border-[#27272A] animate-pulse" />
           ))}
         </div>
       </DashboardLayout>
@@ -285,7 +284,7 @@ export default function UserDashboard() {
             <p className="text-ink-soft text-sm mt-0.5">Here's what's happening with your account today.</p>
           </m.div>
 
-          {/* Hero Earning Section */}
+          {/* Hero Earning Section - solid color, no gradient */}
           <m.div variants={nm(fadeUp)} className="mb-5">
             <EarningHero
               balance={`R${Number(data.balance).toFixed(2)}`}
@@ -294,7 +293,7 @@ export default function UserDashboard() {
             />
           </m.div>
 
-          {/* Quick Stats Row - clickable cards */}
+          {/* Quick Stats Row - clickable cards with hover/tap animations */}
           <m.div
             className="grid grid-cols-2 lg:grid-cols-4 gap-3"
             variants={nm(staggerContainer(0.06))}
@@ -307,7 +306,7 @@ export default function UserDashboard() {
           </m.div>
 
           {/* Ad Banner */}
-          <m.div variants={nm(fadeUp)} className="my-5 bg-surface rounded-2xl border border-ink/5 p-4 touch-pan-y">
+          <m.div variants={nm(fadeUp)} className="my-5 bg-surface rounded-2xl border border-[#27272A] p-4 touch-pan-y">
             <div className="flex justify-center" style={{ pointerEvents: "none" }}>
               <div style={{ pointerEvents: "auto" }}>
                 <AdBanner />
@@ -322,7 +321,7 @@ export default function UserDashboard() {
 
           {/* Earnings Chart + Top Links */}
           <div className="grid lg:grid-cols-3 gap-4 mb-5">
-            <m.div variants={nm(fadeUp)} className="lg:col-span-2 bg-surface rounded-2xl border border-ink/5 p-5">
+            <m.div variants={nm(fadeUp)} className="lg:col-span-2 bg-surface rounded-2xl border border-[#27272A] p-5">
               <h2 className="font-display font-semibold text-ink mb-4 flex items-center gap-2">
                 <FiTrendingUp className="text-teal-dark" size={18} /> Earnings — Last 7 Days
               </h2>
@@ -331,20 +330,20 @@ export default function UserDashboard() {
               ) : (
                 <ResponsiveContainer width="100%" height={220}>
                   <LineChart data={chartData}>
-                    <CartesianGrid strokeDasharray="3 3" stroke={isDark ? "#334155" : "#10192B10"} />
-                    <XAxis dataKey="day" tick={{ fontSize: 12, fill: isDark ? "#94A3B8" : "#4A5568" }} />
-                    <YAxis tick={{ fontSize: 12, fill: isDark ? "#94A3B8" : "#4A5568" }} />
+                    <CartesianGrid strokeDasharray="3 3" stroke={isDark ? "#27272A" : "#E4E4E7"} />
+                    <XAxis dataKey="day" tick={{ fontSize: 12, fill: isDark ? "#A1A1AA" : "#71717A" }} />
+                    <YAxis tick={{ fontSize: 12, fill: isDark ? "#A1A1AA" : "#71717A" }} />
                     <Tooltip
                       formatter={(v) => [`R${v}`, "Earnings"]}
-                      contentStyle={{ borderRadius: 8, fontSize: 13, background: isDark ? "#1E293B" : "#fff", border: isDark ? "1px solid #334155" : "1px solid #e2e8f0", color: isDark ? "#F1F5F9" : "#10192B" }}
+                      contentStyle={{ borderRadius: 8, fontSize: 13, background: isDark ? "#18181B" : "#fff", border: isDark ? "1px solid #27272A" : "1px solid #E4E4E7", color: isDark ? "#FAFAFA" : "#09090B" }}
                     />
-                    <Line type="monotone" dataKey="earnings" stroke="#17A398" strokeWidth={2.5} dot={{ r: 4, fill: "#17A398" }} />
+                    <Line type="monotone" dataKey="earnings" stroke="#10B981" strokeWidth={2.5} dot={{ r: 4, fill: "#10B981" }} />
                   </LineChart>
                 </ResponsiveContainer>
               )}
             </m.div>
 
-            <m.div variants={nm(fadeUp)} className="bg-surface rounded-2xl border border-ink/5 p-5">
+            <m.div variants={nm(fadeUp)} className="bg-surface rounded-2xl border border-[#27272A] p-5">
               <h2 className="font-display font-semibold text-ink mb-4 flex items-center gap-2">
                 <FiLink2 className="text-teal-dark" size={18} /> Top Links
                 <Link to="/links" className="ml-auto text-xs font-semibold text-teal-dark hover:underline">View all</Link>
@@ -355,7 +354,7 @@ export default function UserDashboard() {
                   <Link to="/links" className="text-teal-dark font-semibold hover:underline">Create your first one</Link>.
                 </p>
               ) : (
-                <ul className="divide-y divide-ink/5">
+                <ul className="divide-y divide-[#27272A]">
                   {data.top_links.slice(0, 5).map((link) => (
                     <li key={link.id}>
                       <Link to="/links" className="flex items-center justify-between py-2.5 hover:bg-paper/50 -mx-2 px-2 rounded-lg transition-colors">
@@ -379,36 +378,46 @@ export default function UserDashboard() {
             </div>
           </m.div>
 
-          {/* Action Cards */}
+          {/* Action Cards - solid colors, no gradients */}
           <m.div className="grid lg:grid-cols-2 gap-4" variants={nm(staggerContainer(0.08))}>
-            <m.div variants={nm(fadeUp)} className="bg-gradient-to-br from-teal to-teal-dark rounded-2xl p-6 text-white">
-              <h3 className="font-display font-semibold flex items-center gap-2 mb-2">
-                <FiCheckSquare /> Daily Tasks
-              </h3>
-              <p className="text-sm text-white/80 mb-4">
-                Earn points and tokens by logging in, creating links, watching live streams, and more.
-              </p>
-              <m.div className="inline-block" whileHover={shouldReduceMotion ? undefined : tapScale.whileHover} whileTap={shouldReduceMotion ? undefined : tapScale.whileTap} transition={tapScale.transition}>
-                <Link to="/tasks" className="inline-flex items-center gap-1.5 bg-white text-teal-dark font-semibold text-sm px-4 py-2 rounded-lg hover:bg-white/90 transition-colors">
+            <m.div
+              variants={nm(fadeUp)}
+              whileHover={tapScale.whileHover}
+              whileTap={tapScale.whileTap}
+              transition={tapScale.transition}
+            >
+              <Link to="/tasks" className="block bg-teal rounded-2xl p-6 text-white hover:bg-teal-light transition-colors">
+                <h3 className="font-display font-semibold flex items-center gap-2 mb-2">
+                  <FiCheckSquare /> Daily Tasks
+                </h3>
+                <p className="text-sm text-white/80 mb-4">
+                  Earn points and tokens by logging in, creating links, watching live streams, and more.
+                </p>
+                <span className="inline-flex items-center gap-1.5 bg-white text-teal-dark font-semibold text-sm px-4 py-2 rounded-lg">
                   View Tasks <FiArrowRight size={14} />
-                </Link>
-              </m.div>
+                </span>
+              </Link>
             </m.div>
 
-            <m.div variants={nm(fadeUp)} className="bg-gradient-to-br from-gold to-gold-dark rounded-2xl p-6 text-navy">
-              <h3 className="font-display font-semibold flex items-center gap-2 mb-2">
-                <FiAward /> {data.is_premium_active ? "Premium Active" : "Go Premium"}
-              </h3>
-              <p className="text-sm text-navy/80 mb-4">
-                {data.is_premium_active
-                  ? "Enjoy unlimited links and priority placement."
-                  : "Buy tokens and subscribe to unlock unlimited smart links and more."}
-              </p>
-              <m.div className="inline-block" whileHover={shouldReduceMotion ? undefined : tapScale.whileHover} whileTap={shouldReduceMotion ? undefined : tapScale.whileTap} transition={tapScale.transition}>
-                <Link to="/upgrade" className="inline-flex items-center gap-1.5 bg-navy text-white font-semibold text-sm px-4 py-2 rounded-lg hover:bg-navy-dark transition-colors">
+            <m.div
+              variants={nm(fadeUp)}
+              whileHover={tapScale.whileHover}
+              whileTap={tapScale.whileTap}
+              transition={tapScale.transition}
+            >
+              <Link to="/upgrade" className="block bg-gold rounded-2xl p-6 text-navy-dark hover:bg-gold-light transition-colors">
+                <h3 className="font-display font-semibold flex items-center gap-2 mb-2">
+                  <FiAward /> {data.is_premium_active ? "Premium Active" : "Go Premium"}
+                </h3>
+                <p className="text-sm text-navy-dark/80 mb-4">
+                  {data.is_premium_active
+                    ? "Enjoy unlimited links and priority placement."
+                    : "Buy tokens and subscribe to unlock unlimited smart links and more."}
+                </p>
+                <span className="inline-flex items-center gap-1.5 bg-navy-dark text-white font-semibold text-sm px-4 py-2 rounded-lg">
                   {data.is_premium_active ? "Manage Plan" : "Upgrade Now"} <FiArrowRight size={14} />
-                </Link>
-              </m.div>
+                </span>
+              </Link>
             </m.div>
           </m.div>
         </m.div>

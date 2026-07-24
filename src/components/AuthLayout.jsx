@@ -18,7 +18,7 @@ export default function AuthLayout({ title, subtitle, children, footer }) {
 
       <div className="relative min-h-screen flex flex-col items-center justify-center px-6 pt-28 pb-16">
         <Link to="/" className="flex items-center gap-2 mb-8">
-          <Mark className="w-8 h-8 text-navy dark:text-teal-light" />
+          <Mark className="w-8 h-8 text-teal-dark" />
           <span className="font-display font-semibold text-xl text-ink">
             ConnectAll
           </span>

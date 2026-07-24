@@ -25,15 +25,15 @@ const GROUP_STYLES = {
     quickActive: "text-ink border-ink",
   },
   teal: {
-    sidebarChip: "bg-teal/15 text-teal-light",
-    sidebarActive: "bg-teal/15 text-teal-light",
+    sidebarChip: "bg-teal/20 text-teal-light",
+    sidebarActive: "bg-teal/20 text-teal-light",
     eyebrow: "text-teal-light/70",
-    lightChip: "bg-teal/10 text-teal-dark",
+    lightChip: "bg-teal/12 text-teal-dark",
     quickActive: "text-teal-dark border-teal-dark",
   },
   gold: {
-    sidebarChip: "bg-gold/15 text-gold-light",
-    sidebarActive: "bg-gold/15 text-gold-light",
+    sidebarChip: "bg-gold/20 text-gold-light",
+    sidebarActive: "bg-gold/20 text-gold-light",
     eyebrow: "text-gold-light/70",
     lightChip: "bg-gold/15 text-gold-dark",
     quickActive: "text-gold-dark border-gold-dark",
@@ -99,7 +99,7 @@ function Sidebar({ isAdmin, isSuperAdmin, onNavigate }) {
   };
 
   return (
-    <aside className="w-64 bg-navy shrink-0 h-full overflow-y-auto flex flex-col">
+    <aside className="w-64 bg-navy-dark shrink-0 h-full overflow-y-auto flex flex-col">
       <div className="px-5 py-5 flex items-center gap-2">
         <Mark className="w-6 h-6 text-teal-light" />
         <span className="font-display font-semibold text-white">ConnectAll</span>
@@ -472,9 +472,9 @@ export default function DashboardLayout({ title, children }) {
       </AnimatePresence>
 
       <div className="flex-1 flex flex-col min-w-0">
-        <header className="relative h-16 bg-surface border-b border-ink/5 flex items-center justify-between px-3 sm:px-5 shrink-0 z-20">
-          {/* Left: Menu button & Desktop QuickNav */}
-          <div className="flex items-center gap-3">
+        <header className="relative h-16 bg-surface border-b border-ink/5 flex items-center justify-between px-2 sm:px-5 shrink-0 z-20 gap-2">
+          {/* Left: Menu button */}
+          <div className="flex items-center gap-1">
             <button
               className="lg:hidden text-ink-soft p-1.5 rounded-lg hover:bg-paper shrink-0 transition-colors"
               onClick={() => setMobileOpen(true)}
@@ -485,10 +485,17 @@ export default function DashboardLayout({ title, children }) {
             <div className="hidden sm:flex">
               <QuickNav pathname={location.pathname} />
             </div>
+            {/* Logo on mobile only (left side) */}
+            <Link to="/dashboard" className="flex items-center gap-1.5 lg:hidden">
+              <Mark className="w-6 h-6 text-teal-dark shrink-0" />
+              <span className="font-display font-semibold text-base text-ink tracking-tight truncate max-w-[100px]">
+                ConnectAll
+              </span>
+            </Link>
           </div>
 
-          {/* Center: ConnectAll logo */}
-          <div className="absolute left-1/2 -translate-x-1/2 flex items-center">
+          {/* Center: ConnectAll logo (desktop only) */}
+          <div className="hidden lg:flex absolute left-1/2 -translate-x-1/2 items-center">
             <Link to="/dashboard" className="flex items-center gap-2">
               <Mark className="w-7 h-7 text-teal-dark" />
               <span className="font-display font-semibold text-lg text-ink tracking-tight">
@@ -498,7 +505,7 @@ export default function DashboardLayout({ title, children }) {
           </div>
 
           {/* Right: Notifications & Profile */}
-          <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+          <div className="flex items-center gap-1 sm:gap-2 shrink-0">
             <ThemeToggle />
             {user && !user.is_verified && (
               <Link
