@@ -1,4 +1,5 @@
 import { useState, useCallback, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { fetchFeed } from "../lib/posts";
 import PostComposer from "../components/PostComposer";
 import PostCard from "../components/PostCard";
@@ -8,11 +9,11 @@ import { useAuth } from "../lib/AuthContext";
 
 export default function Feed() {
   const { user } = useAuth();
+  const navigate = useNavigate();
   const [posts, setPosts] = useState(null);
   const [page, setPage] = useState(1);
   const [hasNext, setHasNext] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [showSidebar, setShowSidebar] = useState(true);
 
   const loadFeed = useCallback(async (pageNum = 1) => {
     setLoading(true);
@@ -91,19 +92,15 @@ export default function Feed() {
         </div>
       </div>
 
-      {/* Chat sidebar - visible on desktop */}
-      <div
-        className={`hidden lg:flex flex-col border-l border-ink/5 ${
-          showSidebar ? "w-80" : "w-0 overflow-hidden"
-        } transition-all`}
-      >
+      {/* Chat sidebar - desktop only */}
+      <div className="hidden lg:flex flex-col border-l border-ink/5 w-80">
         <ChatSidebar />
       </div>
 
-      {/* Mobile chat toggle button */}
+      {/* Mobile chat button - opens full chat page */}
       <button
-        onClick={() => setShowSidebar((v) => !v)}
-        className="lg:hidden fixed bottom-20 right-4 z-40 w-12 h-12 rounded-full bg-teal text-navy shadow-lg flex items-center justify-center"
+        onClick={() => navigate("/files")}
+        className="lg:hidden fixed bottom-24 right-4 z-40 w-12 h-12 rounded-full bg-teal text-navy shadow-lg flex items-center justify-center"
       >
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
           <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />

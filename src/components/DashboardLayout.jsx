@@ -524,7 +524,7 @@ export default function DashboardLayout({ title, children, noSidebar = false, no
           </div>
         </header>
 
-        <main className={`flex-1 min-h-0 overflow-hidden ${noPadding ? "" : "p-4 sm:p-6 pb-16"}`}>{children}</main>
+        <main className={`flex-1 min-h-0 ${noPadding ? "overflow-hidden" : "overflow-y-auto p-4 sm:p-6 pb-16"}`}>{children}</main>
 
         {/* Bottom Navigation - fixed to viewport on mobile */}
         <BottomNav pathname={location.pathname} />
