@@ -2,10 +2,11 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import { NavLink, Link, useNavigate, useLocation } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import {
-  FiBell, FiLogOut, FiMenu, FiGrid, FiChevronDown, FiExternalLink, FiShield,
+  FiBell, FiLogOut, FiMenu, FiGrid, FiChevronDown, FiExternalLink, FiShield, FiSun, FiMoon,
 } from "react-icons/fi";
 import Mark from "./Mark";
 import { useAuth } from "../lib/AuthContext";
+import { useTheme } from "../lib/ThemeContext";
 import {
   navGroups, quickNavKeys, accountNav, adminNav, auditNavItem, bioPageExternalLink,
 } from "../lib/navConfig";
@@ -249,7 +250,7 @@ function NotificationMenu() {
       >
         <FiBell size={18} />
         {unreadCount > 0 && (
-          <span className="absolute -top-0.5 -right-0.5 bg-coral text-white text-[10px] font-bold px-1.5 min-w-[18px] h-[18px] rounded-full flex items-center justify-center border-2 border-white shadow-sm animate-pulse">
+              <span className="absolute -top-0.5 -right-0.5 bg-coral text-white text-[10px] font-bold px-1.5 min-w-[18px] h-[18px] rounded-full flex items-center justify-center border-2 border-surface shadow-sm animate-pulse">
             {unreadCount > 99 ? "99+" : unreadCount}
           </span>
         )}
@@ -264,7 +265,7 @@ function NotificationMenu() {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -6, scale: 0.98 }}
               transition={{ duration: 0.15, ease: EASE_PREMIUM }}
-              className="fixed top-16 left-1/2 -translate-x-1/2 w-[calc(100vw-2rem)] max-w-sm sm:absolute sm:top-auto sm:left-auto sm:right-0 sm:translate-x-0 sm:w-80 max-h-[75vh] overflow-y-auto bg-white rounded-2xl border border-ink/5 shadow-2xl z-50 flex flex-col"
+              className="fixed top-16 left-1/2 -translate-x-1/2 w-[calc(100vw-2rem)] max-w-sm sm:absolute sm:top-auto sm:left-auto sm:right-0 sm:translate-x-0 sm:w-80 max-h-[75vh] overflow-y-auto bg-surface rounded-2xl border border-ink/5 shadow-2xl z-50 flex flex-col"
             >
               <div className="p-3.5 border-b border-ink/5 flex items-center justify-between">
                 <h3 className="font-display font-semibold text-sm text-ink flex items-center gap-2">
@@ -337,7 +338,7 @@ function ProfileMenu({ user, onLogout }) {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -6, scale: 0.98 }}
             transition={{ duration: 0.15, ease: EASE_PREMIUM }}
-            className="absolute right-0 mt-2 w-56 bg-white rounded-2xl border border-ink/5 shadow-xl p-1.5 z-50"
+            className="absolute right-0 mt-2 w-56 bg-surface rounded-2xl border border-ink/5 shadow-xl p-1.5 z-50"
           >
             <div className="px-3 py-2.5 mb-1 border-b border-ink/5">
               <p className="text-sm font-semibold text-ink truncate">@{user?.username}</p>
@@ -380,7 +381,7 @@ function BottomNav({ pathname }) {
   items.sort((a, b) => quickNavKeys.indexOf(a.to) - quickNavKeys.indexOf(b.to));
 
   return (
-    <nav className="h-14 bg-white border-t border-ink/5 flex items-center justify-around px-4 shrink-0 z-30 shadow-lg sm:hidden">
+    <nav className="h-14 bg-surface border-t border-ink/5 flex items-center justify-around px-4 shrink-0 z-30 shadow-lg sm:hidden">
       {items.map((item) => {
         const Icon = item.icon;
         const isActive = pathname === item.to;
@@ -400,6 +401,20 @@ function BottomNav({ pathname }) {
         );
       })}
     </nav>
+  );
+}
+
+function ThemeToggle() {
+  const { theme, toggleTheme } = useTheme();
+  const isDark = theme === "dark";
+  return (
+    <button
+      onClick={toggleTheme}
+      aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
+      className="w-10 h-10 rounded-full flex items-center justify-center transition-colors text-ink-soft hover:bg-ink/5 hover:text-ink"
+    >
+      {isDark ? <FiSun size={18} /> : <FiMoon size={18} />}
+    </button>
   );
 }
 
@@ -457,7 +472,7 @@ export default function DashboardLayout({ title, children }) {
       </AnimatePresence>
 
       <div className="flex-1 flex flex-col min-w-0">
-        <header className="relative h-16 bg-white border-b border-ink/5 flex items-center justify-between px-3 sm:px-5 shrink-0 z-20">
+        <header className="relative h-16 bg-surface border-b border-ink/5 flex items-center justify-between px-3 sm:px-5 shrink-0 z-20">
           {/* Left: Menu button & Desktop QuickNav */}
           <div className="flex items-center gap-3">
             <button
@@ -484,6 +499,7 @@ export default function DashboardLayout({ title, children }) {
 
           {/* Right: Notifications & Profile */}
           <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+            <ThemeToggle />
             {user && !user.is_verified && (
               <Link
                 to="/verify-email"

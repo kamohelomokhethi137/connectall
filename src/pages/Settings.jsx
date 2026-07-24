@@ -30,7 +30,7 @@ function Toggle({ checked, onChange }) {
       }`}
     >
       <span
-        className={`absolute top-0.5 w-5 h-5 rounded-full bg-white shadow transition-transform ${
+        className={`absolute top-0.5 w-5 h-5 rounded-full bg-surface shadow transition-transform ${
           checked ? "translate-x-[22px]" : "translate-x-0.5"
         }`}
       />
@@ -93,7 +93,7 @@ export default function Settings() {
   if (!settings) {
     return (
       <DashboardLayout title="Settings">
-        <div className="h-64 rounded-2xl bg-white border border-ink/5 animate-pulse" />
+        <div className="h-64 rounded-2xl bg-surface border border-ink/5 animate-pulse" />
       </DashboardLayout>
     );
   }
@@ -101,7 +101,7 @@ export default function Settings() {
   return (
     <DashboardLayout title="Settings">
       <form onSubmit={handleSave} className="max-w-2xl space-y-4">
-        <div className="bg-white rounded-2xl border border-ink/5 p-5">
+        <div className="bg-surface rounded-2xl border border-ink/5 p-5">
           <h2 className="font-display font-semibold text-ink mb-4">Notifications & Privacy</h2>
           <div className="divide-y divide-ink/5">
             {TOGGLES.map((t) => (
@@ -116,7 +116,7 @@ export default function Settings() {
           </div>
         </div>
 
-        <div className="bg-white rounded-2xl border border-ink/5 p-5">
+        <div className="bg-surface rounded-2xl border border-ink/5 p-5">
           <h2 className="font-display font-semibold text-ink mb-4">Theme color</h2>
           <div className="flex gap-3">
             {THEMES.map((t) => (

@@ -85,7 +85,7 @@ export default function Navbar() {
       </div>
 
       {open && (
-        <div className="md:hidden bg-navy-dark border-t border-white/10 px-6 py-4 flex flex-col gap-4">
+        <div         className="md:hidden bg-navy-dark/95 border-t border-white/10 px-6 py-4 flex flex-col gap-4">
           {links.map((l) => (
             <Link
               key={l.label}

@@ -6,6 +6,7 @@ import toast from "react-hot-toast";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from "recharts";
 import DashboardLayout from "../components/DashboardLayout";
 import { useAuth } from "../lib/AuthContext";
+import { useTheme } from "../lib/ThemeContext";
 import { fetchUserDashboard } from "../lib/dashboard";
 import { listRooms, listFriends, respondFriendRequest } from "../lib/chat";
 import AdBanner from "../components/AdBanner";
@@ -59,7 +60,7 @@ function DashboardChatWidget({ nm, shouldReduceMotion }) {
   };
 
   return (
-    <m.div variants={nm(fadeUp)} className="bg-white rounded-2xl border border-ink/5 p-5 mt-4">
+    <m.div variants={nm(fadeUp)} className="bg-surface rounded-2xl border border-ink/5 p-5 mt-4">
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
           <span className="relative flex h-3 w-3">
@@ -85,7 +86,7 @@ function DashboardChatWidget({ nm, shouldReduceMotion }) {
           </p>
           <div className="space-y-2">
             {incoming.map((r) => (
-              <div key={r.id} className="flex items-center justify-between bg-white rounded-lg p-2 text-xs">
+              <div key={r.id} className="flex items-center justify-between bg-surface rounded-lg p-2 text-xs">
                 <span className="font-medium text-ink truncate">@{r.from.username}</span>
                 <div className="flex items-center gap-1.5">
                   <button
@@ -169,6 +170,8 @@ function DashboardChatWidget({ nm, shouldReduceMotion }) {
 
 export default function UserDashboard() {
   const { user } = useAuth();
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
   const shouldReduceMotion = useReducedMotion();
@@ -225,7 +228,7 @@ export default function UserDashboard() {
         <div className="h-8 w-56 rounded-lg bg-white/60 animate-pulse mb-6" />
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {Array.from({ length: 4 }).map((_, i) => (
-            <div key={i} className="h-28 rounded-2xl bg-white border border-ink/5 animate-pulse" />
+            <div key={i} className="h-28 rounded-2xl bg-surface border border-ink/5 animate-pulse" />
           ))}
         </div>
       </DashboardLayout>
@@ -247,7 +250,7 @@ export default function UserDashboard() {
           </m.div>
 
           {/* Top Banner Ad - with scroll fix */}
-          <m.div variants={nm(fadeUp)} className="mb-4 bg-white rounded-2xl border border-ink/5 p-4 touch-pan-y">
+          <m.div variants={nm(fadeUp)} className="mb-4 bg-surface rounded-2xl border border-ink/5 p-4 touch-pan-y">
             <div className="flex justify-center" style={{ pointerEvents: "none" }}>
               <div style={{ pointerEvents: "auto" }}>
                 <AdBanner />
@@ -285,7 +288,7 @@ export default function UserDashboard() {
 
           <div className="grid lg:grid-cols-3 gap-4 mt-4">
             {/* Earnings chart */}
-            <m.div variants={nm(fadeUp)} className="lg:col-span-2 bg-white rounded-2xl border border-ink/5 p-5">
+            <m.div variants={nm(fadeUp)} className="lg:col-span-2 bg-surface rounded-2xl border border-ink/5 p-5">
               <h2 className="font-display font-semibold text-ink mb-4">
                 Earnings — Last 7 Days
               </h2>
@@ -296,12 +299,12 @@ export default function UserDashboard() {
               ) : (
                 <ResponsiveContainer width="100%" height={220}>
                   <LineChart data={chartData}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#10192B10" />
-                    <XAxis dataKey="day" tick={{ fontSize: 12, fill: "#4A5568" }} />
-                    <YAxis tick={{ fontSize: 12, fill: "#4A5568" }} />
+                    <CartesianGrid strokeDasharray="3 3" stroke={isDark ? "#334155" : "#10192B10"} />
+                    <XAxis dataKey="day" tick={{ fontSize: 12, fill: isDark ? "#94A3B8" : "#4A5568" }} />
+                    <YAxis tick={{ fontSize: 12, fill: isDark ? "#94A3B8" : "#4A5568" }} />
                     <Tooltip
                       formatter={(v) => [`R${v}`, "Earnings"]}
-                      contentStyle={{ borderRadius: 8, fontSize: 13 }}
+                      contentStyle={{ borderRadius: 8, fontSize: 13, background: isDark ? "#1E293B" : "#fff", border: isDark ? "1px solid #334155" : "1px solid #e2e8f0", color: isDark ? "#F1F5F9" : "#10192B" }}
                     />
                     <Line
                       type="monotone"
@@ -316,7 +319,7 @@ export default function UserDashboard() {
             </m.div>
 
             {/* Top links */}
-            <m.div variants={nm(fadeUp)} className="bg-white rounded-2xl border border-ink/5 p-5">
+            <m.div variants={nm(fadeUp)} className="bg-surface rounded-2xl border border-ink/5 p-5">
               <h2 className="font-display font-semibold text-ink mb-4">
                 Top Performing Links
               </h2>

@@ -3,24 +3,35 @@ import { createRoot } from 'react-dom/client'
 import { Toaster } from 'react-hot-toast'
 import './index.css'
 import App from './App.jsx'
+import { ThemeProvider, useTheme } from './lib/ThemeContext.jsx'
 
-createRoot(document.getElementById('root')).render(
-  <StrictMode>
+function ThemedToaster() {
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
+  return (
     <Toaster
       position="top-right"
       toastOptions={{
         style: {
-          background: '#0B1D3A',
+          background: isDark ? '#1E293B' : '#0B1D3A',
           color: '#fff',
           fontSize: '14px',
           fontFamily: 'Inter, sans-serif',
           borderRadius: '10px',
-          border: '1px solid rgba(255,255,255,0.08)',
+          border: isDark ? '1px solid rgba(255,255,255,0.1)' : '1px solid rgba(255,255,255,0.08)',
         },
-        success: { iconTheme: { primary: '#17A398', secondary: '#0B1D3A' } },
-        error: { iconTheme: { primary: '#E8A33D', secondary: '#0B1D3A' } },
+        success: { iconTheme: { primary: '#17A398', secondary: isDark ? '#1E293B' : '#0B1D3A' } },
+        error: { iconTheme: { primary: '#E8A33D', secondary: isDark ? '#1E293B' : '#0B1D3A' } },
       }}
     />
-    <App />
+  );
+}
+
+createRoot(document.getElementById('root')).render(
+  <StrictMode>
+    <ThemeProvider>
+      <ThemedToaster />
+      <App />
+    </ThemeProvider>
   </StrictMode>,
 )

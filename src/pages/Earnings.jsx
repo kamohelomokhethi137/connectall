@@ -51,7 +51,7 @@ export default function Earnings() {
       <DashboardLayout title="Earnings">
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {Array.from({ length: 4 }).map((_, i) => (
-            <div key={i} className="h-28 rounded-2xl bg-white border border-ink/5 animate-pulse" />
+            <div key={i} className="h-28 rounded-2xl bg-surface border border-ink/5 animate-pulse" />
           ))}
         </div>
       </DashboardLayout>
@@ -76,7 +76,7 @@ export default function Earnings() {
         })}
       </div>
 
-      <div className="bg-white rounded-2xl border border-ink/5 overflow-hidden">
+      <div className="bg-surface rounded-2xl border border-ink/5 overflow-hidden">
         {data.earnings.length === 0 ? (
           <p className="text-center text-ink-soft py-10">No earnings yet.</p>
         ) : (

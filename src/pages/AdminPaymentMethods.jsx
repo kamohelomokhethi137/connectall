@@ -80,7 +80,7 @@ export default function AdminPaymentMethods() {
 
   return (
     <DashboardLayout title="Payment Methods">
-      <div className="bg-white rounded-2xl border border-ink/5 p-5 mb-6">
+      <div className="bg-surface rounded-2xl border border-ink/5 p-5 mb-6">
         <h2 className="font-display font-semibold text-ink mb-4 flex items-center gap-2">
           <FiPlus className="text-teal-dark" /> Add payment method
         </h2>
@@ -89,7 +89,7 @@ export default function AdminPaymentMethods() {
                  placeholder="Name (e.g. M-Pesa)" required
                  className="h-11 rounded-lg border border-ink/10 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal" />
           <select value={form.method_type} onChange={(e) => setForm((f) => ({ ...f, method_type: e.target.value }))}
-                  className="h-11 rounded-lg border border-ink/10 px-3 text-sm bg-white">
+                  className="h-11 rounded-lg border border-ink/10 px-3 text-sm bg-surface">
             <option value="mobile_money">Mobile Money</option>
             <option value="bank">Bank</option>
             <option value="card">Card</option>
@@ -108,9 +108,9 @@ export default function AdminPaymentMethods() {
       </div>
 
       {!methods ? (
-        <div className="h-48 rounded-2xl bg-white border border-ink/5 animate-pulse" />
+        <div className="h-48 rounded-2xl bg-surface border border-ink/5 animate-pulse" />
       ) : (
-        <div className="bg-white rounded-2xl border border-ink/5 overflow-hidden">
+        <div className="bg-surface rounded-2xl border border-ink/5 overflow-hidden">
           <table className="w-full text-sm">
             <thead>
               <tr className="text-left text-ink-soft border-b border-ink/5">

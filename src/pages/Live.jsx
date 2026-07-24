@@ -75,10 +75,10 @@ export default function Live() {
               <Link
                 key={s.id}
                 to={`/live/${s.id}`}
-                className="bg-white rounded-2xl border border-ink/5 overflow-hidden hover:shadow-lg hover:shadow-navy-dark/5 transition-shadow relative"
+                className="bg-surface rounded-2xl border border-ink/5 overflow-hidden hover:shadow-lg hover:shadow-navy-dark/5 transition-shadow relative"
               >
                 <span className="absolute top-3 left-3 flex items-center gap-1 bg-red-500 text-white text-[10px] font-mono uppercase tracking-wider px-2 py-1 rounded z-10">
-                  <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-surface animate-pulse" />
                   Live
                 </span>
                 <div className="h-32 bg-navy flex items-center justify-center">

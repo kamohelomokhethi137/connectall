@@ -89,7 +89,7 @@ export default function AdminMarketplace() {
 
   return (
     <DashboardLayout title="Manage Marketplace">
-      <div className="bg-white rounded-2xl border border-ink/5 p-5 mb-6">
+      <div className="bg-surface rounded-2xl border border-ink/5 p-5 mb-6">
         <h2 className="font-display font-semibold text-ink mb-4 flex items-center gap-2">
           <FiPlus className="text-teal-dark" /> Add product
         </h2>
@@ -108,12 +108,12 @@ export default function AdminMarketplace() {
 
       {!products ? (
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {Array.from({ length: 4 }).map((_, i) => <div key={i} className="h-56 rounded-2xl bg-white border border-ink/5 animate-pulse" />)}
+          {Array.from({ length: 4 }).map((_, i) => <div key={i} className="h-56 rounded-2xl bg-surface border border-ink/5 animate-pulse" />)}
         </div>
       ) : (
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {products.map((p) => (
-            <div key={p.id} className="bg-white rounded-2xl border border-ink/5 overflow-hidden flex flex-col">
+            <div key={p.id} className="bg-surface rounded-2xl border border-ink/5 overflow-hidden flex flex-col">
               <img src={resolveMediaUrl(`/static/uploads/products/${p.image}`)} alt={p.name} className="w-full h-32 object-cover" />
               <div className="p-4 flex flex-col flex-1">
                 <p className="font-medium text-ink text-sm">{p.name}</p>

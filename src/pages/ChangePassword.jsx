@@ -42,7 +42,7 @@ export default function ChangePassword() {
 
   return (
     <DashboardLayout title="Change Password">
-      <div className="max-w-md bg-white rounded-2xl border border-ink/5 p-6">
+      <div className="max-w-md bg-surface rounded-2xl border border-ink/5 p-6">
         <h2 className="font-display font-semibold text-ink mb-4 flex items-center gap-2">
           <FiLock className="text-teal-dark" aria-hidden="true" />
           Update your password

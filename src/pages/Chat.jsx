@@ -101,7 +101,7 @@ function ProfileModal({ uuid, onClose, onAdd, onMessage }) {
         exit={{ y: 20, opacity: 0 }}
         transition={{ ease: EASE_PREMIUM, duration: 0.25 }}
         onClick={(e) => e.stopPropagation()}
-        className="bg-white rounded-t-2xl sm:rounded-2xl w-full sm:max-w-sm max-h-[85vh] overflow-y-auto p-5"
+        className="bg-surface rounded-t-2xl sm:rounded-2xl w-full sm:max-w-sm max-h-[85vh] overflow-y-auto p-5"
       >
         <div className="flex justify-end">
           <button onClick={onClose} className="text-ink-soft hover:text-ink" aria-label="Close">
@@ -211,7 +211,7 @@ function MessageBubble({ msg, mine, onSenderClick }) {
         className={`max-w-[75%] px-3.5 py-2 rounded-2xl text-sm leading-relaxed ${
           mine
             ? "bg-teal text-navy rounded-br-sm"
-            : "bg-white border border-ink/5 text-ink rounded-bl-sm"
+            : "bg-surface border border-ink/5 text-ink rounded-bl-sm"
         }`}
       >
         {!mine && (
@@ -460,7 +460,7 @@ export default function Chat() {
   return (
     <DashboardLayout title="Chatrooms">
       {/* Chatrooms Dedicated Second Navigation Bar */}
-      <div className="bg-white rounded-2xl border border-ink/5 p-2 mb-4 flex items-center justify-around sm:justify-start gap-1.5 sm:gap-3 overflow-x-auto shadow-sm">
+      <div className="bg-surface rounded-2xl border border-ink/5 p-2 mb-4 flex items-center justify-around sm:justify-start gap-1.5 sm:gap-3 overflow-x-auto shadow-sm">
         {CHAT_TABS.map((tab) => {
           const Icon = tab.icon;
           const isActive = activeTab === tab.id;
@@ -489,7 +489,7 @@ export default function Chat() {
         {/* Sidebar: filtered by activeTab */}
         <div className={`w-full md:w-80 md:shrink-0 flex-col gap-4 md:h-full md:overflow-y-auto md:pr-1 ${mobileShowRoom ? "hidden md:flex" : "flex"}`}>
           {activeTab === "friends" && (
-            <div className="bg-white rounded-2xl border border-ink/5 p-4">
+            <div className="bg-surface rounded-2xl border border-ink/5 p-4">
               <h2 className="text-sm font-display font-semibold text-ink mb-3 flex items-center gap-2">
                 <FiUserPlus className="text-teal-dark" /> Find friends
               </h2>
@@ -502,7 +502,7 @@ export default function Chat() {
           )}
 
           {(activeTab === "friends" || incoming.length > 0) && incoming.length > 0 && (
-            <div className="bg-white rounded-2xl border border-ink/5 p-4">
+            <div className="bg-surface rounded-2xl border border-ink/5 p-4">
               <h2 className="text-sm font-display font-semibold text-ink mb-2">Friend requests</h2>
               <ul className="space-y-2">
                 {incoming.map((r) => (
@@ -534,13 +534,13 @@ export default function Chat() {
           )}
 
           {activeTab === "blocked" ? (
-            <div className="bg-white rounded-2xl border border-ink/5 p-5 text-center">
+            <div className="bg-surface rounded-2xl border border-ink/5 p-5 text-center">
               <FiSlash size={32} className="mx-auto text-ink-soft/40 mb-2" />
               <h3 className="text-sm font-display font-semibold text-ink">Blocked Users</h3>
               <p className="text-xs text-ink-soft mt-1">No blocked contacts right now. Your connection list is clean.</p>
             </div>
           ) : (
-            <div className="bg-white rounded-2xl border border-ink/5 p-4 md:flex-1 md:min-h-0 flex flex-col">
+            <div className="bg-surface rounded-2xl border border-ink/5 p-4 md:flex-1 md:min-h-0 flex flex-col">
               <div className="flex items-center justify-between mb-3">
                 <h2 className="text-sm font-display font-semibold text-ink">
                   {activeTab === "groups" ? "Group Chatrooms" : "Direct Messages"}
@@ -627,7 +627,7 @@ export default function Chat() {
         </div>
 
         {/* Active conversation */}
-        <div className={`flex-1 bg-white rounded-2xl border border-ink/5 flex-col min-h-0 h-[calc(100vh-8rem)] md:h-auto ${mobileShowRoom ? "flex" : "hidden md:flex"}`}>
+        <div className={`flex-1 bg-surface rounded-2xl border border-ink/5 flex-col min-h-0 h-[calc(100vh-8rem)] md:h-auto ${mobileShowRoom ? "flex" : "hidden md:flex"}`}>
           {!activeRoom ? (
             <div className="flex-1 flex flex-col items-center justify-center text-ink-soft gap-2">
               <FiMessageCircle size={32} />
@@ -672,7 +672,7 @@ export default function Chat() {
                       initial={{ opacity: 0, y: -8 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -8 }}
-                      className="absolute top-14 left-4 right-4 sm:right-auto sm:w-64 bg-white border border-ink/10 rounded-xl shadow-lg p-2 z-10 max-h-64 overflow-y-auto"
+                      className="absolute top-14 left-4 right-4 sm:right-auto sm:w-64 bg-surface border border-ink/10 rounded-xl shadow-lg p-2 z-10 max-h-64 overflow-y-auto"
                     >
                       {activeRoom.members?.map((m) => (
                         <button

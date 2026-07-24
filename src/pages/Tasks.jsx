@@ -7,7 +7,7 @@ import { fetchTasks, claimTask } from "../lib/gamification";
 function TaskCard({ row, onClaim, claiming }) {
   const pct = Math.min(100, Math.round((row.progress / Math.max(row.target_count, 1)) * 100));
   return (
-    <div className="bg-white rounded-2xl border border-ink/5 p-5 flex flex-col">
+    <div className="bg-surface rounded-2xl border border-ink/5 p-5 flex flex-col">
       <div className="flex items-start justify-between mb-2">
         <div>
           <p className="font-display font-semibold text-ink">{row.title}</p>
@@ -102,7 +102,7 @@ export default function Tasks() {
       <DashboardLayout title="Daily Tasks">
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {Array.from({ length: 3 }).map((_, i) => (
-            <div key={i} className="h-40 rounded-2xl bg-white border border-ink/5 animate-pulse" />
+            <div key={i} className="h-40 rounded-2xl bg-surface border border-ink/5 animate-pulse" />
           ))}
         </div>
       </DashboardLayout>

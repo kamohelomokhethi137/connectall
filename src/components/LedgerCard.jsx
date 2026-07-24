@@ -58,7 +58,7 @@ export default function LedgerCard() {
     <div className="relative w-full max-w-sm mx-auto">
       <div className="absolute inset-x-4 -top-2 h-4 bg-navy-dark rounded-t-2xl" />
       <div
-        className="relative bg-white rounded-2xl shadow-2xl shadow-navy-dark/40 overflow-hidden"
+        className="relative bg-surface rounded-2xl shadow-2xl shadow-navy-dark/40 overflow-hidden"
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
         onFocus={() => setPaused(true)}

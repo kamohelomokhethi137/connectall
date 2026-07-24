@@ -92,14 +92,14 @@ export default function Profile() {
   if (!profile) {
     return (
       <DashboardLayout title="Profile">
-        <div className="h-64 rounded-2xl bg-white border border-ink/5 animate-pulse" />
+        <div className="h-64 rounded-2xl bg-surface border border-ink/5 animate-pulse" />
       </DashboardLayout>
     );
   }
 
   return (
     <DashboardLayout title="Profile">
-      <div className="max-w-2xl bg-white rounded-2xl border border-ink/5 p-6">
+      <div className="max-w-2xl bg-surface rounded-2xl border border-ink/5 p-6">
         <div className="flex items-center gap-5 mb-6">
           <div className="relative">
             <img

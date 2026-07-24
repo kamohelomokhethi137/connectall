@@ -76,13 +76,13 @@ export default function Links() {
   return (
     <DashboardLayout title="Smart Links">
       {/* Banner Ad */}
-      <div className="mb-4 bg-white rounded-2xl border border-ink/5 p-4">
+      <div className="mb-4 bg-surface rounded-2xl border border-ink/5 p-4">
         <div className="flex justify-center">
           <AdBanner />
         </div>
       </div>
 
-      <div className="bg-white rounded-2xl border border-ink/5 p-5 mb-6">
+      <div className="bg-surface rounded-2xl border border-ink/5 p-5 mb-6">
         <h2 className="font-display font-semibold text-ink mb-4 flex items-center gap-2">
           <FiPlus className="text-teal-dark" aria-hidden="true" /> Create a new smart link
         </h2>
@@ -92,7 +92,7 @@ export default function Links() {
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             placeholder="Link title (optional)"
-            className="h-11 rounded-lg border border-ink/10 bg-white px-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal"
+            className="h-11 rounded-lg border border-ink/10 bg-surface px-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal"
           />
           <input
             type="text"
@@ -100,13 +100,13 @@ export default function Links() {
             onChange={(e) => setUrl(e.target.value)}
             placeholder="https://destination-website.com"
             required
-            className="h-11 rounded-lg border border-ink/10 bg-white px-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal"
+            className="h-11 rounded-lg border border-ink/10 bg-surface px-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal"
           />
           <SubmitButton loading={creating}>Create</SubmitButton>
         </form>
       </div>
 
-      <div className="bg-white rounded-2xl border border-ink/5 overflow-hidden">
+      <div className="bg-surface rounded-2xl border border-ink/5 overflow-hidden">
         {error && <p className="p-5 text-ink-soft">{error}</p>}
         {!error && links === null && (
           <div className="p-5 space-y-3">

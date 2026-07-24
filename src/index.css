@@ -4,6 +4,20 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --paper: 241 244 248;
+  --ink: 16 25 43;
+  --ink-soft: 74 85 104;
+  --surface: 255 255 255;
+}
+
+.dark {
+  --paper: 15 23 42;
+  --ink: 241 245 249;
+  --ink-soft: 148 163 184;
+  --surface: 30 41 59;
+}
+
 html {
   scroll-behavior: smooth;
 }

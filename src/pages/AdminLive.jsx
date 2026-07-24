@@ -74,7 +74,7 @@ export default function AdminLive() {
 
   return (
     <DashboardLayout title="Manage Live">
-      <div className="bg-white rounded-2xl border border-ink/5 p-5 mb-6">
+      <div className="bg-surface rounded-2xl border border-ink/5 p-5 mb-6">
         <h2 className="font-display font-semibold text-ink mb-4 flex items-center gap-2">
           <FiRadio className="text-red-500" /> Go live
         </h2>
@@ -89,14 +89,14 @@ export default function AdminLive() {
 
       {!streams ? (
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {Array.from({ length: 3 }).map((_, i) => <div key={i} className="h-32 rounded-2xl bg-white border border-ink/5 animate-pulse" />)}
+          {Array.from({ length: 3 }).map((_, i) => <div key={i} className="h-32 rounded-2xl bg-surface border border-ink/5 animate-pulse" />)}
         </div>
       ) : streams.length === 0 ? (
         <p className="text-center text-ink-soft py-10">No streams yet.</p>
       ) : (
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {streams.map((s) => (
-            <div key={s.id} className="bg-white rounded-2xl border border-ink/5 p-5">
+            <div key={s.id} className="bg-surface rounded-2xl border border-ink/5 p-5">
               <div className="flex items-start justify-between mb-2">
                 <div>
                   <p className="font-medium text-ink">{s.title}</p>

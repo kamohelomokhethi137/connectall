@@ -101,7 +101,7 @@ export default function UserDetail() {
   if (!user) {
     return (
       <DashboardLayout title="User Detail">
-        <div className="h-64 rounded-2xl bg-white border border-ink/5 animate-pulse" />
+        <div className="h-64 rounded-2xl bg-surface border border-ink/5 animate-pulse" />
       </DashboardLayout>
     );
   }
@@ -114,7 +114,7 @@ export default function UserDetail() {
 
       <div className="grid lg:grid-cols-3 gap-4">
         {/* Edit form */}
-        <form onSubmit={handleSave} className="lg:col-span-2 bg-white rounded-2xl border border-ink/5 p-5 space-y-4">
+        <form onSubmit={handleSave} className="lg:col-span-2 bg-surface rounded-2xl border border-ink/5 p-5 space-y-4">
           <h2 className="font-display font-semibold text-ink">Profile details</h2>
           <p className="text-xs text-ink-soft -mt-2">
             Changes are emailed to the user for confirmation before they take effect.
@@ -174,7 +174,7 @@ export default function UserDetail() {
 
         {/* Actions panel */}
         <div className="space-y-4">
-          <div className="bg-white rounded-2xl border border-ink/5 p-5">
+          <div className="bg-surface rounded-2xl border border-ink/5 p-5">
             <h2 className="font-display font-semibold text-ink mb-3 flex items-center gap-2">
               <FiShield className="text-teal-dark" /> Account status
             </h2>
@@ -219,7 +219,7 @@ export default function UserDetail() {
             )}
           </div>
 
-          <div className="bg-white rounded-2xl border border-ink/5 p-5">
+          <div className="bg-surface rounded-2xl border border-ink/5 p-5">
             <h2 className="font-display font-semibold text-ink mb-3 flex items-center gap-2">
               <FiLock className="text-teal-dark" /> Mute
             </h2>
@@ -258,7 +258,7 @@ export default function UserDetail() {
           </div>
 
           {iAmSuperadmin && !isSelf && (
-            <div className="bg-white rounded-2xl border border-red-100 p-5">
+            <div className="bg-surface rounded-2xl border border-red-100 p-5">
               <h2 className="font-display font-semibold text-red-500 mb-3 flex items-center gap-2">
                 <FiTrash2 /> Danger zone
               </h2>

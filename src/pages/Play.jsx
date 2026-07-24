@@ -52,7 +52,7 @@ export default function Play() {
 
   return (
     <DashboardLayout title="Play & Earn">
-      <div className="max-w-md mx-auto bg-white rounded-2xl border border-ink/5 p-8 text-center">
+      <div className="max-w-md mx-auto bg-surface rounded-2xl border border-ink/5 p-8 text-center">
         <div className="w-24 h-24 rounded-full bg-gradient-to-br from-gold to-gold-dark mx-auto flex items-center justify-center text-navy mb-5">
           <FiTarget size={36} aria-hidden="true" />
         </div>

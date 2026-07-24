@@ -107,7 +107,7 @@ export default function AdminAds() {
   if (!data) {
     return (
       <DashboardLayout title="Manage Ads">
-        <div className="h-64 rounded-2xl bg-white border border-ink/5 animate-pulse" />
+        <div className="h-64 rounded-2xl bg-surface border border-ink/5 animate-pulse" />
       </DashboardLayout>
     );
   }
@@ -121,7 +121,7 @@ export default function AdminAds() {
   return (
     <DashboardLayout title="Manage Ads">
       {sections.map(([label, ads]) => (
-        <div key={label} className="bg-white rounded-2xl border border-ink/5 overflow-hidden mb-6">
+        <div key={label} className="bg-surface rounded-2xl border border-ink/5 overflow-hidden mb-6">
           <h2 className="font-display font-semibold text-ink p-5 pb-0">{label} ({ads.length})</h2>
           {ads.length === 0 ? (
             <p className="text-center text-ink-soft py-8">Nothing here.</p>

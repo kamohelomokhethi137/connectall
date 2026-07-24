@@ -107,7 +107,7 @@ export default function AdminTokens() {
   if (!packages) {
     return (
       <DashboardLayout title="Tokens & Plans">
-        <div className="h-64 rounded-2xl bg-white border border-ink/5 animate-pulse" />
+        <div className="h-64 rounded-2xl bg-surface border border-ink/5 animate-pulse" />
       </DashboardLayout>
     );
   }
@@ -115,7 +115,7 @@ export default function AdminTokens() {
   return (
     <DashboardLayout title="Tokens & Plans">
       <h2 className="font-display font-semibold text-ink mb-3">Token Packages</h2>
-      <div className="bg-white rounded-2xl border border-ink/5 p-5 mb-4">
+      <div className="bg-surface rounded-2xl border border-ink/5 p-5 mb-4">
         <form onSubmit={handleAddPkg} className="grid sm:grid-cols-4 gap-3">
           <input value={pkgForm.name} onChange={(e) => setPkgForm((f) => ({ ...f, name: e.target.value }))}
                  placeholder="Name" required
@@ -131,7 +131,7 @@ export default function AdminTokens() {
       </div>
       <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
         {packages.map((p) => (
-          <div key={p.id} className="bg-white rounded-2xl border border-ink/5 p-5">
+          <div key={p.id} className="bg-surface rounded-2xl border border-ink/5 p-5">
             <p className="font-medium text-ink">{p.name}</p>
             <p className="text-2xl font-display font-semibold text-ink mt-1">{p.tokens} tokens</p>
             <p className="text-sm text-ink-soft mb-3">R{p.price.toFixed(2)}</p>
@@ -144,7 +144,7 @@ export default function AdminTokens() {
       </div>
 
       <h2 className="font-display font-semibold text-ink mb-3">Subscription Plans</h2>
-      <div className="bg-white rounded-2xl border border-ink/5 p-5 mb-4">
+      <div className="bg-surface rounded-2xl border border-ink/5 p-5 mb-4">
         <form onSubmit={handleAddPlan} className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
           <input value={planForm.name} onChange={(e) => setPlanForm((f) => ({ ...f, name: e.target.value }))}
                  placeholder="Name" required
@@ -163,7 +163,7 @@ export default function AdminTokens() {
       </div>
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {plans.map((p) => (
-          <div key={p.id} className="bg-white rounded-2xl border border-ink/5 p-5">
+          <div key={p.id} className="bg-surface rounded-2xl border border-ink/5 p-5">
             <p className="font-medium text-ink">{p.name}</p>
             <p className="text-xs text-ink-soft mt-1 mb-3">{p.description}</p>
             <p className="text-xs text-ink-soft mb-3">{p.token_cost} tokens \u00b7 {p.duration_days} days</p>

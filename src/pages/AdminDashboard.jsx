@@ -60,7 +60,7 @@ export default function AdminDashboard() {
       <DashboardLayout title="Admin Panel">
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {Array.from({ length: 4 }).map((_, i) => (
-            <div key={i} className="h-28 rounded-2xl bg-white border border-ink/5 animate-pulse" />
+            <div key={i} className="h-28 rounded-2xl bg-surface border border-ink/5 animate-pulse" />
           ))}
         </div>
       </DashboardLayout>
@@ -96,7 +96,7 @@ export default function AdminDashboard() {
       </div>
 
       <div className="grid lg:grid-cols-2 gap-4 mt-4">
-        <div className="bg-white rounded-2xl border border-ink/5 p-5">
+        <div className="bg-surface rounded-2xl border border-ink/5 p-5">
           <h2 className="font-display font-semibold text-ink mb-4">
             Recently Registered
           </h2>
@@ -118,7 +118,7 @@ export default function AdminDashboard() {
           </ul>
         </div>
 
-        <div className="bg-white rounded-2xl border border-ink/5 p-5">
+        <div className="bg-surface rounded-2xl border border-ink/5 p-5">
           <h2 className="font-display font-semibold text-ink mb-4">
             Recent Admin Actions
           </h2>

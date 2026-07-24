@@ -106,14 +106,14 @@ export default function AdminTransactions() {
   if (!data) {
     return (
       <DashboardLayout title="Transactions">
-        <div className="h-64 rounded-2xl bg-white border border-ink/5 animate-pulse" />
+        <div className="h-64 rounded-2xl bg-surface border border-ink/5 animate-pulse" />
       </DashboardLayout>
     );
   }
 
   return (
     <DashboardLayout title="Transactions">
-      <div className="bg-white rounded-2xl border border-ink/5 overflow-hidden mb-6">
+      <div className="bg-surface rounded-2xl border border-ink/5 overflow-hidden mb-6">
         <h2 className="font-display font-semibold text-ink p-5 pb-0">Pending ({data.pending.length})</h2>
         {data.pending.length === 0 ? (
           <p className="text-center text-ink-soft py-8">Nothing pending review.</p>
@@ -128,7 +128,7 @@ export default function AdminTransactions() {
         )}
       </div>
 
-      <div className="bg-white rounded-2xl border border-ink/5 overflow-hidden">
+      <div className="bg-surface rounded-2xl border border-ink/5 overflow-hidden">
         <h2 className="font-display font-semibold text-ink p-5 pb-0">Recent</h2>
         {data.recent.length === 0 ? (
           <p className="text-center text-ink-soft py-8">No transaction history yet.</p>

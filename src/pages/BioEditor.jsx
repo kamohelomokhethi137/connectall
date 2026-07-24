@@ -98,7 +98,7 @@ export default function BioEditor() {
   if (!bio) {
     return (
       <DashboardLayout title="Bio Page">
-        <div className="h-64 rounded-2xl bg-white border border-ink/5 animate-pulse" />
+        <div className="h-64 rounded-2xl bg-surface border border-ink/5 animate-pulse" />
       </DashboardLayout>
     );
   }
@@ -107,7 +107,7 @@ export default function BioEditor() {
     <DashboardLayout title="Bio Page">
       <div className="grid lg:grid-cols-3 gap-4">
         <div className="lg:col-span-2 space-y-4">
-          <form onSubmit={handleSave} className="bg-white rounded-2xl border border-ink/5 p-5">
+          <form onSubmit={handleSave} className="bg-surface rounded-2xl border border-ink/5 p-5">
             <h2 className="font-display font-semibold text-ink mb-4 flex items-center gap-2">
               <FiUser className="text-teal-dark" aria-hidden="true" />
               Page details
@@ -157,7 +157,7 @@ export default function BioEditor() {
             <SubmitButton loading={saving}>Save changes</SubmitButton>
           </form>
 
-          <div className="bg-white rounded-2xl border border-ink/5 p-5">
+          <div className="bg-surface rounded-2xl border border-ink/5 p-5">
             <h2 className="font-display font-semibold text-ink mb-4 flex items-center gap-2">
               <FiPlus className="text-teal-dark" aria-hidden="true" />
               Add a link

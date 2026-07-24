@@ -68,7 +68,7 @@ export default function Upgrade() {
       <DashboardLayout title="Upgrade">
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {Array.from({ length: 3 }).map((_, i) => (
-            <div key={i} className="h-40 rounded-2xl bg-white border border-ink/5 animate-pulse" />
+            <div key={i} className="h-40 rounded-2xl bg-surface border border-ink/5 animate-pulse" />
           ))}
         </div>
       </DashboardLayout>
@@ -102,7 +102,7 @@ export default function Upgrade() {
       <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
         {data.packages.length === 0 && <p className="text-ink-soft col-span-full">No packages available.</p>}
         {data.packages.map((pkg) => (
-          <div key={pkg.id} className="bg-white rounded-2xl border border-ink/5 p-5 flex flex-col">
+          <div key={pkg.id} className="bg-surface rounded-2xl border border-ink/5 p-5 flex flex-col">
             <FiZap className="text-teal-dark mb-3" size={20} aria-hidden="true" />
             <p className="font-display font-semibold text-ink">{pkg.name}</p>
             <p className="text-2xl font-display font-semibold text-ink mt-1">{pkg.tokens} tokens</p>
@@ -122,7 +122,7 @@ export default function Upgrade() {
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {data.plans.length === 0 && <p className="text-ink-soft col-span-full">No plans available.</p>}
         {data.plans.map((plan) => (
-          <div key={plan.id} className="bg-white rounded-2xl border border-ink/5 p-5 flex flex-col">
+          <div key={plan.id} className="bg-surface rounded-2xl border border-ink/5 p-5 flex flex-col">
             <p className="font-display font-semibold text-ink flex items-center gap-2">
               <FiCheck className="text-teal-dark" size={16} /> {plan.name}
             </p>

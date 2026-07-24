@@ -71,7 +71,7 @@ export default function AdminCompanyWallet() {
   if (!data) {
     return (
       <DashboardLayout title="Company Wallet">
-        <div className="h-64 rounded-2xl bg-white border border-ink/5 animate-pulse" />
+        <div className="h-64 rounded-2xl bg-surface border border-ink/5 animate-pulse" />
       </DashboardLayout>
     );
   }
@@ -86,7 +86,7 @@ export default function AdminCompanyWallet() {
             <p className="font-display font-semibold text-3xl">R{data.balance.toFixed(2)}</p>
           </div>
         </div>
-        <div className="bg-white rounded-2xl border border-ink/5 p-6 flex items-center gap-4">
+        <div className="bg-surface rounded-2xl border border-ink/5 p-6 flex items-center gap-4">
           <FiBriefcase size={26} className="text-teal-dark" />
           <div>
             <p className="text-xs text-ink-soft">Lifetime revenue</p>
@@ -96,11 +96,11 @@ export default function AdminCompanyWallet() {
       </div>
 
       <div className="grid lg:grid-cols-3 gap-4">
-        <div className="bg-white rounded-2xl border border-ink/5 p-5">
+        <div className="bg-surface rounded-2xl border border-ink/5 p-5">
           <div className="flex gap-1 mb-4 bg-paper rounded-lg p-1">
             {["withdraw", "transfer"].map((t) => (
               <button key={t} onClick={() => setTab(t)}
-                      className={`flex-1 text-xs font-semibold py-2 rounded-md capitalize transition-colors ${tab === t ? "bg-white text-teal-dark shadow-sm" : "text-ink-soft"}`}>
+                      className={`flex-1 text-xs font-semibold py-2 rounded-md capitalize transition-colors ${tab === t ? "bg-surface text-teal-dark shadow-sm" : "text-ink-soft"}`}>
                 {t}
               </button>
             ))}
@@ -124,7 +124,7 @@ export default function AdminCompanyWallet() {
           </form>
         </div>
 
-        <div className="lg:col-span-2 bg-white rounded-2xl border border-ink/5 overflow-hidden">
+        <div className="lg:col-span-2 bg-surface rounded-2xl border border-ink/5 overflow-hidden">
           <h2 className="font-display font-semibold text-ink p-5 pb-0">Ledger</h2>
           <div className="overflow-x-auto"><table className="w-full text-sm mt-3">
             <tbody>

@@ -155,7 +155,7 @@ export default function AdminUserDetail() {
   if (!user) {
     return (
       <DashboardLayout title="User Detail">
-        <div className="h-64 rounded-2xl bg-white border border-ink/5 animate-pulse" />
+        <div className="h-64 rounded-2xl bg-surface border border-ink/5 animate-pulse" />
       </DashboardLayout>
     );
   }
@@ -170,7 +170,7 @@ export default function AdminUserDetail() {
       </button>
 
       <div className="grid lg:grid-cols-2 gap-5">
-        <div className="bg-white rounded-2xl border border-ink/5 p-6">
+        <div className="bg-surface rounded-2xl border border-ink/5 p-6">
           <h2 className="font-display font-semibold text-ink mb-4">Profile</h2>
           <form onSubmit={handleSave} className="space-y-4">
             <FormField label="Username" value={form.username}
@@ -224,7 +224,7 @@ export default function AdminUserDetail() {
         </div>
 
         <div className="space-y-5">
-          <div className="bg-white rounded-2xl border border-ink/5 p-6">
+          <div className="bg-surface rounded-2xl border border-ink/5 p-6">
             <h2 className="font-display font-semibold text-ink mb-4">Account status</h2>
             <div className="flex gap-2 mb-4">
               {user.is_active_account ? (
@@ -265,7 +265,7 @@ export default function AdminUserDetail() {
           </div>
 
           {isSuperAdmin && (
-            <div className="bg-white rounded-2xl border border-ink/5 p-6">
+            <div className="bg-surface rounded-2xl border border-ink/5 p-6">
               <h2 className="font-display font-semibold text-ink mb-4">Super admin actions</h2>
               <div className="flex gap-2 flex-wrap mb-4">
                 {["user", "admin", "super_admin"].map((r) => (

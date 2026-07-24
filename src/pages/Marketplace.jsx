@@ -75,7 +75,7 @@ export default function Marketplace() {
               <Link
                 key={p.id}
                 to={`/marketplace/${p.id}`}
-                className="bg-white rounded-2xl border border-ink/5 overflow-hidden hover:shadow-lg hover:shadow-navy-dark/5 transition-shadow group"
+                className="bg-surface rounded-2xl border border-ink/5 overflow-hidden hover:shadow-lg hover:shadow-navy-dark/5 transition-shadow group"
               >
                 <div className="h-44 overflow-hidden bg-paper">
                   <img

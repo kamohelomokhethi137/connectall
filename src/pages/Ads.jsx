@@ -18,7 +18,7 @@ const TYPE_LABELS = {
 
 function AdCard({ ad, onComplete, busy }) {
   return (
-    <div className="bg-white rounded-2xl border border-ink/5 overflow-hidden flex flex-col">
+    <div className="bg-surface rounded-2xl border border-ink/5 overflow-hidden flex flex-col">
       {ad.image_url && (
         <img src={resolveMediaUrl(ad.image_url)} alt={ad.title} className="w-full h-32 object-cover" />
       )}
@@ -94,7 +94,7 @@ export default function Ads() {
       <DashboardLayout title="Ads Earn Cash">
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {Array.from({ length: 4 }).map((_, i) => (
-            <div key={i} className="h-48 rounded-2xl bg-white border border-ink/5 animate-pulse" />
+            <div key={i} className="h-48 rounded-2xl bg-surface border border-ink/5 animate-pulse" />
           ))}
         </div>
       </DashboardLayout>

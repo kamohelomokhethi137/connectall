@@ -58,7 +58,7 @@ export default function ManageUsers() {
         </button>
       </form>
 
-      <div className="bg-white rounded-2xl border border-ink/5 overflow-hidden">
+      <div className="bg-surface rounded-2xl border border-ink/5 overflow-hidden">
         {error && <p className="p-5 text-ink-soft">{error}</p>}
 
         {!error && users === null && (

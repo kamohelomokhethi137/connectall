@@ -38,7 +38,7 @@ export default function Notifications() {
 
   return (
     <DashboardLayout title="Notifications">
-      <div className="bg-white rounded-2xl border border-ink/5 overflow-hidden">
+      <div className="bg-surface rounded-2xl border border-ink/5 overflow-hidden">
         {error && <p className="p-5 text-ink-soft">{error}</p>}
 
         {!error && notifications === null && (

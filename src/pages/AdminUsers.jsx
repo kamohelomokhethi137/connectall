@@ -108,9 +108,9 @@ export default function AdminUsers() {
       </form>
 
       {!users ? (
-        <div className="h-64 rounded-2xl bg-white border border-ink/5 animate-pulse" />
+        <div className="h-64 rounded-2xl bg-surface border border-ink/5 animate-pulse" />
       ) : (
-        <div className="bg-white rounded-2xl border border-ink/5 overflow-hidden">
+        <div className="bg-surface rounded-2xl border border-ink/5 overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>

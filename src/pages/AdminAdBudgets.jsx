@@ -67,14 +67,14 @@ export default function AdminAdBudgets() {
   if (!data) {
     return (
       <DashboardLayout title="Ad Budgets">
-        <div className="h-64 rounded-2xl bg-white border border-ink/5 animate-pulse" />
+        <div className="h-64 rounded-2xl bg-surface border border-ink/5 animate-pulse" />
       </DashboardLayout>
     );
   }
 
   return (
     <DashboardLayout title="Ad Budgets">
-      <div className="bg-white rounded-2xl border border-ink/5 overflow-hidden mb-6">
+      <div className="bg-surface rounded-2xl border border-ink/5 overflow-hidden mb-6">
         <h2 className="font-display font-semibold text-ink p-5 pb-0">Pending deposits ({data.pending.length})</h2>
         {data.pending.length === 0 ? (
           <p className="text-center text-ink-soft py-8">Nothing pending.</p>
@@ -102,7 +102,7 @@ export default function AdminAdBudgets() {
         )}
       </div>
 
-      <div className="bg-white rounded-2xl border border-ink/5 overflow-hidden">
+      <div className="bg-surface rounded-2xl border border-ink/5 overflow-hidden">
         <h2 className="font-display font-semibold text-ink p-5 pb-0">Recent</h2>
         {data.recent.length === 0 ? (
           <p className="text-center text-ink-soft py-8">No history yet.</p>

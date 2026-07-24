@@ -45,7 +45,7 @@ import ComingSoon from "./pages/ComingSoon";
 
 import useScrollToHash from "./hooks/useScrollToHash";
 
-import SocialBarAd from "./components/SocialBarAd";
+// import SocialBarAd from "./components/SocialBarAd";
 
 function ScrollManager() {
   useScrollToHash();
@@ -59,20 +59,20 @@ function App() {
     if (popunderLoaded.current) return;
     popunderLoaded.current = true;
 
-    const script = document.createElement("script");
-    script.src =
-      "https://embargotechniquebattle.com/df/83/c2/df83c2ce824ed3e33a82e4f426fbffa0.js";
-    script.async = true;
-    script.setAttribute("data-cfasync", "false");
+    // const script = document.createElement("script");
+    // script.src =
+    //   "https://embargotechniquebattle.com/df/83/c2/df83c2ce824ed3e33a82e4f426fbffa0.js";
+    // script.async = true;
+    // script.setAttribute("data-cfasync", "false");
 
-    document.body.appendChild(script);
+    // document.body.appendChild(script);
   }, []);
 
   return (
     <BrowserRouter>
       <AuthProvider>
         <ScrollManager />
-        <SocialBarAd />
+        {/* <SocialBarAd /> */}
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />

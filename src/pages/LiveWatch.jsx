@@ -86,11 +86,11 @@ export default function LiveWatch() {
     <div className="min-h-screen bg-paper">
       <Navbar />
       <main className="max-w-3xl mx-auto px-6 pt-28 pb-16">
-        <div className="bg-white rounded-2xl border border-ink/5 overflow-hidden">
+        <div className="bg-surface rounded-2xl border border-ink/5 overflow-hidden">
           <div className="relative bg-navy-dark aspect-video flex items-center justify-center">
             <FiRadio className="text-white/25" size={56} aria-hidden="true" />
             <span className="absolute top-4 left-4 flex items-center gap-1.5 bg-red-500 text-white text-xs font-mono uppercase tracking-wider px-2.5 py-1 rounded">
-              <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+              <span className="w-1.5 h-1.5 rounded-full bg-surface animate-pulse" />
               Live
             </span>
             <span className="absolute top-4 right-4 flex items-center gap-1.5 bg-black/50 text-white text-xs font-mono px-2.5 py-1 rounded">

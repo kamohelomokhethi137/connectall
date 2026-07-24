@@ -32,7 +32,7 @@ export default function AdminAuditLog() {
   if (!logs) {
     return (
       <DashboardLayout title="Audit Log">
-        <div className="h-64 rounded-2xl bg-white border border-ink/5 animate-pulse" />
+        <div className="h-64 rounded-2xl bg-surface border border-ink/5 animate-pulse" />
       </DashboardLayout>
     );
   }
@@ -42,7 +42,7 @@ export default function AdminAuditLog() {
       {logs.length === 0 ? (
         <p className="text-center text-ink-soft py-10">No admin actions logged yet.</p>
       ) : (
-        <div className="bg-white rounded-2xl border border-ink/5 overflow-hidden">
+        <div className="bg-surface rounded-2xl border border-ink/5 overflow-hidden">
           <table className="w-full text-sm">
             <thead>
               <tr className="text-left text-ink-soft border-b border-ink/5">

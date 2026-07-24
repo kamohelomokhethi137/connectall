@@ -184,7 +184,7 @@ export default function Home() {
             <div className="grid lg:grid-cols-[1fr_auto] gap-8 items-start max-w-6xl mx-auto">
               {/* Left Column: feature cards, staggered reveal on scroll-into-view */}
               <m.div
-                className="bg-white rounded-2xl shadow-sm border border-ink/5 overflow-hidden w-full"
+                className="bg-surface rounded-2xl shadow-sm border border-ink/5 overflow-hidden w-full"
                 initial="hidden"
                 whileInView="show"
                 viewport={{ once: true, amount: 0.15 }}
@@ -221,7 +221,7 @@ export default function Home() {
 
               {/* Right Column: 160x300 Pinned Vertical Skyscraper Card Banner Slot */}
               <m.div
-                className="hidden lg:block shrink-0 sticky top-24 bg-white p-3 rounded-2xl border border-ink/5 shadow-sm"
+                className="hidden lg:block shrink-0 sticky top-24 bg-surface p-3 rounded-2xl border border-ink/5 shadow-sm"
                 initial="hidden"
                 whileInView="show"
                 viewport={{ once: true, amount: 0.4 }}

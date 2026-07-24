@@ -97,7 +97,7 @@ export default function Wallet() {
   if (!data) {
     return (
       <DashboardLayout title="Wallet & Payments">
-        <div className="h-64 rounded-2xl bg-white border border-ink/5 animate-pulse" />
+        <div className="h-64 rounded-2xl bg-surface border border-ink/5 animate-pulse" />
       </DashboardLayout>
     );
   }
@@ -113,7 +113,7 @@ export default function Wallet() {
       </div>
 
       <div className="grid lg:grid-cols-3 gap-4">
-        <div className="lg:col-span-1 bg-white rounded-2xl border border-ink/5 p-5">
+        <div className="lg:col-span-1 bg-surface rounded-2xl border border-ink/5 p-5">
           <div className="flex gap-1 mb-4 bg-paper rounded-lg p-1">
             {TABS.map((t) => (
               <button
@@ -123,7 +123,7 @@ export default function Wallet() {
                   resetForm();
                 }}
                 className={`flex-1 flex items-center justify-center gap-1.5 text-xs font-semibold py-2 rounded-md transition-colors ${
-                  tab === t.key ? "bg-white text-teal-dark shadow-sm" : "text-ink-soft"
+                  tab === t.key ? "bg-surface text-teal-dark shadow-sm" : "text-ink-soft"
                 }`}
               >
                 <t.icon size={13} /> {t.label}
@@ -156,7 +156,7 @@ export default function Wallet() {
               <select
                 value={methodId}
                 onChange={(e) => setMethodId(e.target.value)}
-                className="w-full h-11 rounded-lg border border-ink/10 px-3.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal"
+                className="w-full h-11 rounded-lg border border-ink/10 px-3.5 text-sm bg-surface focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal"
               >
                 {data.methods.map((m) => (
                   <option key={m.id} value={m.id}>{m.name}</option>
@@ -184,7 +184,7 @@ export default function Wallet() {
           </form>
         </div>
 
-        <div className="lg:col-span-2 bg-white rounded-2xl border border-ink/5 overflow-hidden">
+        <div className="lg:col-span-2 bg-surface rounded-2xl border border-ink/5 overflow-hidden">
           <h2 className="font-display font-semibold text-ink p-5 pb-0">Recent Transactions</h2>
           {data.transactions.length === 0 ? (
             <p className="text-center text-ink-soft py-10">No transactions yet.</p>

@@ -29,7 +29,7 @@ export default function FormField({
         <input
           id={id}
           type={actualType}
-          className={`w-full h-11 rounded-lg border bg-white text-sm text-ink placeholder:text-ink-soft/40 focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal transition-colors ${
+          className={`w-full h-11 rounded-lg border bg-surface text-sm text-ink placeholder:text-ink-soft/40 focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal transition-colors ${
             Icon ? "pl-11" : "pl-3.5"
           } ${isPassword ? "pr-11" : "pr-3.5"} ${
             error ? "border-red-400" : "border-ink/10"

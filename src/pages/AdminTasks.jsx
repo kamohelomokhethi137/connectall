@@ -83,7 +83,7 @@ export default function AdminTasks() {
 
   return (
     <DashboardLayout title="Manage Tasks">
-      <div className="bg-white rounded-2xl border border-ink/5 p-5 mb-6">
+      <div className="bg-surface rounded-2xl border border-ink/5 p-5 mb-6">
         <h2 className="font-display font-semibold text-ink mb-4 flex items-center gap-2">
           <FiPlus className="text-teal-dark" /> Create task
         </h2>
@@ -92,7 +92,7 @@ export default function AdminTasks() {
                  placeholder="Title" required
                  className="h-11 rounded-lg border border-ink/10 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal" />
           <select value={form.task_type} onChange={(e) => setForm((f) => ({ ...f, task_type: e.target.value }))}
-                  className="h-11 rounded-lg border border-ink/10 px-3 text-sm bg-white">
+                  className="h-11 rounded-lg border border-ink/10 px-3 text-sm bg-surface">
             {taskTypes.map((t) => <option key={t} value={t}>{t.replace(/_/g, " ")}</option>)}
           </select>
           <input value={form.target_count} onChange={(e) => setForm((f) => ({ ...f, target_count: e.target.value }))}
@@ -112,9 +112,9 @@ export default function AdminTasks() {
       </div>
 
       {!tasks ? (
-        <div className="h-64 rounded-2xl bg-white border border-ink/5 animate-pulse" />
+        <div className="h-64 rounded-2xl bg-surface border border-ink/5 animate-pulse" />
       ) : (
-        <div className="bg-white rounded-2xl border border-ink/5 overflow-hidden">
+        <div className="bg-surface rounded-2xl border border-ink/5 overflow-hidden">
           <table className="w-full text-sm">
             <thead>
               <tr className="text-left text-ink-soft border-b border-ink/5">

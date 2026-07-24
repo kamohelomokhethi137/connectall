@@ -48,7 +48,7 @@ export default function AdminMessages() {
   if (!messages) {
     return (
       <DashboardLayout title="Contact Messages">
-        <div className="h-64 rounded-2xl bg-white border border-ink/5 animate-pulse" />
+        <div className="h-64 rounded-2xl bg-surface border border-ink/5 animate-pulse" />
       </DashboardLayout>
     );
   }
@@ -60,7 +60,7 @@ export default function AdminMessages() {
       ) : (
         <div className="space-y-3">
           {messages.map((m) => (
-            <div key={m.id} className="bg-white rounded-2xl border border-ink/5 p-5">
+            <div key={m.id} className="bg-surface rounded-2xl border border-ink/5 p-5">
               <div className="flex items-start justify-between gap-3">
                 <div className="flex items-start gap-3 min-w-0">
                   <span className="w-9 h-9 rounded-lg bg-paper flex items-center justify-center text-teal-dark shrink-0 mt-0.5">
