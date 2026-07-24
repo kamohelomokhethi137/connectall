@@ -381,7 +381,7 @@ function BottomNav({ pathname }) {
   items.sort((a, b) => quickNavKeys.indexOf(a.to) - quickNavKeys.indexOf(b.to));
 
   return (
-    <nav className="h-14 bg-surface border-t border-ink/5 flex items-center justify-around px-4 shrink-0 z-30 shadow-lg sm:hidden">
+    <nav className="h-14 bg-surface border-t border-ink/5 flex items-center justify-around px-4 z-50 shadow-lg fixed bottom-0 left-0 right-0 sm:hidden">
       {items.map((item) => {
         const Icon = item.icon;
         const isActive = pathname === item.to;
@@ -520,9 +520,9 @@ export default function DashboardLayout({ title, children }) {
           </div>
         </header>
 
-        <main className="flex-1 overflow-y-auto p-4 sm:p-6">{children}</main>
+        <main className="flex-1 overflow-y-auto p-4 sm:p-6 pb-16">{children}</main>
 
-        {/* Bottom Navigation */}
+        {/* Bottom Navigation - fixed to viewport on mobile */}
         <BottomNav pathname={location.pathname} />
       </div>
     </div>
