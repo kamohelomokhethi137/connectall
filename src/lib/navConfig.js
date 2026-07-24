@@ -2,7 +2,7 @@ import {
   FiActivity, FiLink2, FiCreditCard, FiDollarSign, FiMessageCircle, FiShoppingBag,
   FiRadio, FiCheckSquare, FiAward, FiTag, FiTrendingUp, FiBell, FiUser,
   FiSettings, FiLock, FiExternalLink, FiShield, FiUsers, FiFileText,
-  FiVideo, FiVolume2, FiBriefcase, FiMail, FiClipboard, FiCrosshair,
+  FiVideo, FiVolume2, FiBriefcase, FiMail, FiClipboard, FiCrosshair, FiHome,
 } from "react-icons/fi";
 
 // Each group carries a `color` token (navy / teal / gold / coral) used to
@@ -15,6 +15,7 @@ export const navGroups = [
     label: "Overview",
     color: "neutral",
     items: [
+      { label: "Feed", to: "/feed", icon: FiHome },
       { label: "Dashboard", to: "/dashboard", icon: FiActivity },
       { label: "Notifications", to: "/notifications", icon: FiBell },
     ],
@@ -58,7 +59,7 @@ export const navGroups = [
 // The handful of destinations that get a persistent icon button in the
 // top bar (Facebook-style quick nav) - deliberately short, everything
 // else lives one tap away in the "more" grid menu.
-export const quickNavKeys = ["/dashboard", "/files", "/wallet", "/live"];
+export const quickNavKeys = ["/feed", "/dashboard", "/files", "/wallet", "/live"];
 
 export const accountNav = [
   { label: "Profile", to: "/profile", icon: FiUser },

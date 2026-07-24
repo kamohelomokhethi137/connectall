@@ -50,7 +50,7 @@ export default function Login() {
         });
         await refresh();
         toast.success("Welcome back");
-        navigate(location.state?.from || "/dashboard", { replace: true });
+        navigate(location.state?.from || "/feed", { replace: true });
       } catch (err) {
         // Deliberately generic message: never reveal whether the email
         // or the password was the wrong one, that alone is an

@@ -418,7 +418,7 @@ function ThemeToggle() {
   );
 }
 
-export default function DashboardLayout({ title, children }) {
+export default function DashboardLayout({ title, children, noSidebar = false, noPadding = false }) {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
@@ -434,42 +434,46 @@ export default function DashboardLayout({ title, children }) {
   return (
     <div className="h-screen flex bg-paper overflow-hidden">
       {/* Desktop sidebar */}
-      <div className="hidden lg:block">
-        <Sidebar isAdmin={isAdmin} isSuperAdmin={isSuperAdmin} />
-      </div>
+      {!noSidebar && (
+        <div className="hidden lg:block">
+          <Sidebar isAdmin={isAdmin} isSuperAdmin={isSuperAdmin} />
+        </div>
+      )}
 
       {/* Mobile sidebar drawer */}
-      <AnimatePresence>
-        {mobileOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 lg:hidden"
-          >
+      {!noSidebar && (
+        <AnimatePresence>
+          {mobileOpen && (
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="absolute inset-0 bg-black/40"
-              onClick={() => setMobileOpen(false)}
-            />
-            <motion.div
-              initial={{ x: -280 }}
-              animate={{ x: 0 }}
-              exit={{ x: -280 }}
-              transition={{ duration: 0.2, ease: EASE_PREMIUM }}
-              className="absolute inset-y-0 left-0"
+              className="fixed inset-0 z-50 lg:hidden"
             >
-              <Sidebar
-                isAdmin={isAdmin}
-                isSuperAdmin={isSuperAdmin}
-                onNavigate={() => setMobileOpen(false)}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="absolute inset-0 bg-black/40"
+                onClick={() => setMobileOpen(false)}
               />
+              <motion.div
+                initial={{ x: -280 }}
+                animate={{ x: 0 }}
+                exit={{ x: -280 }}
+                transition={{ duration: 0.2, ease: EASE_PREMIUM }}
+                className="absolute inset-y-0 left-0"
+              >
+                <Sidebar
+                  isAdmin={isAdmin}
+                  isSuperAdmin={isSuperAdmin}
+                  onNavigate={() => setMobileOpen(false)}
+                />
+              </motion.div>
             </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          )}
+        </AnimatePresence>
+      )}
 
       <div className="flex-1 flex flex-col min-w-0">
         <header className="relative h-16 bg-surface border-b border-ink/5 flex items-center justify-between px-2 sm:px-5 shrink-0 z-20 gap-2">
@@ -486,7 +490,7 @@ export default function DashboardLayout({ title, children }) {
               <QuickNav pathname={location.pathname} />
             </div>
             {/* Logo on mobile only (left side) */}
-            <Link to="/dashboard" className="flex items-center gap-1.5 lg:hidden">
+            <Link to="/feed" className="flex items-center gap-1.5 lg:hidden">
               <Mark className="w-6 h-6 text-teal-dark shrink-0" />
               <span className="font-display font-semibold text-base text-ink tracking-tight truncate max-w-[100px]">
                 ConnectAll
@@ -496,7 +500,7 @@ export default function DashboardLayout({ title, children }) {
 
           {/* Center: ConnectAll logo (desktop only) */}
           <div className="hidden lg:flex absolute left-1/2 -translate-x-1/2 items-center">
-            <Link to="/dashboard" className="flex items-center gap-2">
+            <Link to="/feed" className="flex items-center gap-2">
               <Mark className="w-7 h-7 text-teal-dark" />
               <span className="font-display font-semibold text-lg text-ink tracking-tight">
                 ConnectAll
@@ -520,7 +524,7 @@ export default function DashboardLayout({ title, children }) {
           </div>
         </header>
 
-        <main className="flex-1 overflow-y-auto p-4 sm:p-6 pb-16">{children}</main>
+        <main className={`flex-1 min-h-0 overflow-hidden ${noPadding ? "" : "p-4 sm:p-6 pb-16"}`}>{children}</main>
 
         {/* Bottom Navigation - fixed to viewport on mobile */}
         <BottomNav pathname={location.pathname} />

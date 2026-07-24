@@ -40,6 +40,7 @@ import AdminAdBudgets from "./pages/AdminAdBudgets";
 import AdminCompanyWallet from "./pages/AdminCompanyWallet";
 import AdminMessages from "./pages/AdminMessages";
 import AdminAuditLog from "./pages/AdminAuditLog";
+import Feed from "./pages/Feed";
 import ComingSoon from "./pages/ComingSoon";
 
 
@@ -83,6 +84,11 @@ function App() {
           <Route path="/live/:id" element={
             <RequireAuth>
               <LiveWatch />
+            </RequireAuth>
+          } />
+          <Route path="/feed" element={
+            <RequireAuth>
+              <Feed />
             </RequireAuth>
           } />
           <Route path="/dashboard" element={
