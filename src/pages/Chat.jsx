@@ -275,7 +275,7 @@ function FindFriendsPanel({ onSent, onViewProfile, onMessage }) {
           value={q}
           onChange={(e) => setQ(e.target.value)}
           placeholder="Find friends by username or ID"
-          className="w-full h-10 rounded-lg border border-ink/10 pl-9 pr-3 text-sm focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal"
+          className="w-full h-10 rounded-lg border border-ink/10 bg-surface pl-9 pr-3 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal"
         />
       </div>
 
@@ -569,7 +569,7 @@ export default function Chat() {
                       value={groupName}
                       onChange={(e) => setGroupName(e.target.value)}
                       placeholder="Group name"
-                      className="w-full h-9 rounded-lg border border-ink/10 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-teal/30"
+                      className="w-full h-9 rounded-lg border border-ink/10 bg-surface px-3 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-teal/30"
                     />
                     {friends.length === 0 ? (
                       <p className="text-xs text-ink-soft">Add some friends first to start a group.</p>
@@ -716,7 +716,7 @@ export default function Chat() {
                     socketRef.current?.sendTyping();
                   }}
                   placeholder="Type a message…"
-                  className="flex-1 h-10 rounded-full border border-ink/10 px-4 text-sm focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal"
+                  className="flex-1 h-10 rounded-full border border-ink/10 bg-surface px-4 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal"
                 />
                 <motion.button
                   whileTap={{ scale: 0.9 }}

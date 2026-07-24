@@ -90,24 +90,24 @@ export default function AdminTasks() {
         <form onSubmit={handleAdd} className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
           <input value={form.title} onChange={(e) => setForm((f) => ({ ...f, title: e.target.value }))}
                  placeholder="Title" required
-                 className="h-11 rounded-lg border border-ink/10 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal" />
+                 className="h-11 rounded-lg border border-ink/10 bg-surface px-3 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal" />
           <select value={form.task_type} onChange={(e) => setForm((f) => ({ ...f, task_type: e.target.value }))}
-                  className="h-11 rounded-lg border border-ink/10 px-3 text-sm bg-surface">
+                  className="h-11 rounded-lg border border-ink/10 px-3 text-sm text-ink bg-surface">
             {taskTypes.map((t) => <option key={t} value={t}>{t.replace(/_/g, " ")}</option>)}
           </select>
           <input value={form.target_count} onChange={(e) => setForm((f) => ({ ...f, target_count: e.target.value }))}
                  type="number" min="1" placeholder="Target count"
-                 className="h-11 rounded-lg border border-ink/10 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal" />
+                 className="h-11 rounded-lg border border-ink/10 bg-surface px-3 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal" />
           <input value={form.points_reward} onChange={(e) => setForm((f) => ({ ...f, points_reward: e.target.value }))}
                  type="number" min="0" placeholder="Points reward"
-                 className="h-11 rounded-lg border border-ink/10 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal" />
+                 className="h-11 rounded-lg border border-ink/10 bg-surface px-3 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal" />
           <input value={form.tokens_reward} onChange={(e) => setForm((f) => ({ ...f, tokens_reward: e.target.value }))}
                  type="number" min="0" placeholder="Tokens reward"
-                 className="h-11 rounded-lg border border-ink/10 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal" />
+                 className="h-11 rounded-lg border border-ink/10 bg-surface px-3 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal" />
           <SubmitButton loading={adding}>Create</SubmitButton>
           <textarea value={form.description} onChange={(e) => setForm((f) => ({ ...f, description: e.target.value }))}
                     placeholder="Description" rows={2}
-                    className="sm:col-span-2 lg:col-span-3 rounded-lg border border-ink/10 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal" />
+                    className="sm:col-span-2 lg:col-span-3 rounded-lg border border-ink/10 bg-surface px-3 py-2 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal" />
         </form>
       </div>
 

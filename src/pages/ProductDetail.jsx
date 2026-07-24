@@ -147,7 +147,7 @@ export default function ProductDetail() {
                   onChange={(e) => setCommentText(e.target.value)}
                   maxLength={500}
                   placeholder="Write a comment..."
-                  className="flex-1 h-11 rounded-lg border border-ink/10 bg-surface px-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal"
+                  className="flex-1 h-11 rounded-lg border border-ink/10 bg-surface px-3.5 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal"
                 />
                 <button
                   type="submit"

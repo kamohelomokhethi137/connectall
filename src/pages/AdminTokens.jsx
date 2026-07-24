@@ -119,14 +119,14 @@ export default function AdminTokens() {
         <form onSubmit={handleAddPkg} className="grid sm:grid-cols-4 gap-3">
           <input value={pkgForm.name} onChange={(e) => setPkgForm((f) => ({ ...f, name: e.target.value }))}
                  placeholder="Name" required
-                 className="h-11 rounded-lg border border-ink/10 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal" />
+                 className="h-11 rounded-lg border border-ink/10 bg-surface px-3 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal" />
           <input value={pkgForm.tokens} onChange={(e) => setPkgForm((f) => ({ ...f, tokens: e.target.value }))}
                  type="number" min="0" placeholder="Tokens"
-                 className="h-11 rounded-lg border border-ink/10 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal" />
+                 className="h-11 rounded-lg border border-ink/10 bg-surface px-3 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal" />
           <input value={pkgForm.price} onChange={(e) => setPkgForm((f) => ({ ...f, price: e.target.value }))}
                  type="number" step="0.01" min="0" placeholder="Price (R)"
-                 className="h-11 rounded-lg border border-ink/10 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal" />
-          <SubmitButton loading={addingPkg}><FiPlus className="inline mr-1" size={14} />Add</SubmitButton>
+                 className="h-11 rounded-lg border border-ink/10 bg-surface px-3 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal" />
+           <SubmitButton loading={addingPkg}><FiPlus className="inline mr-1" size={14} />Add</SubmitButton>
         </form>
       </div>
       <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
@@ -148,17 +148,17 @@ export default function AdminTokens() {
         <form onSubmit={handleAddPlan} className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
           <input value={planForm.name} onChange={(e) => setPlanForm((f) => ({ ...f, name: e.target.value }))}
                  placeholder="Name" required
-                 className="h-11 rounded-lg border border-ink/10 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal" />
+                 className="h-11 rounded-lg border border-ink/10 bg-surface px-3 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal" />
           <input value={planForm.token_cost} onChange={(e) => setPlanForm((f) => ({ ...f, token_cost: e.target.value }))}
                  type="number" min="0" placeholder="Token cost"
-                 className="h-11 rounded-lg border border-ink/10 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal" />
+                 className="h-11 rounded-lg border border-ink/10 bg-surface px-3 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal" />
           <input value={planForm.duration_days} onChange={(e) => setPlanForm((f) => ({ ...f, duration_days: e.target.value }))}
                  type="number" min="1" placeholder="Duration (days)"
-                 className="h-11 rounded-lg border border-ink/10 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal" />
+                 className="h-11 rounded-lg border border-ink/10 bg-surface px-3 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal" />
           <SubmitButton loading={addingPlan}><FiPlus className="inline mr-1" size={14} />Add</SubmitButton>
           <input value={planForm.description} onChange={(e) => setPlanForm((f) => ({ ...f, description: e.target.value }))}
                  placeholder="Description"
-                 className="sm:col-span-2 lg:col-span-4 h-11 rounded-lg border border-ink/10 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal" />
+                 className="sm:col-span-2 lg:col-span-4 h-11 rounded-lg border border-ink/10 bg-surface px-3 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal" />
         </form>
       </div>
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">

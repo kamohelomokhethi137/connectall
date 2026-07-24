@@ -108,17 +108,17 @@ export default function AdminCompanyWallet() {
           <form onSubmit={handleSubmit} className="space-y-3">
             <input type="number" step="0.01" min="0" value={amount} onChange={(e) => setAmount(e.target.value)}
                    placeholder="Amount (R)" required
-                   className="w-full h-11 rounded-lg border border-ink/10 px-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal" />
+                   className="w-full h-11 rounded-lg border border-ink/10 bg-surface px-3.5 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal" />
             {tab === "withdraw" ? (
               <>
                 <input value={method} onChange={(e) => setMethod(e.target.value)} placeholder="Method (e.g. Bank transfer)"
-                       className="w-full h-11 rounded-lg border border-ink/10 px-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal" />
+                       className="w-full h-11 rounded-lg border border-ink/10 bg-surface px-3.5 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal" />
                 <input value={account} onChange={(e) => setAccount(e.target.value)} placeholder="Account / reference"
-                       className="w-full h-11 rounded-lg border border-ink/10 px-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal" />
+                       className="w-full h-11 rounded-lg border border-ink/10 bg-surface px-3.5 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal" />
               </>
             ) : (
               <input value={recipient} onChange={(e) => setRecipient(e.target.value)} placeholder="Recipient username" required
-                     className="w-full h-11 rounded-lg border border-ink/10 px-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal" />
+                     className="w-full h-11 rounded-lg border border-ink/10 bg-surface px-3.5 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal" />
             )}
             <SubmitButton loading={submitting}>{tab === "withdraw" ? "Record withdrawal" : "Send"}</SubmitButton>
           </form>

@@ -87,23 +87,23 @@ export default function AdminPaymentMethods() {
         <form onSubmit={handleAdd} className="grid sm:grid-cols-2 lg:grid-cols-5 gap-3">
           <input value={form.name} onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
                  placeholder="Name (e.g. M-Pesa)" required
-                 className="h-11 rounded-lg border border-ink/10 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal" />
+                 className="h-11 rounded-lg border border-ink/10 bg-surface px-3 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal" />
           <select value={form.method_type} onChange={(e) => setForm((f) => ({ ...f, method_type: e.target.value }))}
-                  className="h-11 rounded-lg border border-ink/10 px-3 text-sm bg-surface">
+                  className="h-11 rounded-lg border border-ink/10 px-3 text-sm text-ink bg-surface">
             <option value="mobile_money">Mobile Money</option>
             <option value="bank">Bank</option>
             <option value="card">Card</option>
           </select>
           <input value={form.account_number} onChange={(e) => setForm((f) => ({ ...f, account_number: e.target.value }))}
                  placeholder="Account number" required
-                 className="h-11 rounded-lg border border-ink/10 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal" />
+                 className="h-11 rounded-lg border border-ink/10 bg-surface px-3 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal" />
           <input value={form.account_name} onChange={(e) => setForm((f) => ({ ...f, account_name: e.target.value }))}
                  placeholder="Account name"
-                 className="h-11 rounded-lg border border-ink/10 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal" />
+                 className="h-11 rounded-lg border border-ink/10 bg-surface px-3 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal" />
           <SubmitButton loading={adding}>Add</SubmitButton>
           <input value={form.instructions} onChange={(e) => setForm((f) => ({ ...f, instructions: e.target.value }))}
                  placeholder="Instructions for users (optional)"
-                 className="sm:col-span-2 lg:col-span-5 h-11 rounded-lg border border-ink/10 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal" />
+                 className="sm:col-span-2 lg:col-span-5 h-11 rounded-lg border border-ink/10 bg-surface px-3 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal" />
         </form>
       </div>
 

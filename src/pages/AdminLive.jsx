@@ -80,9 +80,9 @@ export default function AdminLive() {
         </h2>
         <form onSubmit={handleStart} className="grid sm:grid-cols-[1fr_1fr_auto] gap-3">
           <input value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Stream title" required
-                 className="h-11 rounded-lg border border-ink/10 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal" />
-          <input value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Description (optional)"
-                 className="h-11 rounded-lg border border-ink/10 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal" />
+                 className="h-11 rounded-lg border border-ink/10 bg-surface px-3 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal" />
+           <input value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Description (optional)"
+                 className="h-11 rounded-lg border border-ink/10 bg-surface px-3 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal" />
           <SubmitButton loading={starting}>Start stream</SubmitButton>
         </form>
       </div>

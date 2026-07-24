@@ -252,9 +252,9 @@ export default function AdminUserDetail() {
                 <p className="text-sm font-medium text-ink mb-2">Mute this user</p>
                 <div className="flex gap-2">
                   <input type="number" min="1" value={muteHours} onChange={(e) => setMuteHours(e.target.value)}
-                         className="w-20 h-10 rounded-lg border border-ink/10 px-2 text-sm" placeholder="Hours" />
+                         className="w-20 h-10 rounded-lg border border-ink/10 bg-surface px-2 text-sm text-ink" placeholder="Hours" />
                   <input type="text" value={muteReason} onChange={(e) => setMuteReason(e.target.value)}
-                         placeholder="Reason" className="flex-1 h-10 rounded-lg border border-ink/10 px-3 text-sm" />
+                          placeholder="Reason" className="flex-1 h-10 rounded-lg border border-ink/10 bg-surface px-3 text-sm text-ink" />
                   <button onClick={handleMute} disabled={busy || user.role === "super_admin"}
                           className="h-10 px-3 rounded-lg bg-gold text-navy text-sm font-semibold disabled:opacity-40">
                     Mute

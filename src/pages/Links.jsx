@@ -92,7 +92,7 @@ export default function Links() {
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             placeholder="Link title (optional)"
-            className="h-11 rounded-lg border border-ink/10 bg-surface px-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal"
+            className="h-11 rounded-lg border border-ink/10 bg-surface px-3.5 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal"
           />
           <input
             type="text"
@@ -100,7 +100,7 @@ export default function Links() {
             onChange={(e) => setUrl(e.target.value)}
             placeholder="https://destination-website.com"
             required
-            className="h-11 rounded-lg border border-ink/10 bg-surface px-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal"
+            className="h-11 rounded-lg border border-ink/10 bg-surface px-3.5 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal"
           />
           <SubmitButton loading={creating}>Create</SubmitButton>
         </form>

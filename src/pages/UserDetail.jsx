@@ -126,7 +126,7 @@ export default function UserDetail() {
               type="text"
               value={form.username}
               onChange={(e) => setForm((f) => ({ ...f, username: e.target.value }))}
-              className="w-full h-11 rounded-lg border border-ink/10 px-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal"
+              className="w-full h-11 rounded-lg border border-ink/10 bg-surface px-3.5 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal"
             />
           </div>
           <div>
@@ -135,7 +135,7 @@ export default function UserDetail() {
               type="email"
               value={form.email}
               onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))}
-              className="w-full h-11 rounded-lg border border-ink/10 px-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal"
+              className="w-full h-11 rounded-lg border border-ink/10 bg-surface px-3.5 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal"
             />
           </div>
           <div>
@@ -144,7 +144,7 @@ export default function UserDetail() {
               type="text"
               value={form.phone}
               onChange={(e) => setForm((f) => ({ ...f, phone: e.target.value }))}
-              className="w-full h-11 rounded-lg border border-ink/10 px-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal"
+              className="w-full h-11 rounded-lg border border-ink/10 bg-surface px-3.5 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal"
             />
           </div>
 
@@ -157,7 +157,7 @@ export default function UserDetail() {
                 value={form.role}
                 onChange={(e) => setForm((f) => ({ ...f, role: e.target.value }))}
                 disabled={isSelf}
-                className="w-full h-11 rounded-lg border border-ink/10 px-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal disabled:bg-paper"
+                className="w-full h-11 rounded-lg border border-ink/10 bg-surface px-3.5 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal disabled:bg-paper"
               >
                 {ROLES.map((r) => (
                   <option key={r} value={r}>{r.replace("_", " ")}</option>
@@ -193,7 +193,7 @@ export default function UserDetail() {
                   onChange={(e) => setBlockReason(e.target.value)}
                   placeholder="Reason for blocking"
                   disabled={!canModerate}
-                  className="w-full h-10 rounded-lg border border-ink/10 px-3 text-sm disabled:bg-paper"
+                  className="w-full h-10 rounded-lg border border-ink/10 bg-surface px-3 text-sm text-ink disabled:bg-paper"
                 />
                 <button
                   onClick={() => runAction("block", () => blockUser(id, blockReason), "User blocked.")}
@@ -243,7 +243,7 @@ export default function UserDetail() {
                   value={muteHours}
                   onChange={(e) => setMuteHours(e.target.value)}
                   min={1}
-                  className="w-full h-10 rounded-lg border border-ink/10 px-3 text-sm disabled:bg-paper"
+                  className="w-full h-10 rounded-lg border border-ink/10 bg-surface px-3 text-sm text-ink disabled:bg-paper"
                   disabled={!canModerate}
                 />
                 <button

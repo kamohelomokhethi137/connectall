@@ -95,14 +95,14 @@ export default function AdminMarketplace() {
         </h2>
         <form onSubmit={handleAdd} className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
           <input value={name} onChange={(e) => setName(e.target.value)} placeholder="Product name" required
-                 className="h-11 rounded-lg border border-ink/10 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal" />
+                 className="h-11 rounded-lg border border-ink/10 bg-surface px-3 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal" />
           <input value={price} onChange={(e) => setPrice(e.target.value)} type="number" step="0.01" placeholder="Price (R)"
-                 className="h-11 rounded-lg border border-ink/10 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal" />
+                 className="h-11 rounded-lg border border-ink/10 bg-surface px-3 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal" />
           <input ref={fileRef} type="file" accept="image/*" onChange={(e) => setImage(e.target.files?.[0] || null)}
                  className="h-11 text-sm text-ink-soft file:mr-3 file:py-2 file:px-3 file:rounded-lg file:border-0 file:bg-paper file:text-ink file:text-xs" />
           <SubmitButton loading={adding}>Publish</SubmitButton>
           <textarea value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Description"
-                    className="sm:col-span-2 lg:col-span-4 rounded-lg border border-ink/10 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal" rows={2} />
+                    className="sm:col-span-2 lg:col-span-4 rounded-lg border border-ink/10 bg-surface px-3 py-2 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal" rows={2} />
         </form>
       </div>
 

@@ -119,7 +119,7 @@ export default function BioEditor() {
               value={headline}
               onChange={(e) => setHeadline(e.target.value)}
               maxLength={150}
-              className="w-full h-11 rounded-lg border border-ink/10 px-3.5 text-sm mb-4 focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal"
+              className="w-full h-11 rounded-lg border border-ink/10 bg-surface px-3.5 text-sm text-ink mb-4 focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal"
             />
 
             <label className="text-sm font-medium text-ink block mb-1.5">Bio text</label>
@@ -127,7 +127,7 @@ export default function BioEditor() {
               value={bioText}
               onChange={(e) => setBioText(e.target.value)}
               rows={4}
-              className="w-full rounded-lg border border-ink/10 px-3.5 py-2.5 text-sm mb-4 focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal resize-none"
+              className="w-full rounded-lg border border-ink/10 bg-surface px-3.5 py-2.5 text-sm text-ink mb-4 focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal resize-none"
             />
 
             <label className="text-sm font-medium text-ink block mb-1.5">Theme</label>
@@ -168,14 +168,14 @@ export default function BioEditor() {
                 value={linkTitle}
                 onChange={(e) => setLinkTitle(e.target.value)}
                 placeholder="Link title"
-                className="h-11 rounded-lg border border-ink/10 px-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal"
+                className="h-11 rounded-lg border border-ink/10 bg-surface px-3.5 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal"
               />
               <input
                 type="text"
                 value={linkUrl}
                 onChange={(e) => setLinkUrl(e.target.value)}
                 placeholder="https://..."
-                className="h-11 rounded-lg border border-ink/10 px-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal"
+                className="h-11 rounded-lg border border-ink/10 bg-surface px-3.5 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal"
               />
               <SubmitButton loading={addingLink}>Add</SubmitButton>
             </form>

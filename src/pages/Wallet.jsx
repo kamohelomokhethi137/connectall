@@ -139,25 +139,25 @@ export default function Wallet() {
                 onChange={(e) => setRecipient(e.target.value)}
                 placeholder="Recipient username"
                 required
-                className="w-full h-11 rounded-lg border border-ink/10 px-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal"
-              />
-            )}
-            <input
-              type="number"
-              step="0.01"
-              min="0"
-              value={amount}
-              onChange={(e) => setAmount(e.target.value)}
-              placeholder="Amount (R)"
-              required
-              className="w-full h-11 rounded-lg border border-ink/10 px-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal"
+                className="w-full h-11 rounded-lg border border-ink/10 bg-surface px-3.5 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal"
+             />
+           )}
+           <input
+             type="number"
+             step="0.01"
+             min="0"
+             value={amount}
+             onChange={(e) => setAmount(e.target.value)}
+             placeholder="Amount (R)"
+             required
+             className="w-full h-11 rounded-lg border border-ink/10 bg-surface px-3.5 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal"
             />
             {(tab === "deposit" || tab === "withdraw") && data.methods.length > 0 && (
               <select
                 value={methodId}
                 onChange={(e) => setMethodId(e.target.value)}
-                className="w-full h-11 rounded-lg border border-ink/10 px-3.5 text-sm bg-surface focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal"
-              >
+                className="w-full h-11 rounded-lg border border-ink/10 bg-surface px-3.5 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal"
+               >
                 {data.methods.map((m) => (
                   <option key={m.id} value={m.id}>{m.name}</option>
                 ))}
@@ -171,7 +171,7 @@ export default function Wallet() {
                   onChange={(e) => setAccount(e.target.value)}
                   placeholder="Account / number to receive funds"
                   required
-                  className="w-full h-11 rounded-lg border border-ink/10 px-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal"
+                  className="w-full h-11 rounded-lg border border-ink/10 bg-surface px-3.5 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal"
                 />
                 <p className="text-xs text-ink-soft">
                   Minimum withdrawal: R{Number(data.min_withdrawal).toFixed(2)}

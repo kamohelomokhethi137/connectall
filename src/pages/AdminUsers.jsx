@@ -99,7 +99,7 @@ export default function AdminUsers() {
             value={q}
             onChange={(e) => setQ(e.target.value)}
             placeholder="Search by username, email, or phone"
-            className="w-full h-11 rounded-lg border border-ink/10 pl-9 pr-3 text-sm focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal"
+            className="w-full h-11 rounded-lg border border-ink/10 bg-surface pl-9 pr-3 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal"
           />
         </div>
         <button type="submit" className="h-11 px-4 rounded-lg bg-navy text-white text-sm font-semibold hover:bg-navy-light">
