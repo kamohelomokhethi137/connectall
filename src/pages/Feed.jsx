@@ -97,15 +97,7 @@ export default function Feed() {
         <ChatSidebar />
       </div>
 
-      {/* Mobile chat button - opens full chat page */}
-      <button
-        onClick={() => navigate("/files")}
-        className="lg:hidden fixed bottom-24 right-4 z-40 w-12 h-12 rounded-full bg-teal text-navy shadow-lg flex items-center justify-center"
-      >
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-        </svg>
-      </button>
+
     </div>
     </DashboardLayout>
   );
