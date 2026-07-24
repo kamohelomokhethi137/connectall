@@ -284,6 +284,11 @@ export default function UserDashboard() {
             <p className="text-ink-soft text-sm mt-0.5">Here's what's happening with your account today.</p>
           </m.div>
 
+          {/* Chatroom Widget - moved to top */}
+          <div className="mb-5">
+            <DashboardChatWidget nm={nm} shouldReduceMotion={shouldReduceMotion} />
+          </div>
+
           {/* Hero Earning Section - solid color, no gradient */}
           <m.div variants={nm(fadeUp)} className="mb-5">
             <EarningHero
@@ -313,11 +318,6 @@ export default function UserDashboard() {
               </div>
             </div>
           </m.div>
-
-          {/* Chatroom Widget - front and center */}
-          <div className="mb-5">
-            <DashboardChatWidget nm={nm} shouldReduceMotion={shouldReduceMotion} />
-          </div>
 
           {/* Earnings Chart + Top Links */}
           <div className="grid lg:grid-cols-3 gap-4 mb-5">
